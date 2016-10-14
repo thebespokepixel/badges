@@ -1,4 +1,4 @@
-# Bespoke Documentation Theme
+# @thebespokepixel/badges
 
 > A smart and tidy documentation theme by The Bespoke Pixel
 >
