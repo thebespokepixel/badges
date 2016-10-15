@@ -15,7 +15,7 @@ export default function render(config) {
 		}`
 	})
 
-	if (config.link !== 'none') {
+	if (config.link) {
 		return node('paragraph', [
 			node('link', {
 				title: _.upperFirst(config.title),
