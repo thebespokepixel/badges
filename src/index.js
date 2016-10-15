@@ -8,15 +8,15 @@ import readPkg from 'read-pkg-up'
 import remark from 'remark'
 import node from 'unist-builder'
 import squeeze from 'remark-squeeze-paragraphs'
-import bespoke from './providers/bespoke'
-import {cc, ccCoverage} from './providers/codeclimate'
-import {david, davidDev} from './providers/david'
-import gitter from './providers/gitter'
-import inch from './providers/inch'
-import npm from './providers/npm'
-import rollup from './providers/rollup'
-import snyk from './providers/snyk'
-import travis from './providers/travis'
+import bespoke from './lib/providers/bespoke'
+import {cc, ccCoverage} from './lib/providers/codeclimate'
+import {david, davidDev} from './lib/providers/david'
+import gitter from './lib/providers/gitter'
+import inch from './lib/providers/inch'
+import npm from './lib/providers/npm'
+import rollup from './lib/providers/rollup'
+import snyk from './lib/providers/snyk'
+import travis from './lib/providers/travis'
 
 const services = {
 	bespoke,
@@ -132,8 +132,7 @@ export default function render(context) {
 				},
 				snyk: {
 					title: 'snyk'
-				}
-				,
+				},
 				travis: {
 					title: 'travis',
 					branch: 'master'
