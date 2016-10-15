@@ -1,6 +1,6 @@
 /* ────────────────────────╮
  │ @thebespokepixel/badges │
- ╰─────────────────────────┴──────────────────────────────────────────────────── */
+ ╰─────────────────────────┴─────────────────────────────────────────────────── */
 
 import _ from 'lodash'
 import pkgConf from 'pkg-conf'
@@ -145,12 +145,5 @@ export default function render(context) {
 		}
 	}).then(config => {
 		return node('root', parseQueue(config.queue, config.providers, config.user))
-	})
+	}).then(md => remark().use(squeeze).stringify(md))
 }
-
-render('readme').then(md => {
-	// console.dir(md, {
-	// 	depth: 10
-	// })
-	console.log(remark().use(squeeze).stringify(md))
-})

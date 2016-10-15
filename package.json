@@ -4,7 +4,7 @@
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "bin": {
-    "compile-readme": "./bin/badges.js"
+    "compile-readme": "./bin/compile-readme"
   },
   "directories": {
     "test": "test"
@@ -49,6 +49,7 @@
     "read-pkg-up": "^2.0.0",
     "remark": "^6.0.1",
     "remark-squeeze-paragraphs": "^3.0.0",
+    "remark-usage": "^4.0.1",
     "semver": "^5.3.0",
     "trucolor": "^0.5.5",
     "truwrap": "^0.6.3",
@@ -113,7 +114,7 @@
       "bespoke"
     ]
   },
-  "buildNumber": 135,
+  "buildNumber": 11,
   "engines": {
     "node": ">=4.0 <7.0"
   },
