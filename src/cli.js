@@ -1,6 +1,8 @@
 /* eslint unicorn/no-process-exit:0, import/extensions:0 */
 
+import {resolve} from 'path'
 import {readFileSync} from 'fs'
+import _ from 'lodash'
 import trucolor from 'trucolor'
 import truwrap from 'truwrap'
 import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
@@ -8,9 +10,12 @@ import {box} from '@thebespokepixel/string'
 import meta from '@thebespokepixel/meta'
 import yargs from 'yargs'
 import updateNotifier from 'update-notifier'
-import appRoot from 'app-root-path'
 import {createConsole} from 'verbosity'
+import remark from 'remark'
+import addUsage from 'remark-usage'
+
 import pkg from '../package.json'
+import badges from '..'
 
 const console = createConsole({outStream: process.stderr})
 const clr = trucolor.simplePalette()
@@ -43,16 +48,10 @@ const title = box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.
 
 const usage = stripIndent(colorReplacer)`${title}
 
-	Tidy babel output to (something approaching) xo style. Mainly concerned with white space, indentation and ASI preferences.
-
-	Works as a CLI tool (piping stdin → stdout) and a vinyl stream formatter for gulp/through2. The module offers 'formatText', 'formatStdin' and 'formatStream' methods.
-
-	Just like xo, configuration data will be applied when found in package.json files as the file system is traversed back to the root.
+	Inject project badges into a tagged markdown-formatted source file.
 
 	Usage:
-	${'command|cat'} ${'argument|inputFile'} ${'operator:|'} ${'command|xo-tidy'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}
-	${'dim|... or ...'}
-	${'command|xo-tidy'} ${'option|[options]'} ${'operator|<'} ${'argument|inputFile'} ${'operator|>'} ${'argument|outputFile'}`
+	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`
 
 const epilogue = colorReplacer`${'green|© 2016'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
 
@@ -71,29 +70,14 @@ yargs.strict().options({
 		count: true,
 		describe: 'Be verbose. -VV Be loquacious.'
 	},
-	lint: {
-		describe: 'Output linting information, rather than formatted output.'
+	c: {
+		alias: 'context',
+		default: 'readme',
+		describe: 'The named badges context in package.json.'
 	},
-	esnext: {
-		describe: 'Enable ES2015+ rule formatting.'
-	},
-	semicolon: {
-		describe: 'Use --no-semicolon to strip semicolons normally handled by ASI.'
-	},
-	space: {
-		describe: 'Specify number of spaces to indent instead of [tab].',
-		nargs: 1,
-		default: false
-	},
-	xopath: {
-		describe: 'Path to start searching for xo configuration.',
-		nargs: 1,
-		default: '.'
-	},
-	out: {
-		describe: 'Output path for tidied files. Will overwrite originals if set to the source path.',
-		nargs: 1,
-		default: '.'
+	u: {
+		alias: 'usage',
+		describe: 'Path to a usage example (see `npm home remark-usage`)'
 	},
 	color: {
 		describe: 'Force color output. Disable with --no-color'
@@ -106,6 +90,10 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 	updateNotifier({
 		pkg
 	}).notify()
+}
+
+if (argv._.length === 0) {
+	argv.help = true
 }
 
 if (argv.help) {
@@ -138,3 +126,25 @@ if (argv.verbose) {
 			console.verbosity(3)
 	}
 }
+
+const source = resolve(argv._[0])
+console.debug('Source path:', source)
+
+const template = _.template(readFileSync(source))
+
+badges(argv.context)
+	.then(badges => template({badges}))
+	.then(md => {
+		if (argv.usage) {
+			remark().use(addUsage, {
+				example: resolve(argv.usage)
+			}).process(md, (err, vfile) => {
+				if (err) {
+					throw new Error(err)
+				}
+				process.stdout.write(vfile.contents)
+			})
+		} else {
+			process.stdout.write(md)
+		}
+	})
