@@ -116,7 +116,7 @@ var badges = {
 	},
 	'docs': ['status']
 }
-var buildNumber = 19
+var buildNumber = 20
 var engines = {
 	'node': '>=4.0 <7.0'
 }

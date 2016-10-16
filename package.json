@@ -68,6 +68,7 @@
     "greenkeeper-postpublish": "^1.0.1",
     "gulp": "github:gulpjs/gulp#4.0",
     "nyc": "^8.3.1",
+    "shelljs": "^0.7.4",
     "snyk": "^1.19.1",
     "xo": "^0.17.0"
   },
@@ -86,6 +87,9 @@
         "color": "blue"
       }
     },
+    "test-1": [
+      "status"
+    ],
     "readme": {
       "Status": [
         [
@@ -113,7 +117,7 @@
       "status"
     ]
   },
-  "buildNumber": 20,
+  "buildNumber": 21,
   "engines": {
     "node": ">=4.0 <7.0"
   },
