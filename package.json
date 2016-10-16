@@ -74,7 +74,14 @@
   },
   "xo": {
     "semicolon": false,
-    "esnext": true
+    "esnext": true,
+    "ignores": [
+      "index.js",
+      "lib/**",
+      "docs/**",
+      "src/docs/example.js",
+      "test/coverage/**"
+    ]
   },
   "badges": {
     "github": "MarkGriffiths",
@@ -117,7 +124,7 @@
       "status"
     ]
   },
-  "buildNumber": 21,
+  "buildNumber": 25,
   "engines": {
     "node": ">=4.0 <7.0"
   },
