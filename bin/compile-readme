@@ -91,12 +91,14 @@ var devDependencies = {
 	'greenkeeper-postpublish': '^1.0.1',
 	'gulp': 'github:gulpjs/gulp#4.0',
 	'nyc': '^8.3.1',
+	'shelljs': '^0.7.4',
 	'snyk': '^1.19.1',
 	'xo': '^0.17.0'
 }
 var xo = {
 	'semicolon': false,
-	'esnext': true
+	'esnext': true,
+	'ignores': ['index.js', 'lib/**', 'docs/**', 'src/docs/example.js', 'test/coverage/**']
 }
 var badges = {
 	'github': 'MarkGriffiths',
@@ -109,6 +111,7 @@ var badges = {
 			'color': 'blue'
 		}
 	},
+	'test-1': ['status'],
 	'readme': {
 		'Status': [['status', 'npm', 'travis', 'david'], ['code-climate', 'code-climate-coverage', 'snyk']],
 		'Developer': ['david-dev', 'rollup'],
@@ -116,7 +119,7 @@ var badges = {
 	},
 	'docs': ['status']
 }
-var buildNumber = 20
+var buildNumber = 24
 var engines = {
 	'node': '>=4.0 <7.0'
 }
@@ -147,7 +150,7 @@ var pkg = {
 function render$1(config) {
 	const badgeNode = node('image', {
 		alt: _upperFirst(config.title),
-		url: `http://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
+		url: `http://img.shields.io/badge/status-${config.text}-${config.color}.svg?style=${config.style}`
 	})
 
 	if (config.link) {
@@ -252,7 +255,7 @@ function render$5(config, user) {
 	})]), node('text', ' ')])
 }
 
-function renderIcon(id) {
+function renderIconSVG(id) {
 	const iconSource = fs.readFileSync(`./icons/${id}.svg`)
 	const iconBuffer = semver.gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource)
 
@@ -265,17 +268,17 @@ function render$6(config, user) {
 		url: `https://www.npmjs.com/package/${user.fullName}`
 	}, [node('image', {
 		alt: config.title,
-		url: `https://img.shields.io/npm/v/${user.fullName}.svg?style=${config.style}${config.icon && renderIcon('npm')}`
+		url: `https://img.shields.io/npm/v/${user.fullName}.svg?style=${config.style}${config.icon && renderIconSVG('npm')}`
 	})]), node('text', ' ')])
 }
 
-function render$7(config, user) {
+function render$7(config) {
 	return node('paragraph', [node('link', {
 		title: _upperFirst(config.title),
 		url: `https://github.com/rollup/rollup/wiki/jsnext:main`
 	}, [node('image', {
 		alt: _upperFirst(config.title),
-		url: `https://img.shields.io/badge/es2015-${urlencode('jsnext:main_✔')}-64CA39.svg?style=${config.style}${config.icon && renderIcon('rollup')}`
+		url: `https://img.shields.io/badge/es2015-${urlencode('jsnext:main_✔')}-64CA39.svg?style=${config.style}${config.icon && renderIconSVG('rollup')}`
 	})]), node('text', ' ')])
 }
 
