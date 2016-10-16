@@ -1,6 +1,11 @@
 import _ from 'lodash'
 import node from 'unist-builder'
 
+/**
+ * Render a status badge.
+ * @param  {Object} config Configuration object.
+ * @return {Node}          MDAST node containing badge.
+ */
 export default function render(config) {
 	const badgeNode = node('image', {
 		alt: _.upperFirst(config.title),

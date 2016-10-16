@@ -10,7 +10,7 @@ const badges = require('../../index.js')
 // …then do something with it.
 function renderBadges() {
 	badges('readme').then(markdown => {
-		/* Include or output markdown... */
+		/* Output markdown to console... */
 		console.log(markdown)
 	})
 }

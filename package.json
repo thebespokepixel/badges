@@ -81,8 +81,7 @@
     "name": "badges",
     "style": "flat",
     "providers": {
-      "bespoke": {
-        "title": "status",
+      "status": {
         "text": "beta",
         "color": "blue"
       }
@@ -90,7 +89,7 @@
     "readme": {
       "Status": [
         [
-          "bespoke",
+          "status",
           "npm",
           "travis",
           "david"
@@ -111,10 +110,10 @@
       ]
     },
     "docs": [
-      "bespoke"
+      "status"
     ]
   },
-  "buildNumber": 11,
+  "buildNumber": 20,
   "engines": {
     "node": ">=4.0 <7.0"
   },

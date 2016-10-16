@@ -8,7 +8,9 @@ import readPkg from 'read-pkg-up'
 import remark from 'remark'
 import node from 'unist-builder'
 import squeeze from 'remark-squeeze-paragraphs'
-import bespoke from './lib/providers/bespoke'
+import status from './lib/providers/status'
+import aux1 from './lib/providers/aux-1'
+import aux2 from './lib/providers/aux-2'
 import {cc, ccCoverage} from './lib/providers/codeclimate'
 import {david, davidDev} from './lib/providers/david'
 import gitter from './lib/providers/gitter'
@@ -19,7 +21,9 @@ import snyk from './lib/providers/snyk'
 import travis from './lib/providers/travis'
 
 const services = {
-	bespoke,
+	status,
+	aux1,
+	aux2,
 	gitter,
 	'code-climate': cc,
 	'code-climate-coverage': ccCoverage,
@@ -92,11 +96,23 @@ export default function render(context) {
 					user: config.npm
 				}
 			},
-			providers: _.forIn(_.defaults(config.providers, {
-				bespoke: {
-					title: 'bespoke',
+			providers: _.forIn(_.defaultsDeep(config.providers, {
+				status: {
+					title: 'status',
 					text: 'badge',
 					color: 'red',
+					link: false
+				},
+				'aux-1': {
+					title: 'aux1',
+					text: 'badge',
+					color: 'green',
+					link: false
+				},
+				'aux-2': {
+					title: 'aux2',
+					text: 'badge',
+					color: 'blue',
 					link: false
 				},
 				gitter: {
@@ -137,7 +153,7 @@ export default function render(context) {
 					title: 'travis',
 					branch: 'master'
 				}
-			}), value => _.defaults(value, {
+			}), value => _.defaultsDeep(value, {
 				style: config.style || 'flat',
 				icon: false
 			})),

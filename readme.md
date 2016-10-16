@@ -36,7 +36,7 @@ const badges = require('@thebespokepixel/badges')
 ```javascript
 function renderBadges() {
 	badges('readme').then(markdown => {
-		/* Include or output markdown... */
+		/* Output markdown to console... */
 		console.log(markdown)
 	})
 }
