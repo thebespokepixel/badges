@@ -31,7 +31,8 @@ gulp.task('cli', gulp.series(
 		source: 'src/cli.js'
 	}).rollup.babel({
 		banner: '#! /usr/bin/env node',
-		dest: 'bin/compile-readme'
+		dest: 'bin/compile-readme',
+		plugins: {json: {enabled: true}}
 	}),
 
 	cordial.shell().permissions({
@@ -46,7 +47,7 @@ gulp.task('xo', cordial.test().xo(['src/lib/*.js']))
 gulp.task('test', gulp.parallel('xo', 'ava'))
 
 // Hooks
-gulp.task('start-release', gulp.series('reset', 'clean', gulp.parallel('docs', 'master', 'cli')))
+gulp.task('start-release', gulp.series('reset', 'clean', gulp.parallel('docs', 'master', 'cli'), 'readme'))
 
 // Default
-gulp.task('default', gulp.series('bump', 'clean', gulp.parallel('docs', 'bundle', 'cli')))
+gulp.task('default', gulp.series('bump', 'clean', gulp.parallel('docs', 'bundle', 'cli'), 'readme'))
