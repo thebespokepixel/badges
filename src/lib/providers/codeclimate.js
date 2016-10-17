@@ -31,9 +31,9 @@ export function ccCoverage(config, user) {
 	return node('paragraph', [
 		node('link', {
 			title: _.upperFirst(config.title),
-			url: `https://codeclimate.com/coverage/github/${
+			url: `https://codeclimate.com/github/${
 				user.github.slug
-			}`
+			}/coverage`
 		}, [
 			node('image', {
 				alt: _.upperFirst(config.title),

@@ -5,43 +5,43 @@ function _interopDefault(ex) {
 	return (ex && (typeof ex === 'object') && 'default' in ex) ? ex.default : ex
 }
 
-var _template = _interopDefault(require('lodash/template'))
-var path = require('path')
-var fs = require('fs')
-var trucolor = _interopDefault(require('trucolor'))
-var truwrap = _interopDefault(require('truwrap'))
-var commonTags = require('common-tags')
-var _thebespokepixel_string = require('@thebespokepixel/string')
-var meta = _interopDefault(require('@thebespokepixel/meta'))
-var yargs = _interopDefault(require('yargs'))
-var updateNotifier = _interopDefault(require('update-notifier'))
-var verbosity = require('verbosity')
-var remark = _interopDefault(require('remark'))
-var addUsage = _interopDefault(require('remark-usage'))
-var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'))
-var _forIn = _interopDefault(require('lodash/forIn'))
-var _map = _interopDefault(require('lodash/map'))
-var _isObject = _interopDefault(require('lodash/isObject'))
-var pkgConf = _interopDefault(require('pkg-conf'))
-var readPkg = _interopDefault(require('read-pkg-up'))
-var node = _interopDefault(require('unist-builder'))
-var squeeze = _interopDefault(require('remark-squeeze-paragraphs'))
-var _upperFirst = _interopDefault(require('lodash/upperFirst'))
-var urlencode = _interopDefault(require('urlencode'))
-var semver = require('semver')
+const _template = _interopDefault(require('lodash/template'))
+const path = require('path')
+const fs = require('fs')
+const trucolor = _interopDefault(require('trucolor'))
+const truwrap = _interopDefault(require('truwrap'))
+const commonTags = require('common-tags')
+const _thebespokepixel_string = require('@thebespokepixel/string')
+const meta = _interopDefault(require('@thebespokepixel/meta'))
+const yargs = _interopDefault(require('yargs'))
+const updateNotifier = _interopDefault(require('update-notifier'))
+const verbosity = require('verbosity')
+const remark = _interopDefault(require('remark'))
+const addUsage = _interopDefault(require('remark-usage'))
+const _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'))
+const _forIn = _interopDefault(require('lodash/forIn'))
+const _map = _interopDefault(require('lodash/map'))
+const _isObject = _interopDefault(require('lodash/isObject'))
+const pkgConf = _interopDefault(require('pkg-conf'))
+const readPkg = _interopDefault(require('read-pkg-up'))
+const node = _interopDefault(require('unist-builder'))
+const squeeze = _interopDefault(require('remark-squeeze-paragraphs'))
+const _upperFirst = _interopDefault(require('lodash/upperFirst'))
+const urlencode = _interopDefault(require('urlencode'))
+const semver = require('semver')
 
-var name = '@thebespokepixel/badges'
-var version = '0.0.1'
-var description = 'documentation/readme badge generation and management'
-var main = 'index.js'
-var bin = {
+const name = '@thebespokepixel/badges'
+const version = '0.0.1'
+const description = 'documentation/readme badge generation and management'
+const main = 'index.js'
+const bin = {
 	'compile-readme': './bin/compile-readme'
 }
-var directories = {
-	'test': 'test'
+const directories = {
+	test: 'test'
 }
-var files = ['index.js', 'lib']
-var scripts = {
+const files = ['index.js', 'lib']
+const scripts = {
 	'test': 'xo && snyk test && ava',
 	'doc-serve': 'documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
 	'doc-build': 'documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
@@ -50,18 +50,18 @@ var scripts = {
 	'clean': 'gulp clean',
 	'postpublish': 'greenkeeper-postpublish'
 }
-var repository = {
-	'type': 'git',
-	'url': 'git+https://github.com/MarkGriffiths/badges.git'
+const repository = {
+	type: 'git',
+	url: 'git+https://github.com/MarkGriffiths/badges.git'
 }
-var keywords = ['readme', 'badges', 'documentation', 'docs']
-var author = 'Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)'
-var license = 'MIT'
-var bugs = {
-	'url': 'https://github.com/MarkGriffiths/badges/issues'
+const keywords = ['readme', 'badges', 'documentation', 'docs']
+const author = 'Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)'
+const license = 'MIT'
+const bugs = {
+	url: 'https://github.com/MarkGriffiths/badges/issues'
 }
-var homepage = 'https://github.com/MarkGriffiths/badges#readme'
-var dependencies = {
+const homepage = 'https://github.com/MarkGriffiths/badges#readme'
+const dependencies = {
 	'@thebespokepixel/meta': '^0.1.3',
 	'@thebespokepixel/string': '^0.4.0',
 	'app-root-path': '^2.0.1',
@@ -82,8 +82,8 @@ var dependencies = {
 	'verbosity': '^0.7.1',
 	'yargs': '^6.0.0'
 }
-var devDependencies = {
-	'@thebespokepixel/cordial': '^0.16.4',
+const devDependencies = {
+	'@thebespokepixel/cordial': '^0.17.3',
 	'ava': '^0.16.0',
 	'codeclimate-test-reporter': '^0.4.0',
 	'documentation': '^4.0.0-beta10',
@@ -95,55 +95,55 @@ var devDependencies = {
 	'snyk': '^1.19.1',
 	'xo': '^0.17.0'
 }
-var xo = {
-	'semicolon': false,
-	'esnext': true,
-	'ignores': ['index.js', 'lib/**', 'docs/**', 'src/docs/example.js', 'test/coverage/**']
+const xo = {
+	semicolon: false,
+	esnext: true,
+	ignores: ['index.js', 'lib/**', 'docs/**', 'src/docs/example.js', 'test/coverage/**']
 }
-var badges = {
+const badges = {
 	'github': 'MarkGriffiths',
 	'npm': 'thebespokepixel',
 	'name': 'badges',
 	'style': 'flat',
 	'providers': {
-		'status': {
-			'text': 'beta',
-			'color': 'blue'
+		status: {
+			text: 'beta',
+			color: 'blue'
 		}
 	},
 	'test-1': ['status'],
 	'readme': {
-		'Status': [['status', 'npm', 'travis', 'david'], ['code-climate', 'code-climate-coverage', 'snyk']],
-		'Developer': ['david-dev', 'rollup'],
-		'Help': ['inch', 'gitter']
+		Status: [['status', 'npm', 'travis', 'david'], ['code-climate', 'code-climate-coverage', 'snyk']],
+		Developer: ['david-dev', 'rollup'],
+		Help: ['inch', 'gitter']
 	},
 	'docs': ['status']
 }
-var buildNumber = 24
-var engines = {
-	'node': '>=4.0 <7.0'
+const buildNumber = 29
+const engines = {
+	node: '>=4.0 <8.0'
 }
-var pkg = {
-	name: name,
-	version: version,
-	description: description,
-	main: main,
-	bin: bin,
-	directories: directories,
-	files: files,
-	scripts: scripts,
-	repository: repository,
-	keywords: keywords,
-	author: author,
-	license: license,
-	bugs: bugs,
-	homepage: homepage,
-	dependencies: dependencies,
-	devDependencies: devDependencies,
-	xo: xo,
-	badges: badges,
-	buildNumber: buildNumber,
-	engines: engines,
+const pkg = {
+	name,
+	version,
+	description,
+	main,
+	bin,
+	directories,
+	files,
+	scripts,
+	repository,
+	keywords,
+	author,
+	license,
+	bugs,
+	homepage,
+	dependencies,
+	devDependencies,
+	xo,
+	badges,
+	buildNumber,
+	engines,
 	'jsnext:main': 'lib/index-es.js'
 }
 
@@ -208,7 +208,7 @@ function cc(config, user) {
 function ccCoverage(config, user) {
 	return node('paragraph', [node('link', {
 		title: _upperFirst(config.title),
-		url: `https://codeclimate.com/coverage/github/${user.github.slug}`
+		url: `https://codeclimate.com/github/${user.github.slug}/coverage`
 	}, [node('image', {
 		alt: _upperFirst(config.title),
 		url: `https://codeclimate.com/github/${user.github.slug}/badges/coverage.svg?style=${config.style}`
@@ -303,19 +303,19 @@ function render$9(config, user) {
 }
 
 const services = {
-	status: render$1,
-	aux1: render$2,
-	aux2: render$3,
-	gitter: render$4,
+	'status': render$1,
+	'aux1': render$2,
+	'aux2': render$3,
+	'gitter': render$4,
 	'code-climate': cc,
 	'code-climate-coverage': ccCoverage,
 	david,
 	'david-dev': davidDev,
-	inch: render$5,
-	npm: render$6,
-	rollup: render$7,
-	snyk: render$8,
-	travis: render$9
+	'inch': render$5,
+	'npm': render$6,
+	'rollup': render$7,
+	'snyk': render$8,
+	'travis': render$9
 }
 
 function parseQueue(collection, providers, user) {
@@ -337,7 +337,7 @@ function parseQueue(collection, providers, user) {
 	return services[collection](providers[collection], user)
 }
 
-function render(context) {
+function render$1$1(context) {
 	return Promise.all([pkgConf('badges'), readPkg()]).then(configArray => {
 		const config = configArray[0]
 		const pkg = configArray[1].pkg
@@ -365,7 +365,7 @@ function render(context) {
 				}
 			},
 			providers: _forIn(_defaultsDeep(config.providers, {
-				status: {
+				'status': {
 					title: 'status',
 					text: 'badge',
 					color: 'red',
@@ -383,7 +383,7 @@ function render(context) {
 					color: 'blue',
 					link: false
 				},
-				gitter: {
+				'gitter': {
 					title: 'gitter',
 					room: 'help'
 				},
@@ -393,7 +393,7 @@ function render(context) {
 				'code-climate-coverage': {
 					title: 'coverage'
 				},
-				david: {
+				'david': {
 					title: 'david',
 					branch: 'master'
 				},
@@ -401,23 +401,23 @@ function render(context) {
 					title: 'david-developer',
 					branch: 'master'
 				},
-				inch: {
+				'inch': {
 					title: 'inch',
 					branch: 'master',
 					style: 'shields'
 				},
-				npm: {
+				'npm': {
 					title: 'npm',
 					icon: true
 				},
-				rollup: {
+				'rollup': {
 					title: 'rollup',
 					icon: true
 				},
-				snyk: {
+				'snyk': {
 					title: 'snyk'
 				},
-				travis: {
+				'travis': {
 					title: 'travis',
 					branch: 'master'
 				}
@@ -544,8 +544,8 @@ console.debug('Source path:', source)
 
 const template = _template(fs.readFileSync(source))
 
-render(argv.context).then(badges => template({
-	badges
+render$1$1(argv.context).then(badges$$1 => template({
+	badges: badges$$1
 })).then(md => {
 	if (argv.usage) {
 		remark().use(addUsage, {
@@ -560,3 +560,4 @@ render(argv.context).then(badges => template({
 		process.stdout.write(md)
 	}
 })
+
