@@ -62,16 +62,6 @@
             
             </li>
           
-            
-            <li><a
-              href='#render'
-              class="">
-              render
-              
-            </a>
-            
-            </li>
-          
         </ul>
       </div>
       <div class='mt1 h6 quiet'>
@@ -91,7 +81,7 @@
   </h3>
 
   
-    <pre><code>  npm install --save @thebespokepixel/badges
+    <pre><code class="language-sh">  npm install --save @thebespokepixel/badges
 </code></pre>
 
   
@@ -123,6 +113,7 @@
 
   
     
+
   
 </section>
 </div>
@@ -134,15 +125,18 @@
   
   <div class='clearfix'>
     <h3 class='left m0 panel-title' id='render'>
-      render  
+      render  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
     </h3>
+    
+      <a class='pl3 pr1 right rounded github' href='https://github.com/MarkGriffiths/badges/blob/8e4dd4dd8c7a7512c11df3f0085b4fa70fa06baa/src/index.js#L69-L165'>src/index.js</a>
     
   </div>
   
 
+  <p>Render project badge configuration as markdown.</p>
+
   
-  
-  <div class='pre p1 bg-darken-1 mt0 signature'>render(context: any)</div>
+  <div class='pre p1 bg-darken-1 mt0 signature'>render(context: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
   
   
 
@@ -158,7 +152,15 @@
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>context</span> <code class='quiet'>(any)</code> 
+            <span class='code bold'>context</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>)</code> The desired render context i.e: 
+<code>readme</code>
+, 
+<code>docs</code>
+ as
+defined in 
+<code>package.json</code>
+.
+
           </div>
           
         </div>
@@ -169,67 +171,13 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-        
-      
-        
-          <section class='py2 px3 mb2 clearfix bg-white rounded minishadow'>
-
-  
-  <div class='clearfix'>
-    <h3 class='left m0 panel-title' id='render'>
-      render  
-    </h3>
     
-  </div>
-  
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></code>:
+        A promise that resolves to the markdown formatted output.
 
-  
-  
-  <div class='pre p1 bg-darken-1 mt0 signature'>render(userConfig: any, badgeConfig: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
       
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>userConfig</span> <code class='quiet'>(any)</code> 
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>badgeConfig</span> <code class='quiet'>(any)</code> 
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
+    
   
 
   

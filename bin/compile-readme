@@ -1,22 +1,151 @@
+#! /usr/bin/env node
 'use strict'
 
 function _interopDefault(ex) {
 	return (ex && (typeof ex === 'object') && 'default' in ex) ? ex.default : ex
 }
 
+const _template = _interopDefault(require('lodash/template'))
+const path = require('path')
+const fs = require('fs')
+const trucolor = _interopDefault(require('trucolor'))
+const truwrap = _interopDefault(require('truwrap'))
+const commonTags = require('common-tags')
+const _thebespokepixel_string = require('@thebespokepixel/string')
+const meta = _interopDefault(require('@thebespokepixel/meta'))
+const yargs = _interopDefault(require('yargs'))
+const updateNotifier = _interopDefault(require('update-notifier'))
+const verbosity = require('verbosity')
+const remark = _interopDefault(require('remark'))
+const addUsage = _interopDefault(require('remark-usage'))
 const _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'))
 const _forIn = _interopDefault(require('lodash/forIn'))
 const _map = _interopDefault(require('lodash/map'))
 const _isObject = _interopDefault(require('lodash/isObject'))
 const pkgConf = _interopDefault(require('pkg-conf'))
 const readPkg = _interopDefault(require('read-pkg-up'))
-const remark = _interopDefault(require('remark'))
 const node = _interopDefault(require('unist-builder'))
 const squeeze = _interopDefault(require('remark-squeeze-paragraphs'))
 const _upperFirst = _interopDefault(require('lodash/upperFirst'))
-const fs = require('fs')
 const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
+
+const name = '@thebespokepixel/badges'
+const version = '0.0.1'
+const description = 'documentation/readme badge generation and management'
+const main = 'index.js'
+const bin = {
+	'compile-readme': './bin/compile-readme'
+}
+const directories = {
+	test: 'test'
+}
+const files = ['index.js', 'lib']
+const scripts = {
+	'test': 'xo && snyk test && ava',
+	'doc-serve': 'documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
+	'doc-build': 'documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
+	'code-climate': 'nyc report --reporter=text-lcov | codeclimate-test-reporter',
+	'coverage': 'nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html',
+	'clean': 'gulp clean',
+	'postpublish': 'greenkeeper-postpublish'
+}
+const repository = {
+	type: 'git',
+	url: 'git+https://github.com/MarkGriffiths/badges.git'
+}
+const keywords = ['readme', 'badges', 'documentation', 'docs']
+const author = 'Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)'
+const license = 'MIT'
+const bugs = {
+	url: 'https://github.com/MarkGriffiths/badges/issues'
+}
+const homepage = 'https://github.com/MarkGriffiths/badges#readme'
+const dependencies = {
+	'@thebespokepixel/meta': '^0.1.3',
+	'@thebespokepixel/string': '^0.4.0',
+	'app-root-path': '^2.0.1',
+	'common-tags': '^1.3.1',
+	'lodash': '^4.16.4',
+	'mdast-util-inject': '^1.1.0',
+	'pkg-conf': '^2.0.0',
+	'read-pkg-up': '^2.0.0',
+	'remark': '^6.0.1',
+	'remark-squeeze-paragraphs': '^3.0.0',
+	'remark-usage': '^4.0.1',
+	'semver': '^5.3.0',
+	'trucolor': '^0.5.5',
+	'truwrap': '^0.6.3',
+	'unist-builder': '^1.0.2',
+	'update-notifier': '^1.0.2',
+	'urlencode': '^1.1.0',
+	'verbosity': '^0.7.1',
+	'yargs': '^6.0.0'
+}
+const devDependencies = {
+	'@thebespokepixel/cordial': '^0.17.9',
+	'ava': '^0.16.0',
+	'codeclimate-test-reporter': '^0.4.0',
+	'documentation': '^4.0.0-beta10',
+	'documentation-theme-bespoke': '^0.2.2',
+	'greenkeeper-postpublish': '^1.0.1',
+	'gulp': 'github:gulpjs/gulp#4.0',
+	'nyc': '^8.3.1',
+	'shelljs': '^0.7.4',
+	'snyk': '^1.19.1',
+	'xo': '^0.17.0'
+}
+const xo = {
+	semicolon: false,
+	esnext: true,
+	ignores: ['index.js', 'lib/**', 'docs/**', 'src/docs/example.js', 'test/coverage/**']
+}
+const badges = {
+	'github': 'MarkGriffiths',
+	'npm': 'thebespokepixel',
+	'name': 'badges',
+	'style': 'flat',
+	'providers': {
+		status: {
+			text: 'beta',
+			color: 'blue'
+		}
+	},
+	'test-1': ['status'],
+	'readme': {
+		Status: [['status', 'npm', 'travis', 'david'], ['code-climate', 'code-climate-coverage', 'snyk']],
+		Developer: ['david-dev', 'rollup'],
+		Help: ['inch', 'gitter']
+	},
+	'docs': ['status']
+}
+const buildNumber = 37
+const engines = {
+	node: '>=4.0 <8.0'
+}
+const pkg = {
+	name,
+	version,
+	description,
+	main,
+	bin,
+	directories,
+	files,
+	scripts,
+	repository,
+	keywords,
+	author,
+	license,
+	bugs,
+	homepage,
+	dependencies,
+	devDependencies,
+	xo,
+	badges,
+	buildNumber,
+	engines,
+	'jsnext:main': 'lib/index-es.js'
+}
 
 function render$1(config) {
 	const badgeNode = node('image', {
@@ -208,7 +337,7 @@ function parseQueue(collection, providers, user) {
 	return services[collection](providers[collection], user)
 }
 
-function render(context) {
+function render$1$1(context) {
 	return Promise.all([pkgConf('badges'), readPkg()]).then(configArray => {
 		const config = configArray[0]
 		const pkg = configArray[1].pkg
@@ -303,5 +432,132 @@ function render(context) {
 	}).then(md => remark().use(squeeze).stringify(md))
 }
 
-module.exports = render
+const console = verbosity.createConsole({
+	outStream: process.stderr
+})
+const clr = trucolor.simplePalette()
+const metadata = meta()
+
+const renderer = truwrap({
+	right: 4,
+	outStream: process.stderr
+})
+
+const colorReplacer = new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/([a-zA-Z]+?)[:/|](.+)/, (match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`))
+
+const title = _thebespokepixel_string.box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.version(3)}`}`, {
+	borderColor: 'yellow',
+	margin: {
+		top: 1
+	},
+	padding: {
+		bottom: 0,
+		top: 0,
+		left: 2,
+		right: 2
+	}
+})
+
+const usage = commonTags.stripIndent(colorReplacer)`${title}
+
+	Inject project badges into a tagged markdown-formatted source file.
+
+	Usage:
+	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`
+
+const epilogue = colorReplacer`${'green|© 2016'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
+
+yargs.strict().options({
+	h: {
+		alias: 'help',
+		describe: 'Display help.'
+	},
+	v: {
+		alias: 'version',
+		count: true,
+		describe: 'Print version to stdout. -vv Print name & version.'
+	},
+	V: {
+		alias: 'verbose',
+		count: true,
+		describe: 'Be verbose. -VV Be loquacious.'
+	},
+	c: {
+		alias: 'context',
+		default: 'readme',
+		describe: 'The named badges context in package.json.'
+	},
+	u: {
+		alias: 'usage',
+		describe: 'Path to a usage example (see `npm home remark-usage`)'
+	},
+	color: {
+		describe: 'Force color output. Disable with --no-color'
+	}
+}).wrap(renderer.getWidth())
+
+const argv = yargs.argv
+
+if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
+	updateNotifier({
+		pkg
+	}).notify()
+}
+
+if (argv._.length === 0) {
+	argv.help = true
+}
+
+if (argv.help) {
+	renderer.write(usage)
+	renderer.break(2)
+	renderer.write(yargs.getUsageInstance().help())
+	renderer.break()
+	renderer.write(epilogue)
+	renderer.break(1)
+	process.exit(0)
+}
+
+if (argv.version) {
+	process.stdout.write(metadata.version(argv.version))
+	process.exit(0)
+}
+
+if (argv.verbose) {
+	switch (argv.verbose) {
+		case 1:
+			console.verbosity(4)
+			console.log(`${clr.title}Verbose mode${clr.title.out}:`)
+			break
+		case 2:
+			console.verbosity(5)
+			console.log(`${clr.title}Extra-Verbose mode${clr.title.out}:`)
+			console.yargs(argv)
+			break
+		default:
+			console.verbosity(3)
+	}
+}
+
+const source = path.resolve(argv._[0])
+console.debug('Source path:', source)
+
+const template = _template(fs.readFileSync(source))
+
+render$1$1(argv.context).then(badges$$1 => template({
+	badges: badges$$1
+})).then(md => {
+	if (argv.usage) {
+		remark().use(addUsage, {
+			example: path.resolve(argv.usage)
+		}).process(md, (err, vfile) => {
+			if (err) {
+				throw new Error(err)
+			}
+			process.stdout.write(vfile.contents)
+		})
+	} else {
+		process.stdout.write(md)
+	}
+})
 
