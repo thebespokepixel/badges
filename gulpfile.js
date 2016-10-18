@@ -50,5 +50,8 @@ gulp.task('test', gulp.parallel('xo', 'ava'))
 gulp.task('start-release', gulp.series('reset', 'clean', gulp.parallel('master', 'cli'), 'readme'))
 gulp.task('finish-release', gulp.series('docs', 'commit', 'push-force', 'push-tags'))
 
+gulp.task('post-flow-release-start', gulp.series('start-release', 'version-release'))
+gulp.task('post-flow-release-finish', gulp.series('test-release', 'publish', 'finish-release'))
+
 // Default
 gulp.task('default', gulp.series('bump', 'clean', gulp.parallel('docs', 'bundle', 'cli'), 'readme'))
