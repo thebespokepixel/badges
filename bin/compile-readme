@@ -119,7 +119,7 @@ const badges = {
 	},
 	'docs': ['status']
 }
-const buildNumber = 36
+const buildNumber = 37
 const engines = {
 	node: '>=4.0 <8.0'
 }
