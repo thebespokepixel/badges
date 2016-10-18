@@ -83,11 +83,11 @@ const dependencies = {
 	'yargs': '^6.0.0'
 }
 const devDependencies = {
-	'@thebespokepixel/cordial': '^0.17.3',
+	'@thebespokepixel/cordial': '^0.17.9',
 	'ava': '^0.16.0',
 	'codeclimate-test-reporter': '^0.4.0',
 	'documentation': '^4.0.0-beta10',
-	'documentation-theme-bespoke': '^0.2.1',
+	'documentation-theme-bespoke': '^0.2.2',
 	'greenkeeper-postpublish': '^1.0.1',
 	'gulp': 'github:gulpjs/gulp#4.0',
 	'nyc': '^8.3.1',
@@ -119,7 +119,7 @@ const badges = {
 	},
 	'docs': ['status']
 }
-const buildNumber = 29
+const buildNumber = 36
 const engines = {
 	node: '>=4.0 <8.0'
 }

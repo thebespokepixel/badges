@@ -3,6 +3,7 @@ import node from 'unist-builder'
 
 /**
  * Render a status badge.
+ * @private
  * @param  {Object} config Configuration object.
  * @return {Node}          MDAST node containing badge.
  */
