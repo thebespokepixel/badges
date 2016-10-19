@@ -11,7 +11,8 @@
   },
   "files": [
     "index.js",
-    "lib"
+    "lib",
+    "bin"
   ],
   "scripts": {
     "test": "xo && snyk test && nyc ava",
