@@ -121,7 +121,7 @@ const badges = {
 	},
 	'docs': [['status', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 92
+const buildNumber = 93
 const engines = {
 	node: '>=4.0 <8.0'
 }
