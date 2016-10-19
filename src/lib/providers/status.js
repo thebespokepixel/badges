@@ -10,7 +10,7 @@ import node from 'unist-builder'
 export default function render(config) {
 	const badgeNode = node('image', {
 		alt: _.upperFirst(config.title),
-		url: `http://img.shields.io/badge/status-${
+		url: `https://img.shields.io/badge/status-${
 			config.text
 		}-${
 			config.color

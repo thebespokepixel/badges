@@ -32,7 +32,7 @@ const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
 
 const name = '@thebespokepixel/badges'
-const version = '0.1.9'
+const version = '0.1.10'
 const description = 'documentation/readme badge generation and management'
 const main = 'index.js'
 const bin = {
@@ -121,7 +121,7 @@ const badges = {
 	},
 	'docs': [['status', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 8
+const buildNumber = 2
 const engines = {
 	node: '>=4.0 <8.0'
 }
@@ -152,7 +152,7 @@ const pkg = {
 function render$1(config) {
 	const badgeNode = node('image', {
 		alt: _upperFirst(config.title),
-		url: `http://img.shields.io/badge/status-${config.text}-${config.color}.svg?style=${config.style}`
+		url: `https://img.shields.io/badge/status-${config.text}-${config.color}.svg?style=${config.style}`
 	})
 
 	if (config.link) {
@@ -168,7 +168,7 @@ function render$1(config) {
 function render$2(config) {
 	const badgeNode = node('image', {
 		alt: _upperFirst(config.title),
-		url: `http://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
+		url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
 	})
 
 	if (config.link) {
@@ -184,7 +184,7 @@ function render$2(config) {
 function render$3(config) {
 	const badgeNode = node('image', {
 		alt: _upperFirst(config.title),
-		url: `http://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
+		url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
 	})
 
 	if (config.link) {
