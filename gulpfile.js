@@ -48,7 +48,6 @@ gulp.task('test', gulp.parallel('xo', 'ava'))
 
 // Hooks
 gulp.task('start-release', gulp.series('reset', 'clean', gulp.parallel('master', 'cli'), 'readme'))
-
 gulp.task('post-flow-release-start', gulp.series('start-release', 'version-release', 'docs', 'commit'))
 
 // Default
