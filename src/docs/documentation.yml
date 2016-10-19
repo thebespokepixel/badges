@@ -1,9 +1,6 @@
 toc:
-  - name: "Installation"
-    description: |
-      ```sh
-        npm install --save @thebespokepixel/badges
-      ```
+  - name: "Usage"
+    example: "src/docs/example.js"
   - name: "Configuration"
     description: |
       In `package.json`...
