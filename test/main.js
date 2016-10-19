@@ -3,7 +3,7 @@ import badges from '..'
 
 test(`Simple status`, async t => {
 	const content = await badges('test-1')
-	t.is(content, '![Status](http://img.shields.io/badge/status-beta-blue.svg?style=flat) \n\n  \n\n')
+	t.is(content, '![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat)\n\n \n\n  \n\n')
 })
 
 test(`Simple status as AST`, async t => {
@@ -12,18 +12,13 @@ test(`Simple status as AST`, async t => {
 		type: 'root',
 		children: [
 			{
-				type: 'paragraph',
-				children: [
-					{
-						alt: 'Status',
-						url: 'http://img.shields.io/badge/status-beta-blue.svg?style=flat',
-						type: 'image'
-					},
-					{
-						type: 'text',
-						value: ' '
-					}
-				]
+				alt: 'Status',
+				url: 'https://img.shields.io/badge/status-beta-blue.svg?style=flat',
+				type: 'image'
+			},
+			{
+				type: 'text',
+				value: ' '
 			},
 			{
 				type: 'break'
