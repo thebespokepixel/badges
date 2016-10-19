@@ -19,7 +19,7 @@ import badges from '..'
 
 const console = createConsole({outStream: process.stderr})
 const clr = trucolor.simplePalette()
-const metadata = meta()
+const metadata = meta(__dirname)
 
 const renderer = truwrap({
 	right: 4,

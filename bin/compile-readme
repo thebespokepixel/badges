@@ -32,7 +32,7 @@ const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
 
 const name = '@thebespokepixel/badges'
-const version = '0.1.8'
+const version = '0.1.9'
 const description = 'documentation/readme badge generation and management'
 const main = 'index.js'
 const bin = {
@@ -89,7 +89,7 @@ const devDependencies = {
 	'ava': '^0.16.0',
 	'codeclimate-test-reporter': '^0.4.0',
 	'documentation': '^4.0.0-beta10',
-	'documentation-theme-bespoke': '^0.2.2',
+	'documentation-theme-bespoke': '^0.2.3',
 	'greenkeeper-postpublish': '^1.0.1',
 	'gulp': 'github:gulpjs/gulp#4.0',
 	'nyc': '^8.3.1',
@@ -121,7 +121,7 @@ const badges = {
 	},
 	'docs': [['status', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 93
+const buildNumber = 8
 const engines = {
 	node: '>=4.0 <8.0'
 }
@@ -258,7 +258,7 @@ function render$5(config, user) {
 }
 
 function renderIconSVG(id) {
-	const iconSource = fs.readFileSync(`./icons/${id}.svg`)
+	const iconSource = fs.readFileSync(path.resolve(__dirname, `../icons/${id}.svg`))
 	const iconBuffer = semver.gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource)
 
 	return `&logo=${urlencode(`data:image/svg+xml;base64,${iconBuffer.toString('base64')}`)}`
@@ -445,7 +445,7 @@ const console = verbosity.createConsole({
 	outStream: process.stderr
 })
 const clr = trucolor.simplePalette()
-const metadata = meta()
+const metadata = meta(__dirname)
 
 const renderer = truwrap({
 	right: 4,
