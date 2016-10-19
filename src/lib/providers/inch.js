@@ -5,24 +5,21 @@ import node from 'unist-builder'
 // [inch-badge]: https://inch-ci.org/github/MarkGriffiths/meta.svg?branch=master&style=shields
 
 export default function render(config, user) {
-	return node('paragraph', [
-		node('link', {
-			title: _.upperFirst(config.title),
+	return node('link', {
+		title: _.upperFirst(config.title),
+		url: `https://inch-ci.org/github/${
+			user.github.slug
+		}`
+	}, [
+		node('image', {
+			alt: _.upperFirst(config.title),
 			url: `https://inch-ci.org/github/${
 				user.github.slug
+			}.svg?branch=${
+				config.branch
+			}&style=${
+				config.style
 			}`
-		}, [
-			node('image', {
-				alt: _.upperFirst(config.title),
-				url: `https://inch-ci.org/github/${
-					user.github.slug
-				}.svg?branch=${
-					config.branch
-				}&style=${
-					config.style
-				}`
-			})
-		]),
-		node('text', ' ')
+		})
 	])
 }

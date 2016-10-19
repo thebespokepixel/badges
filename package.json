@@ -44,6 +44,7 @@
     "@thebespokepixel/string": "^0.4.0",
     "app-root-path": "^2.0.1",
     "common-tags": "^1.3.1",
+    "es6-promisify": "^5.0.0",
     "lodash": "^4.16.4",
     "mdast-util-inject": "^1.1.0",
     "pkg-conf": "^2.0.0",
@@ -122,10 +123,20 @@
       ]
     },
     "docs": [
-      "status"
+      [
+        "status",
+        "travis"
+      ],
+      [
+        "code-climate",
+        "code-climate-coverage"
+      ],
+      [
+        "david"
+      ]
     ]
   },
-  "buildNumber": 0,
+  "buildNumber": 93,
   "engines": {
     "node": ">=4.0 <8.0"
   },

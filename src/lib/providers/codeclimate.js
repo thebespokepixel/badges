@@ -7,43 +7,37 @@ import node from 'unist-builder'
 // [coverage]: https://codeclimate.com/coverage/github/MarkGriffiths/badges
 
 export function cc(config, user) {
-	return node('paragraph', [
-		node('link', {
-			title: _.upperFirst(config.title),
+	return node('link', {
+		title: _.upperFirst(config.title),
+		url: `https://codeclimate.com/github/${
+			user.github.slug
+		}`
+	}, [
+		node('image', {
+			alt: _.upperFirst(config.title),
 			url: `https://codeclimate.com/github/${
 				user.github.slug
+			}/badges/gpa.svg?style=${
+				config.style
 			}`
-		}, [
-			node('image', {
-				alt: _.upperFirst(config.title),
-				url: `https://codeclimate.com/github/${
-					user.github.slug
-				}/badges/gpa.svg?style=${
-					config.style
-				}`
-			})
-		]),
-		node('text', ' ')
+		})
 	])
 }
 
 export function ccCoverage(config, user) {
-	return node('paragraph', [
-		node('link', {
-			title: _.upperFirst(config.title),
+	return node('link', {
+		title: _.upperFirst(config.title),
+		url: `https://codeclimate.com/github/${
+			user.github.slug
+		}/coverage`
+	}, [
+		node('image', {
+			alt: _.upperFirst(config.title),
 			url: `https://codeclimate.com/github/${
 				user.github.slug
-			}/coverage`
-		}, [
-			node('image', {
-				alt: _.upperFirst(config.title),
-				url: `https://codeclimate.com/github/${
-					user.github.slug
-				}/badges/coverage.svg?style=${
-					config.style
-				}`
-			})
-		]),
-		node('text', ' ')
+			}/badges/coverage.svg?style=${
+				config.style
+			}`
+		})
 	])
 }

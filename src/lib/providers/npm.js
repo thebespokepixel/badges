@@ -6,22 +6,19 @@ import {renderIconSVG} from '../utils'
 // [npm]: https://www.npmjs.com/package/@thebespokepixel/meta
 
 export default function render(config, user) {
-	return node('paragraph', [
-		node('link', {
-			title: config.title,
-			url: `https://www.npmjs.com/package/${
+	return node('link', {
+		title: config.title,
+		url: `https://www.npmjs.com/package/${
+			user.fullName
+		}`
+	}, [
+		node('image', {
+			alt: config.title,
+			url: `https://img.shields.io/npm/v/${
 				user.fullName
-			}`
-		}, [
-			node('image', {
-				alt: config.title,
-				url: `https://img.shields.io/npm/v/${
-					user.fullName
-				}.svg?style=${
-					config.style
-				}${config.icon && renderIconSVG('npm')}`
-			})
-		]),
-		node('text', ' ')
+			}.svg?style=${
+				config.style
+			}${config.icon && renderIconSVG('npm')}`
+		})
 	])
 }
