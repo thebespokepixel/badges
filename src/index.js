@@ -66,7 +66,7 @@ function parseQueue(collection, providers, user) {
  *                          defined in `package.json`.
  * @return {Promise}        A promise that resolves to the markdown formatted output.
  */
-export default function render(context) {
+export default function render(context, asAST = false) {
 	return Promise.all([
 		pkgConf('badges'),
 		readPkg()
@@ -161,5 +161,10 @@ export default function render(context) {
 		}
 	}).then(config => {
 		return node('root', parseQueue(config.queue, config.providers, config.user))
-	}).then(md => remark().use(squeeze).stringify(md))
+	}).then(md => {
+		if (asAST) {
+			return md
+		}
+		return remark().use(squeeze).stringify(md)
+	})
 }
