@@ -39,7 +39,7 @@ toc:
         ]
       }
       ```
-  - name: "Currently supported badges"
+  - name: "Supported badges"
     description: |
       - status (plus similar aux1 and aux2)
       - travis
