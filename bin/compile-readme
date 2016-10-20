@@ -32,7 +32,7 @@ const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
 
 const name = '@thebespokepixel/badges'
-const version = '0.1.11'
+const version = '0.1.12'
 const description = 'documentation/readme badge generation and management'
 const main = 'index.js'
 const bin = {
@@ -92,7 +92,7 @@ const devDependencies = {
 	'documentation-theme-bespoke': '^0.2.3',
 	'greenkeeper-postpublish': '^1.0.1',
 	'gulp': 'github:gulpjs/gulp#4.0',
-	'nyc': '^8.3.1',
+	'nyc': '^8.3.2',
 	'shelljs': '^0.7.4',
 	'snyk': '^1.19.1',
 	'xo': '^0.17.0'
