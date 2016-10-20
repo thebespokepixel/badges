@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>@thebespokepixel/badges 0.1.15 | Documentation</title>
+  <title>@thebespokepixel/badges 0.1.16 | Documentation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/ace.min.css" rel="stylesheet">
   <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
@@ -13,7 +13,7 @@
   <div class="flex">
     <div class="flex-column fixed top-0 bottom-0 px2 pt2 xs-hide overflow-auto max-height-100 sidebar">
       <h3 class="m0 no-anchor">@thebespokepixel/badges</h3>
-      <div class="mb1"><code>v0.1.15</code></div>
+      <div class="mb1"><code>v0.1.16</code></div>
       <input
         placeholder="Filter"
         id="filter-input"
@@ -44,6 +44,16 @@
           
             
             <li><a
+              href="#cli"
+              class="h5 bold black caps">
+              CLI
+              
+            </a>
+            
+            </li>
+          
+            
+            <li><a
               href="#api"
               class="h5 bold black caps">
               API
@@ -64,7 +74,7 @@
           
         </ul>
       </div>
-      <div class="badges"><p><p><a href="https://github.com/MarkGriffiths/badges" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> </p> <a href="https://travis-ci.org/MarkGriffiths/badges" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&#x26;style=flat" alt="Travis"></a> <br>
+      <div class="badges"><p><a href="https://github.com/MarkGriffiths/badges" title="Github"><img src="https://img.shields.io/badge/github-source-4E73B6.svg?style=flat" alt="Github"></a> <a href="https://travis-ci.org/MarkGriffiths/badges" title="Travis"><img src="https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&#x26;style=flat" alt="Travis"></a> <br>
 </p>
  
 <p><a href="https://codeclimate.com/github/MarkGriffiths/badges" title="Code-climate"><img src="https://codeclimate.com/github/MarkGriffiths/badges/badges/gpa.svg?style=flat" alt="Code-climate"></a> <a href="https://codeclimate.com/github/MarkGriffiths/badges/coverage" title="Coverage"><img src="https://codeclimate.com/github/MarkGriffiths/badges/badges/coverage.svg?style=flat" alt="Coverage"></a> <br>
@@ -118,6 +128,70 @@
 	
 	
 		<p>In <code>package.json</code>...</p>
+<pre><code>...
+"badges": {
+  "github": "MarkGriffiths",               
+  "npm": "thebespokepixel",            
+  "name": "badges",                
+  "style": "square",                                
+  "providers": {                                            
+    "status": {
+      "text": "beta",
+      "color": "blue"
+    },
+    "aux1": {
+      "title": "github",
+      "text": "source",
+      "color": "4E73B6",
+      "link": "https://github.com/MarkGriffiths/badges"
+    }
+  }
+  "readme": {                                           
+    "Status": [
+      [ "status", "npm", "travis", "david" ],
+      [ "code-climate", "code-climate-coverage", "snyk" ]
+    ],
+    "Developer": [ "david-dev", "rollup" ],
+    "Help": [ "inch", "gitter" ]
+  },
+  "docs": [                               
+    [ "aux1", "travis" ],
+    [ "code-climate", "code-climate-coverage" ],
+    [ "david" ]
+  ]
+}
+</code></pre>
+
+	
+</section>
+</div>
+        
+      
+        
+          <div class="keyline-top-not py1"><section class="py0 px2 clearfix note">
+	
+	<h3 id="CLI" class="m0">
+		CLI
+	</h3>
+	
+	
+		<pre><code>  > compile-readme --help                                                                                                                         │develop|✚8│
+
+  Inject project badges into a tagged markdown-formatted source file.
+
+  Usage:
+  compile-readme [options] > outputFile
+
+  Options:
+  -h, --help     Display help.
+  -v, --version  Print version to stdout. -vv Print name &#x26; version.                                                                                                     [count]
+  -V, --verbose  Be verbose. -VV Be loquacious.                                                                                                                         [count]
+  -c, --context  The named badges context in package.json.                                                                                                  [default: "readme"]
+  -u, --usage    Path to a usage example (see `npm home remark-usage`)
+  --color        Force color output. Disable with --no-color
+
+  © 2016 The Bespoke Pixel. Released under the MIT License.
+</code></pre>
 
 	
 </section>
@@ -148,7 +222,7 @@
       render  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/badges/blob/f0e1b4002544121740b97927148ccabb4e44ed11/src/index.js#L70-L171">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/badges/blob/79626f472fadb57340eae53f060846ae559df37a/src/index.js#L70-L171">src/index.js</a>
     
   </div>
   

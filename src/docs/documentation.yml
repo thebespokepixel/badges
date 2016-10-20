@@ -4,6 +4,73 @@ toc:
   - name: "Configuration"
     description: |
       In `package.json`...
+
+      ```
+      ...
+      "badges": {
+        "github": "MarkGriffiths", // github user
+        "npm": "thebespokepixel", // npm user
+        "name": "badges", // Package name
+        "style": "square", // Badge style (default 'flat')
+        "providers": { // Non-default badge provider configuration
+          "status": {
+            "text": "beta",
+            "color": "blue"
+          },
+          "aux1": {
+            "title": "github",
+            "text": "source",
+            "color": "4E73B6",
+            "link": "https://github.com/MarkGriffiths/badges"
+          }
+        }
+        "readme": { // Section with subtitles as map of arrays
+          "Status": [
+            [ "status", "npm", "travis", "david" ],
+            [ "code-climate", "code-climate-coverage", "snyk" ]
+          ],
+          "Developer": [ "david-dev", "rollup" ],
+          "Help": [ "inch", "gitter" ]
+        },
+        "docs": [ // Lines as an array of arrays
+          [ "aux1", "travis" ],
+          [ "code-climate", "code-climate-coverage" ],
+          [ "david" ]
+        ]
+      }
+      ```
+  - name: "Currently supported badges"
+    description: |
+      - status (plus similar aux1 and aux2)
+      - travis
+      - david and david-dev
+      - code-climate and code-climate-coverage
+      - inch
+      - npm
+      - rollup
+      - snyk
+      - gitter
+
+  - name: "CLI"
+    description: |
+      ```
+        > compile-readme --help                                                                                                                         │develop|✚8│
+
+        Inject project badges into a tagged markdown-formatted source file.
+
+        Usage:
+        compile-readme [options] > outputFile
+
+        Options:
+        -h, --help     Display help.
+        -v, --version  Print version to stdout. -vv Print name & version.                                                                                                     [count]
+        -V, --verbose  Be verbose. -VV Be loquacious.                                                                                                                         [count]
+        -c, --context  The named badges context in package.json.                                                                                                  [default: "readme"]
+        -u, --usage    Path to a usage example (see `npm home remark-usage`)
+        --color        Force color output. Disable with --no-color
+
+        © 2016 The Bespoke Pixel. Released under the MIT License.
+      ```
   - name: "API"
     description: |
 
