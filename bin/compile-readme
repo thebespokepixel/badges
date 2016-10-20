@@ -32,7 +32,7 @@ const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
 
 const name = '@thebespokepixel/badges'
-const version = '0.1.12'
+const version = '0.1.13'
 const description = 'documentation/readme badge generation and management'
 const main = 'index.js'
 const bin = {
@@ -46,6 +46,7 @@ const scripts = {
 	'test': 'xo && snyk test && nyc ava',
 	'doc-serve': 'documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
 	'doc-build': 'documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
+	'readme': './bin/compile-readme -u src/docs/example.js src/docs/readme.md > readme.md',
 	'code-climate': 'nyc report --reporter=text-lcov | codeclimate-test-reporter',
 	'coverage': 'nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html',
 	'clean': 'gulp clean',
@@ -111,6 +112,12 @@ const badges = {
 		status: {
 			text: 'beta',
 			color: 'blue'
+		},
+		aux1: {
+			title: 'github',
+			text: 'source',
+			color: '4E73B6',
+			link: 'https://github.com/MarkGriffiths/badges'
 		}
 	},
 	'test-1': ['status'],
@@ -119,9 +126,9 @@ const badges = {
 		Developer: ['david-dev', 'rollup'],
 		Help: ['inch', 'gitter']
 	},
-	'docs': [['status', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
+	'docs': [['aux1', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 0
+const buildNumber = 6
 const engines = {
 	node: '>=4.0 <8.0'
 }
