@@ -39,6 +39,18 @@ toc:
         ]
       }
       ```
+  - name: "Currently supported badges"
+    description: |
+      - status (plus similar aux1 and aux2)
+      - travis
+      - david and david-dev
+      - code-climate and code-climate-coverage
+      - inch
+      - npm
+      - rollup
+      - snyk
+      - gitter
+
   - name: "CLI"
     description: |
       ```

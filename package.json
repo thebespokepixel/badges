@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "bin": {
@@ -141,7 +141,7 @@
       ]
     ]
   },
-  "buildNumber": 6,
+  "buildNumber": 0,
   "engines": {
     "node": ">=4.0 <8.0"
   },
