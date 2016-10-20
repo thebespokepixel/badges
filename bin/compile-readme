@@ -32,7 +32,7 @@ const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
 
 const name = '@thebespokepixel/badges'
-const version = '0.1.15'
+const version = '0.1.17'
 const description = 'documentation/readme badge generation and management'
 const main = 'index.js'
 const bin = {
@@ -125,7 +125,7 @@ const badges = {
 	},
 	'docs': [['aux1', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 6
+const buildNumber = 0
 const engines = {
 	node: '>=4.0 <8.0'
 }
