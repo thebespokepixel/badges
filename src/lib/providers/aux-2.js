@@ -22,19 +22,13 @@ export default function render(config) {
 	})
 
 	if (config.link) {
-		return node('paragraph', [
-			node('link', {
-				title: _.upperFirst(config.title),
-				url: config.link
-			}, [
-				badgeNode
-			]),
-			node('text', ' ')
+		return node('link', {
+			title: _.upperFirst(config.title),
+			url: config.link
+		}, [
+			badgeNode
 		])
 	}
 
-	return node('paragraph', [
-		badgeNode,
-		node('text', ' ')
-	])
+	return badgeNode
 }
