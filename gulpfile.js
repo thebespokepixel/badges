@@ -31,8 +31,7 @@ gulp.task('cli', gulp.series(
 		source: 'src/cli.js'
 	}).rollup.babel({
 		banner: '#! /usr/bin/env node',
-		dest: 'bin/compile-readme',
-		plugins: {json: {enabled: true}}
+		dest: 'bin/compile-readme'
 	}),
 
 	cordial.shell().permissions({

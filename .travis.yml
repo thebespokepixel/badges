@@ -19,7 +19,7 @@ notifications:
     on_failure: change
     on_start: never
 addons:
-    code_climate:
-      repo_token: d561d79356a960a82869a05d3d7f941ad652ee4f569b14a1838e5927d3b8a4d9
+  code_climate:
+    repo_token: d561d79356a960a82869a05d3d7f941ad652ee4f569b14a1838e5927d3b8a4d9
 after_script:
   - nyc report --reporter=text-lcov | codeclimate-test-reporter
