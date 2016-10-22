@@ -14,9 +14,9 @@ import {createConsole} from 'verbosity'
 import remark from 'remark'
 import gap from 'remark-heading-gap'
 import squeeze from 'remark-squeeze-paragraphs'
-
-import pkg from '../package.json'
 import badges from '..'
+
+const pkg = require('../package.json')
 
 const console = createConsole({outStream: process.stderr})
 const clr = trucolor.simplePalette()
