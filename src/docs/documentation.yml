@@ -1,6 +1,6 @@
 toc:
   - name: "Usage"
-    example: "src/docs/example.js"
+    example: "src/docs/example.md"
   - name: "Configuration"
     description: |
       In `package.json`...
@@ -54,7 +54,7 @@ toc:
   - name: "CLI"
     description: |
       ```
-        > compile-readme --help                                                                                                                         │develop|✚8│
+        > compile-readme --help
 
         Inject project badges into a tagged markdown-formatted source file.
 
@@ -63,10 +63,10 @@ toc:
 
         Options:
         -h, --help     Display help.
-        -v, --version  Print version to stdout. -vv Print name & version.                                                                                                     [count]
-        -V, --verbose  Be verbose. -VV Be loquacious.                                                                                                                         [count]
-        -c, --context  The named badges context in package.json.                                                                                                  [default: "readme"]
-        -u, --usage    Path to a usage example (see `npm home remark-usage`)
+        -v, --version  Print version to stdout. -vv Print name & version.
+        -V, --verbose  Be verbose. -VV Be loquacious.
+        -c, --context  The named badges context in package.json.
+        -u, --usage    Path to a usage markdown example
         --color        Force color output. Disable with --no-color
 
         © 2016 The Bespoke Pixel. Released under the MIT License.

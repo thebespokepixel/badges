@@ -17,7 +17,8 @@ const yargs = _interopDefault(require('yargs'))
 const updateNotifier = _interopDefault(require('update-notifier'))
 const verbosity = require('verbosity')
 const remark = _interopDefault(require('remark'))
-const addUsage = _interopDefault(require('remark-usage'))
+const gap = _interopDefault(require('remark-heading-gap'))
+const squeeze = _interopDefault(require('remark-squeeze-paragraphs'))
 const _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'))
 const _forIn = _interopDefault(require('lodash/forIn'))
 const _map = _interopDefault(require('lodash/map'))
@@ -26,7 +27,6 @@ const _flatten = _interopDefault(require('lodash/flatten'))
 const pkgConf = _interopDefault(require('pkg-conf'))
 const readPkg = _interopDefault(require('read-pkg-up'))
 const node = _interopDefault(require('unist-builder'))
-const squeeze = _interopDefault(require('remark-squeeze-paragraphs'))
 const _upperFirst = _interopDefault(require('lodash/upperFirst'))
 const urlencode = _interopDefault(require('urlencode'))
 const semver = require('semver')
@@ -46,7 +46,7 @@ const scripts = {
 	'test': 'xo && snyk test && nyc ava',
 	'doc-serve': 'documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
 	'doc-build': 'documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js',
-	'readme': './bin/compile-readme -u src/docs/example.js src/docs/readme.md > readme.md',
+	'readme': './bin/compile-readme -u src/docs/example.md src/docs/readme.md > readme.md',
 	'code-climate': 'nyc report --reporter=text-lcov | codeclimate-test-reporter',
 	'coverage': 'nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html',
 	'clean': 'gulp clean',
@@ -72,6 +72,7 @@ const dependencies = {
 	'pkg-conf': '^2.0.0',
 	'read-pkg-up': '^2.0.0',
 	'remark': '^6.0.1',
+	'remark-heading-gap': '^2.0.1',
 	'remark-squeeze-paragraphs': '^3.0.0',
 	'remark-usage': '^4.0.1',
 	'semver': '^5.3.0',
@@ -87,7 +88,7 @@ const devDependencies = {
 	'@thebespokepixel/cordial': '^0.17.9',
 	'ava': '^0.16.0',
 	'codeclimate-test-reporter': '^0.4.0',
-	'documentation': '^4.0.0-beta10',
+	'documentation': '^4.0.0-beta11',
 	'documentation-theme-bespoke': '^0.2.7',
 	'greenkeeper-postpublish': '^1.0.1',
 	'gulp': 'github:gulpjs/gulp#4.0',
@@ -125,7 +126,7 @@ const badges = {
 	},
 	'docs': [['aux1', 'travis'], ['code-climate', 'code-climate-coverage'], ['david']]
 }
-const buildNumber = 0
+const buildNumber = 16
 const engines = {
 	node: '>=4.0 <8.0'
 }
@@ -441,7 +442,7 @@ function render$1$1(context) {
 		if (asAST) {
 			return md
 		}
-		return remark().use(squeeze).stringify(md)
+		return remark().use(gap).use(squeeze).stringify(md)
 	})
 }
 
@@ -502,7 +503,7 @@ yargs.strict().options({
 	},
 	u: {
 		alias: 'usage',
-		describe: 'Path to a usage example (see `npm home remark-usage`)'
+		describe: 'Path to a markdown usage example'
 	},
 	color: {
 		describe: 'Force color output. Disable with --no-color'
@@ -557,20 +558,14 @@ console.debug('Source path:', source)
 
 const template = _template(fs.readFileSync(source))
 
-render$1$1(argv.context).then(badges$$1 => template({
-	badges: badges$$1
-})).then(md => {
-	if (argv.usage) {
-		remark().use(addUsage, {
-			example: path.resolve(argv.usage)
-		}).process(md, (err, vfile) => {
-			if (err) {
-				throw new Error(err)
-			}
-			process.stdout.write(vfile.contents)
-		})
-	} else {
-		process.stdout.write(md)
+render$1$1(argv.context).then(badges$$1 => {
+	const content = {
+		badges: badges$$1,
+		usage: ''
 	}
+	if (argv.usage) {
+		content.usage = fs.readFileSync(path.resolve(argv.usage))
+	}
+	process.stdout.write(remark().use(gap).use(squeeze).process(template(content)).contents)
 })
 
