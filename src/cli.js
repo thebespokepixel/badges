@@ -12,7 +12,8 @@ import yargs from 'yargs'
 import updateNotifier from 'update-notifier'
 import {createConsole} from 'verbosity'
 import remark from 'remark'
-import addUsage from 'remark-usage'
+import gap from 'remark-heading-gap'
+import squeeze from 'remark-squeeze-paragraphs'
 
 import pkg from '../package.json'
 import badges from '..'
@@ -77,7 +78,7 @@ yargs.strict().options({
 	},
 	u: {
 		alias: 'usage',
-		describe: 'Path to a usage example (see `npm home remark-usage`)'
+		describe: 'Path to a markdown usage example'
 	},
 	color: {
 		describe: 'Force color output. Disable with --no-color'
@@ -133,18 +134,13 @@ console.debug('Source path:', source)
 const template = _.template(readFileSync(source))
 
 badges(argv.context)
-	.then(badges => template({badges}))
-	.then(md => {
-		if (argv.usage) {
-			remark().use(addUsage, {
-				example: resolve(argv.usage)
-			}).process(md, (err, vfile) => {
-				if (err) {
-					throw new Error(err)
-				}
-				process.stdout.write(vfile.contents)
-			})
-		} else {
-			process.stdout.write(md)
+	.then(badges => {
+		const content = {
+			badges,
+			usage: ''
 		}
+		if (argv.usage) {
+			content.usage = readFileSync(resolve(argv.usage))
+		}
+		process.stdout.write(remark().use(gap).use(squeeze).process(template(content)).contents)
 	})

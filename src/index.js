@@ -7,6 +7,7 @@ import pkgConf from 'pkg-conf'
 import readPkg from 'read-pkg-up'
 import remark from 'remark'
 import node from 'unist-builder'
+import gap from 'remark-heading-gap'
 import squeeze from 'remark-squeeze-paragraphs'
 import status from './lib/providers/status'
 import aux1 from './lib/providers/aux-1'
@@ -166,6 +167,6 @@ export default function render(context, asAST = false) {
 		if (asAST) {
 			return md
 		}
-		return remark().use(squeeze).stringify(md)
+		return remark().use(gap).use(squeeze).stringify(md)
 	})
 }

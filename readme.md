@@ -15,32 +15,30 @@
 
 [![Inch](https://inch-ci.org/github/MarkGriffiths/badges.svg?branch=master&style=shields)](https://inch-ci.org/github/MarkGriffiths/badges "Inch") [![Gitter](https://img.shields.io/gitter/room/MarkGriffiths/help.svg?style=flat)](https://gitter.im/MarkGriffiths/help?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge "Gitter")   
 
+
 ## Usage
 
 #### Installation
 
-```sh
+```shell
 npm install --save @thebespokepixel/badges
 ```
 
-#### Setup
+#### Example
 
-Require (or import) the module…
+```js
+/* Require (or import) the module… */
+const badges = require('../../index.js')
 
-```javascript
-const badges = require('@thebespokepixel/badges')
-```
-
-…then do something with it.
-
-```javascript
+/* …then do something with it. */
 function renderBadges() {
-	badges('readme').then(markdown => {
-		/* Output markdown to console... */
-		console.log(markdown)
-	})
+   badges('readme').then(markdown => {
+      /* Output markdown to console... */
+      console.log(markdown)
+   })
 }
 ```
+
 
 ## Documentation
 
