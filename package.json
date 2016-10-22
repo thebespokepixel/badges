@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "bin": {
