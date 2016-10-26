@@ -99,7 +99,7 @@ export default function render(context, asAST = false) {
 				}
 			},
 			providers: _.forIn(_.defaultsDeep(config.providers, {
-				'status': {
+				status: {
 					title: 'status',
 					text: 'badge',
 					color: 'red',
@@ -117,7 +117,7 @@ export default function render(context, asAST = false) {
 					color: 'blue',
 					link: false
 				},
-				'gitter': {
+				gitter: {
 					title: 'gitter',
 					room: 'help'
 				},
@@ -127,7 +127,7 @@ export default function render(context, asAST = false) {
 				'code-climate-coverage': {
 					title: 'coverage'
 				},
-				'david': {
+				david: {
 					title: 'david',
 					branch: 'master'
 				},
@@ -135,23 +135,23 @@ export default function render(context, asAST = false) {
 					title: 'david-developer',
 					branch: 'master'
 				},
-				'inch': {
+				inch: {
 					title: 'inch',
 					branch: 'master',
 					style: 'shields'
 				},
-				'npm': {
+				npm: {
 					title: 'npm',
 					icon: true
 				},
-				'rollup': {
+				rollup: {
 					title: 'rollup',
 					icon: true
 				},
-				'snyk': {
+				snyk: {
 					title: 'snyk'
 				},
-				'travis': {
+				travis: {
 					title: 'travis',
 					branch: 'master'
 				}
