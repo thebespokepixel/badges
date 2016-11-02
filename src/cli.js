@@ -3,7 +3,7 @@
 import {resolve} from 'path'
 import {readFileSync} from 'fs'
 import _ from 'lodash'
-import trucolor from 'trucolor'
+import {simple} from 'trucolor'
 import truwrap from 'truwrap'
 import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
 import {box} from '@thebespokepixel/string'
@@ -19,7 +19,7 @@ import badges from '..'
 const pkg = require('../package.json')
 
 const console = createConsole({outStream: process.stderr})
-const clr = trucolor.simplePalette()
+const clr = simple({format: 'sgr'})
 const metadata = meta(__dirname)
 
 const renderer = truwrap({
