@@ -54,7 +54,7 @@
     "remark-squeeze-paragraphs": "^3.0.0",
     "remark-usage": "^4.0.1",
     "semver": "^5.3.0",
-    "trucolor": "^0.5.5",
+    "trucolor": "^0.6.2",
     "truwrap": "^0.6.3",
     "unist-builder": "^1.0.2",
     "update-notifier": "^1.0.2",
