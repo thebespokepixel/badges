@@ -4,7 +4,7 @@ import {resolve} from 'path'
 import {readFileSync} from 'fs'
 import _ from 'lodash'
 import {simple} from 'trucolor'
-import truwrap from 'truwrap'
+import {truwrap} from 'truwrap'
 import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-tags'
 import {box} from '@thebespokepixel/string'
 import meta from '@thebespokepixel/meta'
@@ -47,8 +47,7 @@ const title = box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.
 	}
 })
 
-const usage = stripIndent(colorReplacer)`${title}
-
+const usage = stripIndent(colorReplacer)`
 	Inject project badges into a tagged markdown-formatted source file.
 
 	Usage:
@@ -98,6 +97,7 @@ if (argv._.length === 0) {
 }
 
 if (argv.help) {
+	renderer.write(title).break(2)
 	renderer.write(usage)
 	renderer.break(2)
 	renderer.write(yargs.getUsageInstance().help())
