@@ -18,7 +18,14 @@ notifications:
     on_success: always
     on_failure: change
     on_start: never
+env:
+  - CXX=g++-4.8
 addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
   code_climate:
     repo_token: d561d79356a960a82869a05d3d7f941ad652ee4f569b14a1838e5927d3b8a4d9
 after_script:

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>@thebespokepixel/badges 0.2.7 | Documentation</title>
+  <title>@thebespokepixel/badges 0.2.8 | Documentation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/css/ace.min.css" rel="stylesheet">
   <link href="assets/fonts/TypoPRO-Hack/TypoPRO-Hack.css" type="text/css" rel="stylesheet" />
@@ -13,7 +13,7 @@
   <div class="flex">
     <div class="flex-column fixed top-0 bottom-0 px2 pt2 max-height-100 sidebar">
       <h3 class="m0 no-anchor">@thebespokepixel/badges</h3>
-      <div class="mb1"><code>v0.2.7</code></div>
+      <div class="mb1"><code>v0.2.8</code></div>
       <input
         placeholder="Filter"
         id="filter-input"
@@ -113,20 +113,18 @@
 	
 	
 		<h4>Installation</h4>
-<pre><code class="language-shell">npm install --save @thebespokepixel/badges
-</code></pre>
+<pre class='hljs'>npm install --save @thebespokepixel/badges</pre>
 <h4>Example</h4>
-<pre><code class="language-js">/* Require (or import) the module… */
-const badges = require('../../index.js')
+<pre class='hljs'><span class="hljs-comment">/* Require (or import) the module… */</span>
+<span class="hljs-keyword">const</span> badges = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../index.js'</span>)
 
-/* …then do something with it. */
-function renderBadges() {
-   badges('readme').then(markdown => {
-      /* Output markdown to console... */
-      console.log(markdown)
+<span class="hljs-comment">/* …then do something with it. */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderBadges</span>(<span class="hljs-params"></span>) </span>{
+   badges(<span class="hljs-string">'readme'</span>).then(<span class="hljs-function"><span class="hljs-params">markdown</span> =&gt;</span> {
+      <span class="hljs-comment">/* Output markdown to console... */</span>
+      <span class="hljs-built_in">console</span>.log(markdown)
    })
-}
-</code></pre>
+}</pre>
 
 	
 </section>
@@ -142,11 +140,11 @@ function renderBadges() {
 		<p>In <code>package.json</code>...</p>
 <pre><code>...
 "badges": {
-  "github": "MarkGriffiths",               
-  "npm": "thebespokepixel",            
-  "name": "badges",                
-  "style": "square",                                
-  "providers": {                                            
+  "github": "MarkGriffiths", // github user
+  "npm": "thebespokepixel", // npm user
+  "name": "badges", // Package name
+  "style": "square", // Badge style (default 'flat')
+  "providers": { // Non-default badge provider configuration
     "status": {
       "text": "beta",
       "color": "blue"
@@ -158,7 +156,7 @@ function renderBadges() {
       "link": "https://github.com/MarkGriffiths/badges"
     }
   }
-  "readme": {                                           
+  "readme": { // Section with subtitles as map of arrays
     "Status": [
       [ "status", "npm", "travis", "david" ],
       [ "code-climate", "code-climate-coverage", "snyk" ]
@@ -166,7 +164,7 @@ function renderBadges() {
     "Developer": [ "david-dev", "rollup" ],
     "Help": [ "inch", "gitter" ]
   },
-  "docs": [                               
+  "docs": [ // Lines as an array of arrays
     [ "aux1", "travis" ],
     [ "code-climate", "code-climate-coverage" ],
     [ "david" ]
@@ -257,7 +255,7 @@ function renderBadges() {
       render  <span>→ <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>
     </h3>
     
-      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/badges/blob/c9458dcfaab9ac352de19dee4b0a6e6c04315461/src/index.js#L71-L172">src/index.js</a>
+      <a class="pl3 pr1 right rounded github" href="https://github.com/MarkGriffiths/badges/blob/828c3f8baed76ae1e10919c377df9fdc914a8864/src/index.js#L71-L172">src/index.js</a>
     
   </div>
   
@@ -265,7 +263,7 @@ function renderBadges() {
   <p>Render project badge configuration as markdown.</p>
 
   
-  <div class="pre p1 bg-darken-1 mt0 signature">render(context: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, asAST: [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>](default false)) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
+  <div class="pre p1 bg-darken-1 mt0 signature">render(context: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>, asAST: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>?= false) → <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></div>
   
   
 
@@ -296,7 +294,7 @@ defined in
       
         <div class="space-bottom0">
           <div>
-            <span class="code bold">asAST</span> <code class="quiet">([<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>](default false))</code> Render badges as 
+            <span class="code bold">asAST</span> <code class="quiet">(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>?= false)</code> Render badges as 
 <a href="https://github.com/wooorm/mdast">MDAST</a>
 
           </div>
