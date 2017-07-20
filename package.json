@@ -48,7 +48,7 @@
     "mdast-util-inject": "^1.1.0",
     "pkg-conf": "^2.0.0",
     "read-pkg-up": "^2.0.0",
-    "remark": "^7.0.1",
+    "remark": "^8.0.0",
     "remark-heading-gap": "^3.0.0",
     "remark-squeeze-paragraphs": "^3.0.0",
     "remark-usage": "^5.0.0",
