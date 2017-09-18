@@ -59,7 +59,7 @@
     "update-notifier": "^2.1.0",
     "urlencode": "^1.1.0",
     "verbosity": "^0.8.3",
-    "yargs": "^8.0.1"
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
     "@thebespokepixel/cordial": "^0.17.11",
