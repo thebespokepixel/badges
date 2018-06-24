@@ -84,7 +84,7 @@ yargs.strict().help(false).version(false).options({
 	}
 }).wrap(renderer.getWidth())
 
-const argv = yargs.argv
+const {argv} = yargs
 
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
 	updateNotifier({
