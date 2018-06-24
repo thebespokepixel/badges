@@ -3,7 +3,6 @@ import node from 'unist-builder';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import urlencode from 'urlencode';
-import { gte } from 'semver';
 import _defaultsDeep from 'lodash/defaultsDeep';
 import _forIn from 'lodash/forIn';
 import _map from 'lodash/map';
@@ -123,7 +122,7 @@ function render$4(config, user) {
 
 function renderIcon(file, type) {
   const iconSource = readFileSync(resolve(__dirname, file));
-  const iconBuffer = gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource);
+  const iconBuffer = Buffer.from(iconSource);
   return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`;
 }
 

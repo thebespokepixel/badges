@@ -8,7 +8,6 @@ var node = _interopDefault(require('unist-builder'));
 var fs = require('fs');
 var path = require('path');
 var urlencode = _interopDefault(require('urlencode'));
-var semver = require('semver');
 var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
 var _forIn = _interopDefault(require('lodash/forIn'));
 var _map = _interopDefault(require('lodash/map'));
@@ -137,7 +136,7 @@ function render$4(config, user) {
 
 function renderIcon(file, type) {
   const iconSource = fs.readFileSync(path.resolve(__dirname, file));
-  const iconBuffer = semver.gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource);
+  const iconBuffer = Buffer.from(iconSource);
   return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`;
 }
 

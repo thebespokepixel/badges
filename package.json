@@ -51,7 +51,6 @@
     "remark-heading-gap": "^3.0.0",
     "remark-squeeze-paragraphs": "^3.0.1",
     "remark-usage": "^6.0.0",
-    "semver": "^5.5.0",
     "trucolor": "^0.7.1",
     "truwrap": "^0.8.1",
     "unist-builder": "^1.0.2",

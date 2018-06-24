@@ -26,7 +26,6 @@ const external = [
 	'remark',
 	'remark-heading-gap',
 	'remark-squeeze-paragraphs',
-	'semver',
 	'trucolor',
 	'truwrap',
 	'unist-builder',

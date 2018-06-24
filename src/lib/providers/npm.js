@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import node from 'unist-builder'
 import {renderIconSVG} from '../utils'
 
