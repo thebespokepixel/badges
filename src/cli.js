@@ -14,7 +14,7 @@ import {createConsole} from 'verbosity'
 import remark from 'remark'
 import gap from 'remark-heading-gap'
 import squeeze from 'remark-squeeze-paragraphs'
-import badges from '..'
+import badges from './main'
 
 const pkg = require('../package.json')
 
@@ -55,7 +55,7 @@ const usage = stripIndent(colorReplacer)`
 
 const epilogue = colorReplacer`${'green|© 2016'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
 
-yargs.strict().options({
+yargs.strict().help(false).version(false).options({
 	h: {
 		alias: 'help',
 		describe: 'Display help.'
@@ -128,19 +128,24 @@ if (argv.verbose) {
 	}
 }
 
+/**
+ * Render the page to stdout
+ * @param  {lodash} template A processed lodash template of the source
+ */
+async function render(template) {
+	const content = {
+		badges: await badges(argv.context),
+		usage: ''
+	}
+
+	if (argv.usage) {
+		content.usage = readFileSync(resolve(argv.usage))
+	}
+
+	const page = await remark().use(gap).use(squeeze).process(template(content))
+	process.stdout.write(page.toString())
+}
+
 const source = resolve(argv._[0])
 console.debug('Source path:', source)
-
-const template = _.template(readFileSync(source))
-
-badges(argv.context)
-	.then(badges => {
-		const content = {
-			badges,
-			usage: ''
-		}
-		if (argv.usage) {
-			content.usage = readFileSync(resolve(argv.usage))
-		}
-		process.stdout.write(remark().use(gap).use(squeeze).process(template(content)).contents)
-	})
+render(_.template(readFileSync(source)))

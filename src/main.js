@@ -19,6 +19,7 @@ import inch from './lib/providers/inch'
 import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
 import snyk from './lib/providers/snyk'
+import greenkeeper from './lib/providers/greenkeeper'
 import travis from './lib/providers/travis'
 
 const services = {
@@ -34,6 +35,7 @@ const services = {
 	npm,
 	rollup,
 	snyk,
+	greenkeeper,
 	travis
 }
 
@@ -94,9 +96,8 @@ export default function render(context, asAST = false) {
 					user: config.github,
 					slug: `${config.github}/${config.name}`
 				},
-				npm: {
-					user: config.npm
-				}
+				npm: config.npm,
+				codeclimate: config.codeclimate
 			},
 			providers: _.forIn(_.defaultsDeep(config.providers, {
 				status: {
@@ -150,6 +151,9 @@ export default function render(context, asAST = false) {
 				},
 				snyk: {
 					title: 'snyk'
+				},
+				greenkeeper: {
+					title: 'greenkeeper'
 				},
 				travis: {
 					title: 'travis',

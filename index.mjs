@@ -1,23 +1,19 @@
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _upperFirst = _interopDefault(require('lodash/upperFirst'));
-var node = _interopDefault(require('unist-builder'));
-var fs = require('fs');
-var path = require('path');
-var urlencode = _interopDefault(require('urlencode'));
-var semver = require('semver');
-var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
-var _forIn = _interopDefault(require('lodash/forIn'));
-var _map = _interopDefault(require('lodash/map'));
-var _isObject = _interopDefault(require('lodash/isObject'));
-var _flatten = _interopDefault(require('lodash/flatten'));
-var pkgConf = _interopDefault(require('pkg-conf'));
-var readPkg = _interopDefault(require('read-pkg-up'));
-var remark = _interopDefault(require('remark'));
-var gap = _interopDefault(require('remark-heading-gap'));
-var squeeze = _interopDefault(require('remark-squeeze-paragraphs'));
+import _upperFirst from 'lodash/upperFirst';
+import node from 'unist-builder';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import urlencode from 'urlencode';
+import { gte } from 'semver';
+import _defaultsDeep from 'lodash/defaultsDeep';
+import _forIn from 'lodash/forIn';
+import _map from 'lodash/map';
+import _isObject from 'lodash/isObject';
+import _flatten from 'lodash/flatten';
+import pkgConf from 'pkg-conf';
+import readPkg from 'read-pkg-up';
+import remark from 'remark';
+import gap from 'remark-heading-gap';
+import squeeze from 'remark-squeeze-paragraphs';
 
 function render(config) {
   const badgeNode = node('image', {
@@ -126,8 +122,8 @@ function render$4(config, user) {
 }
 
 function renderIcon(file, type) {
-  const iconSource = fs.readFileSync(path.resolve(__dirname, file));
-  const iconBuffer = semver.gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource);
+  const iconSource = readFileSync(resolve(__dirname, file));
+  const iconBuffer = gte(process.version, '6.0.0') ? Buffer.from(iconSource) : new Buffer(iconSource);
   return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`;
 }
 
@@ -329,4 +325,4 @@ function render$a(context, asAST = false) {
   });
 }
 
-module.exports = render$a;
+export default render$a;
