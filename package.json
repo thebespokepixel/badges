@@ -63,10 +63,8 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.51",
     "@babel/preset-env": "^7.0.0-beta.51",
-    "@thebespokepixel/cordial": "^0.17.11",
     "ava": "^0.19.1",
     "babel-plugin-lodash": "^3.3.4",
-    "codeclimate-test-reporter": "^0.4.0",
     "documentation": "^4.0.0",
     "documentation-theme-bespoke": "^0.3.5",
     "gulp": "^4.0.0",
@@ -138,7 +136,9 @@
         "travis"
       ],
       [
-        "code-climate",
+        "code-climate"
+      ],
+      [
         "code-climate-coverage"
       ],
       [
