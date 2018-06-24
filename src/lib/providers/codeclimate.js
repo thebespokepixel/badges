@@ -11,13 +11,13 @@ export function cc(config, user) {
 		title: _.upperFirst(config.title),
 		url: `https://codeclimate.com/github/${
 			user.github.slug
-		}`
+		}/maintainability`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
-			url: `https://codeclimate.com/github/${
-				user.github.slug
-			}/badges/gpa.svg?style=${
+			url: `https://api.codeclimate.com/v1/badges/${
+				user.codeclimate
+			}/maintainability?style=${
 				config.style
 			}`
 		})
@@ -29,13 +29,13 @@ export function ccCoverage(config, user) {
 		title: _.upperFirst(config.title),
 		url: `https://codeclimate.com/github/${
 			user.github.slug
-		}/coverage`
+		}/test_coverage`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
-			url: `https://codeclimate.com/github/${
-				user.github.slug
-			}/badges/coverage.svg?style=${
+			url: `https://api.codeclimate.com/v1/badges/${
+				user.codeclimate
+			}/test_coverage?style=${
 				config.style
 			}`
 		})

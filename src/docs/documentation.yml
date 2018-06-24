@@ -50,6 +50,7 @@ toc:
       - rollup
       - snyk
       - gitter
+      - greenkeeper
 
   - name: "CLI"
     description: |

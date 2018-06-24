@@ -1,32 +1,18 @@
-#! /usr/bin/env node
-'use strict';
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _upperFirst = _interopDefault(require('lodash/upperFirst'));
-var node = _interopDefault(require('unist-builder'));
-var fs = require('fs');
-var path = require('path');
-var urlencode = _interopDefault(require('urlencode'));
-var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
-var _forIn = _interopDefault(require('lodash/forIn'));
-var _map = _interopDefault(require('lodash/map'));
-var _isObject = _interopDefault(require('lodash/isObject'));
-var _flatten = _interopDefault(require('lodash/flatten'));
-var pkgConf = _interopDefault(require('pkg-conf'));
-var readPkg = _interopDefault(require('read-pkg-up'));
-var remark = _interopDefault(require('remark'));
-var gap = _interopDefault(require('remark-heading-gap'));
-var squeeze = _interopDefault(require('remark-squeeze-paragraphs'));
-var _template = _interopDefault(require('lodash/template'));
-var trucolor = require('trucolor');
-var truwrap = require('truwrap');
-var commonTags = require('common-tags');
-var string = require('@thebespokepixel/string');
-var meta = _interopDefault(require('@thebespokepixel/meta'));
-var yargs = _interopDefault(require('yargs'));
-var updateNotifier = _interopDefault(require('update-notifier'));
-var verbosity = require('verbosity');
+import _upperFirst from 'lodash/upperFirst';
+import node from 'unist-builder';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+import urlencode from 'urlencode';
+import _defaultsDeep from 'lodash/defaultsDeep';
+import _forIn from 'lodash/forIn';
+import _map from 'lodash/map';
+import _isObject from 'lodash/isObject';
+import _flatten from 'lodash/flatten';
+import pkgConf from 'pkg-conf';
+import readPkg from 'read-pkg-up';
+import remark from 'remark';
+import gap from 'remark-heading-gap';
+import squeeze from 'remark-squeeze-paragraphs';
 
 function render(config) {
   const badgeNode = node('image', {
@@ -135,7 +121,7 @@ function render$4(config, user) {
 }
 
 function renderIcon(file, type) {
-  const iconSource = fs.readFileSync(path.resolve(__dirname, file));
+  const iconSource = readFileSync(resolve(__dirname, file));
   const iconBuffer = Buffer.from(iconSource);
   return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`;
 }
@@ -338,126 +324,4 @@ function render$a(context, asAST = false) {
   });
 }
 
-const pkg = require('../package.json');
-
-const console = verbosity.createConsole({
-  outStream: process.stderr
-});
-const clr = trucolor.simple({
-  format: 'sgr'
-});
-const metadata = meta(__dirname);
-const renderer = truwrap.truwrap({
-  right: 4,
-  outStream: process.stderr
-});
-const colorReplacer = new commonTags.TemplateTag(commonTags.replaceSubstitutionTransformer(/([a-zA-Z]+?)[:/|](.+)/, (match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`));
-const title = string.box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.version(3)}`}`, {
-  borderColor: 'yellow',
-  margin: {
-    top: 1
-  },
-  padding: {
-    bottom: 0,
-    top: 0,
-    left: 2,
-    right: 2
-  }
-});
-const usage = commonTags.stripIndent(colorReplacer)`
-	Inject project badges into a tagged markdown-formatted source file.
-
-	Usage:
-	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`;
-const epilogue = colorReplacer`${'green|© 2016'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`;
-yargs.strict().help(false).version(false).options({
-  h: {
-    alias: 'help',
-    describe: 'Display help.'
-  },
-  v: {
-    alias: 'version',
-    count: true,
-    describe: 'Print version to stdout. -vv Print name & version.'
-  },
-  V: {
-    alias: 'verbose',
-    count: true,
-    describe: 'Be verbose. -VV Be loquacious.'
-  },
-  c: {
-    alias: 'context',
-    default: 'readme',
-    describe: 'The named badges context in package.json.'
-  },
-  u: {
-    alias: 'usage',
-    describe: 'Path to a markdown usage example'
-  },
-  color: {
-    describe: 'Force color output. Disable with --no-color'
-  }
-}).wrap(renderer.getWidth());
-const argv = yargs.argv;
-
-if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
-  updateNotifier({
-    pkg
-  }).notify();
-}
-
-if (argv._.length === 0) {
-  argv.help = true;
-}
-
-if (argv.help) {
-  renderer.write(title).break(2);
-  renderer.write(usage);
-  renderer.break(2);
-  renderer.write(yargs.getUsageInstance().help());
-  renderer.break();
-  renderer.write(epilogue);
-  renderer.break(1);
-  process.exit(0);
-}
-
-if (argv.version) {
-  process.stdout.write(metadata.version(argv.version));
-  process.exit(0);
-}
-
-if (argv.verbose) {
-  switch (argv.verbose) {
-    case 1:
-      console.verbosity(4);
-      console.log(`${clr.title}Verbose mode${clr.title.out}:`);
-      break;
-
-    case 2:
-      console.verbosity(5);
-      console.log(`${clr.title}Extra-Verbose mode${clr.title.out}:`);
-      console.yargs(argv);
-      break;
-
-    default:
-      console.verbosity(3);
-  }
-}
-
-async function render$b(template) {
-  const content = {
-    badges: await render$a(argv.context),
-    usage: ''
-  };
-
-  if (argv.usage) {
-    content.usage = fs.readFileSync(path.resolve(argv.usage));
-  }
-
-  const page = await remark().use(gap).use(squeeze).process(template(content));
-  process.stdout.write(page.toString());
-}
-
-const source = path.resolve(argv._[0]);
-console.debug('Source path:', source);
-render$b(_template(fs.readFileSync(source)));
+export default render$a;
