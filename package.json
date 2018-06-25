@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "bin": {
@@ -17,8 +17,8 @@
   ],
   "scripts": {
     "test": "xo && nyc ava",
-    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
-    "doc-build": "documentation build --format html --output docs --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --name $npm_package_name  --project-version $npm_package_version src/index.js",
+    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/main.js",
+    "doc-build": "documentation build --format html --output docs/ --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/main.js",
     "readme": "./bin/compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
     "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
     "clean": "gulp clean"
@@ -65,7 +65,7 @@
     "ava": "^0.25.0",
     "babel-plugin-lodash": "^3.3.4",
     "documentation": "^8.0.0",
-    "documentation-theme-bespoke": "^0.3.5",
+    "documentation-theme-bespoke": "^0.4.1",
     "gulp": "^4.0.0",
     "gulp-better-rollup": "^3.2.1",
     "gulp-chmod": "^2.0.0",
