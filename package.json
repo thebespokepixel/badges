@@ -43,7 +43,7 @@
     "@thebespokepixel/meta": "^0.2.2",
     "@thebespokepixel/string": "^0.5.1",
     "common-tags": "^1.8.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "mdast-util-inject": "^1.1.0",
     "pkg-conf": "^2.1.0",
     "read-pkg-up": "^4.0.0",
