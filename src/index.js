@@ -45,6 +45,7 @@ function parseQueue(collection, providers, user) {
 		badges.push(node('break'))
 		return node('paragraph', badges)
 	}
+
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
 			return node('root', [
@@ -57,9 +58,11 @@ function parseQueue(collection, providers, user) {
 			])
 		})
 	}
+
 	if (!services[collection]) {
 		throw new Error(`${collection} not found`)
 	}
+
 	return services[collection](providers[collection], user)
 }
 
@@ -80,9 +83,11 @@ export default function render(context, asAST = false) {
 		if (!config.name || !config.github || !config.npm) {
 			throw new Error('Badges requires at least a package name, github repo and npm user account.')
 		}
+
 		if (!config[context]) {
 			throw new Error(`${context} is not provided in package.json.`)
 		}
+
 		if (!config.providers) {
 			throw new Error('At least one badge provider must be specified.')
 		}
@@ -171,6 +176,7 @@ export default function render(context, asAST = false) {
 		if (asAST) {
 			return md
 		}
+
 		return remark().use(gap).use(squeeze).stringify(md)
 	})
 }

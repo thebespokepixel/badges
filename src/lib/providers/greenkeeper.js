@@ -6,7 +6,7 @@ import node from 'unist-builder'
 export default function render(config, user) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://greenkeeper.io/`
+		url: 'https://greenkeeper.io/'
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),

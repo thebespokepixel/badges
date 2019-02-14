@@ -19,7 +19,7 @@ export default function render(config, user) {
 				config.branch
 			}&style=${
 				config.style
-			}`
+			}&logo=travis`
 		})
 	])
 }

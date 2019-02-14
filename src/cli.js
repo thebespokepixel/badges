@@ -14,7 +14,7 @@ import {createConsole} from 'verbosity'
 import remark from 'remark'
 import gap from 'remark-heading-gap'
 import squeeze from 'remark-squeeze-paragraphs'
-import badges from './main'
+import badges from '.'
 
 const pkg = require('../package.json')
 
