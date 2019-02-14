@@ -1,8 +1,9 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
+  "module": "index.mjs",
   "bin": {
     "compile-readme": "./bin/compile-readme"
   },
@@ -40,8 +41,8 @@
   },
   "homepage": "https://github.com/MarkGriffiths/badges#readme",
   "dependencies": {
-    "@thebespokepixel/meta": "^0.2.3",
-    "@thebespokepixel/string": "^0.5.2",
+    "@thebespokepixel/meta": "^0.2.4",
+    "@thebespokepixel/string": "^0.5.3",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.11",
     "mdast-util-inject": "^1.1.0",
@@ -74,6 +75,7 @@
     "nyc": "^13.2.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "xo": "^0.24.0"
   },
@@ -123,9 +125,9 @@
         ]
       ],
       "Developer": [
+        "greenkeeper",
         "david-dev",
-        "rollup",
-        "greenkeeper"
+        "rollup"
       ],
       "Help": [
         "inch",
@@ -148,9 +150,7 @@
       ]
     ]
   },
-  "buildNumber": 0,
   "engines": {
     "node": ">=4.0 <9.0"
-  },
-  "jsnext:main": "lib/index-es.js"
+  }
 }
