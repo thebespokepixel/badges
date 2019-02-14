@@ -9,7 +9,7 @@ import {renderIconSVG} from '../utils'
 export default function render(config) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://github.com/rollup/rollup/wiki/pkg.module`
+		url: 'https://github.com/rollup/rollup/wiki/pkg.module'
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),

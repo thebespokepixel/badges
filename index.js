@@ -124,6 +124,16 @@ function render$4(config, user) {
   })]);
 }
 
+function render$5(config, user) {
+  return node('link', {
+    title: config.title,
+    url: `https://www.npmjs.com/package/${user.fullName}`
+  }, [node('image', {
+    alt: config.title,
+    url: `https://img.shields.io/npm/v/${user.fullName}.svg?style=${config.style}&logo=npm`
+  })]);
+}
+
 function renderIcon(file, type) {
   const iconSource = fs.readFileSync(path.resolve(__dirname, file));
   const iconBuffer = Buffer.from(iconSource);
@@ -132,20 +142,10 @@ function renderIcon(file, type) {
 
 const renderIconSVG = id => renderIcon(`../icons/${id}.svg`, 'image/svg+xml');
 
-function render$5(config, user) {
-  return node('link', {
-    title: config.title,
-    url: `https://www.npmjs.com/package/${user.fullName}`
-  }, [node('image', {
-    alt: config.title,
-    url: `https://img.shields.io/npm/v/${user.fullName}.svg?style=${config.style}${config.icon && renderIconSVG('npm')}`
-  })]);
-}
-
 function render$6(config) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://github.com/rollup/rollup/wiki/pkg.module`
+    url: 'https://github.com/rollup/rollup/wiki/pkg.module'
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://img.shields.io/badge/es6-${urlencode('module:mjs_✔')}-64CA39.svg?style=${config.style}${config.icon && renderIconSVG('rollup')}`
@@ -165,7 +165,7 @@ function render$7(config, user) {
 function render$8(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://greenkeeper.io/`
+    url: 'https://greenkeeper.io/'
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://badges.greenkeeper.io/${user.github.slug}.svg`
@@ -178,7 +178,7 @@ function render$9(config, user) {
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
   })]);
 }
 
