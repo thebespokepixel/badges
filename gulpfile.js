@@ -8,6 +8,7 @@ const rollup = require('gulp-better-rollup')
 const babel = require('rollup-plugin-babel')
 const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const json = require('rollup-plugin-json')
 const lodash = require('babel-plugin-lodash')
 
 const external = id => !id.startsWith('.') && !id.startsWith('/') && !id.startsWith('\0')
@@ -53,7 +54,7 @@ gulp.task('cli', () =>
 	gulp.src('src/cli.js')
 		.pipe(rollup({
 			external,
-			plugins: [resolve(), commonjs(), babel(babelConfig)]
+			plugins: [resolve(), json({preferConst: true}), commonjs(), babel(babelConfig)]
 		}, {
 			banner: '#! /usr/bin/env node',
 			format: 'cjs'
