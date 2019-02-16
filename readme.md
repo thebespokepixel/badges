@@ -26,17 +26,29 @@ npm install --save @thebespokepixel/badges
 
 #### Example
 
-```js
-/* Require (or import) the module… */
-const badges = require('../../index.js')
+With this source.markdown:
 
-/* …then do something with it. */
-function renderBadges() {
-   badges('readme').then(markdown => {
-      /* Output markdown to console... */
-      console.log(markdown)
-   })
+```markdown
+  Badges:
+  ${badges}
+```
+
+Read it in as a template and merge the AST:
+
+```js
+/* Import the module… */
+import {readFileSync} from 'fs'
+import _ from 'lodash'
+import remark from 'remark'
+import badges from 'badges'
+
+/* …then read the 'badges.readme' stanza from package.json and send the AST into remark etc. */
+const content = {
+  badges: await badges('readme')
 }
+
+const template = _.template(readFileSync('./source.markdown'))
+const page = await remark().process(template(content))
 ```
 
 
