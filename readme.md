@@ -4,8 +4,8 @@
 
 ##### Status
 
-![Status](https://img.shields.io/badge/status-production-green.svg?style=flat) [![npm](https://img.shields.io/npm/v/@thebespokepixel/badges.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/badges "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/badges "Travis") [![David](https://img.shields.io/david/MarkGriffiths/badges.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/badges/master "David")  
- [![Snyk](https://img.shields.io/snyk/vulnerabilities/github/MarkGriffiths/badges.svg?style=flat&logo=npm)](https://snyk.io/test/github/MarkGriffiths/badges "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/test_coverage "Coverage")   
+[![npm](https://img.shields.io/npm/v/@thebespokepixel/badges.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/badges "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/badges "Travis") [![David](https://img.shields.io/david/MarkGriffiths/badges.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/badges/master "David") ![Status](https://img.shields.io/badge/status-production-green.svg?style=flat)  
+ [![Snyk](https://img.shields.io/snyk/vulnerabilities/github/MarkGriffiths/badges.svg?style=flat&logo=npm)](https://snyk.io/test/github/MarkGriffiths/badges "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/a0a755b0fce22eb0b784/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/a0a755b0fce22eb0b784/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/test_coverage "Coverage")   
 
 ##### Developer
 
@@ -38,6 +38,45 @@ function renderBadges() {
    })
 }
 ```
+
+
+## Configuration
+
+In `package.json`...
+
+    ...
+    "badges": {
+      "github": "MarkGriffiths", // github user
+      "npm": "thebespokepixel", // npm user
+      "codeclimate": "a0a755b0fce22eb0b784", // codeclimate badge asset id
+      "name": "badges", // Package name
+      "style": "flat", // Badge style (default 'flat')
+      "providers": { // Non-default badge provider configuration
+        "status": {
+          "text": "beta",
+          "color": "blue"
+        },
+        "aux1": {
+          "title": "github",
+          "text": "source",
+          "color": "4E73B6",
+          "link": "https://github.com/MarkGriffiths/badges"
+        }
+      }
+      "readme": { // Section with subtitles as map of arrays
+        "Status": [
+          [ "status", "npm", "travis", "david" ],
+          [ "code-climate", "code-climate-coverage", "snyk" ]
+        ],
+        "Developer": [ "david-dev", "rollup" ],
+        "Help": [ "inch", "gitter" ]
+      },
+      "docs": [ // Lines as an array of arrays
+        [ "aux1", "travis" ],
+        [ "code-climate", "code-climate-coverage" ],
+        [ "david" ]
+      ]
+    }
 
 
 ## Documentation

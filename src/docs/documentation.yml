@@ -10,7 +10,7 @@ toc:
       "badges": {
         "github": "MarkGriffiths", // github user
         "npm": "thebespokepixel", // npm user
-        "codeclimate": "1a636cbbe7b06bdc499c", // codeclimate badge asset id
+        "codeclimate": "a0a755b0fce22eb0b784", // codeclimate badge asset id
         "name": "badges", // Package name
         "style": "square", // Badge style (default 'flat')
         "providers": { // Non-default badge provider configuration
