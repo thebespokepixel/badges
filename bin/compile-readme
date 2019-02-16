@@ -29,7 +29,7 @@ var updateNotifier = _interopDefault(require('update-notifier'));
 var verbosity = require('verbosity');
 
 const name = "@thebespokepixel/badges";
-const version = "1.0.1";
+const version = "1.0.2";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
