@@ -29,7 +29,7 @@ var updateNotifier = _interopDefault(require('update-notifier'));
 var verbosity = require('verbosity');
 
 const name = "@thebespokepixel/badges";
-const version = "1.0.0";
+const version = "1.0.1";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
@@ -122,7 +122,7 @@ const xo = {
 const badges = {
 	github: "MarkGriffiths",
 	npm: "thebespokepixel",
-	codeclimate: "1a636cbbe7b06bdc499c",
+	codeclimate: "a0a755b0fce22eb0b784",
 	name: "badges",
 	providers: {
 		status: {
@@ -142,10 +142,10 @@ const badges = {
 	readme: {
 		Status: [
 			[
-				"status",
 				"npm",
 				"travis",
-				"david"
+				"david",
+				"status"
 			],
 			[
 				"snyk",
