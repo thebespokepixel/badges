@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/MarkGriffiths/badges#readme",
   "dependencies": {
-    "@thebespokepixel/meta": "^0.2.5",
+    "@thebespokepixel/meta": "^1.0.0",
     "@thebespokepixel/string": "^0.5.4",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.11",
