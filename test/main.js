@@ -3,7 +3,7 @@ import badges from '..'
 
 test('Simple status', async t => {
 	const content = await badges('test-1')
-	t.is(content, '![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat)   \n')
+	t.is(content, '![Status](https://img.shields.io/badge/status-production-green.svg?style=flat)   \n')
 })
 
 test('Simple status as AST', async t => {
@@ -13,7 +13,7 @@ test('Simple status as AST', async t => {
 		children: [
 			{
 				alt: 'Status',
-				url: 'https://img.shields.io/badge/status-beta-blue.svg?style=flat',
+				url: 'https://img.shields.io/badge/status-production-green.svg?style=flat',
 				type: 'image'
 			},
 			{
@@ -27,4 +27,3 @@ test('Simple status as AST', async t => {
 	}
 	t.deepEqual(content, expected)
 })
-
