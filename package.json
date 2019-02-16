@@ -97,8 +97,8 @@
     "name": "badges",
     "providers": {
       "status": {
-        "text": "beta",
-        "color": "blue"
+        "text": "production",
+        "color": "green"
       },
       "aux1": {
         "title": "github",
