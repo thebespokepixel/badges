@@ -57,7 +57,7 @@
     "unist-builder": "^1.0.3",
     "update-notifier": "^2.5.0",
     "urlencode": "^1.1.0",
-    "verbosity": "^0.10.1",
+    "verbosity": "^1.0.0",
     "yargs": "^13.2.0"
   },
   "devDependencies": {
