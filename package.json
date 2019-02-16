@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "module": "index.mjs",
@@ -93,7 +93,7 @@
   "badges": {
     "github": "MarkGriffiths",
     "npm": "thebespokepixel",
-    "codeclimate": "1a636cbbe7b06bdc499c",
+    "codeclimate": "a0a755b0fce22eb0b784",
     "name": "badges",
     "providers": {
       "status": {
@@ -113,10 +113,10 @@
     "readme": {
       "Status": [
         [
-          "status",
           "npm",
           "travis",
-          "david"
+          "david",
+          "status"
         ],
         [
           "snyk",
