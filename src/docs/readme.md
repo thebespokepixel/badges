@@ -1,4 +1,4 @@
-# @thebespokepixel/badges
+# Badges
 
 > Automatically render project badges into readme and documentation files.
 

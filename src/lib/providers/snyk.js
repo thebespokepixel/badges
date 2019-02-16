@@ -13,11 +13,11 @@ export default function render(config, user) {
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
-			url: `https://snyk.io/test/github/${
+			url: `https://img.shields.io/snyk/vulnerabilities/github/${
 				user.github.slug
-			}/badge.svg?style=${
+			}.svg?style=${
 				config.style
-			}`
+			}&logo=npm`
 		})
 	])
 }

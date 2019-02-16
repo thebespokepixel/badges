@@ -1,11 +1,11 @@
-# @thebespokepixel/badges
+# Badges
 
 > Automatically render project badges into readme and documentation files.
 
 ##### Status
 
-![Status](https://img.shields.io/badge/status-beta-blue.svg?style=flat) [![npm](https://img.shields.io/npm/v/@thebespokepixel/badges.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/badges "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/badges "Travis") [![David](https://img.shields.io/david/MarkGriffiths/badges.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/badges/master "David")  
- [![Code-climate](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/test_coverage "Coverage") [![Snyk](https://snyk.io/test/github/MarkGriffiths/badges/badge.svg?style=flat)](https://snyk.io/test/github/MarkGriffiths/badges "Snyk")   
+![Status](https://img.shields.io/badge/status-production-green.svg?style=flat) [![npm](https://img.shields.io/npm/v/@thebespokepixel/badges.svg?style=flat&logo=npm)](https://www.npmjs.com/package/@thebespokepixel/badges "npm") [![Travis](https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat&logo=travis)](https://travis-ci.org/MarkGriffiths/badges "Travis") [![David](https://img.shields.io/david/MarkGriffiths/badges.svg?branch=master&style=flat)](https://david-dm.org/MarkGriffiths/badges/master "David")  
+ [![Snyk](https://img.shields.io/snyk/vulnerabilities/github/MarkGriffiths/badges.svg?style=flat&logo=npm)](https://snyk.io/test/github/MarkGriffiths/badges "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/maintainability?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/1a636cbbe7b06bdc499c/test_coverage?style=flat)](https://codeclimate.com/github/MarkGriffiths/badges/test_coverage "Coverage")   
 
 ##### Developer
 
