@@ -158,7 +158,7 @@ function render$7(config, user) {
     url: `https://snyk.io/test/github/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://snyk.io/test/github/${user.github.slug}/badge.svg?style=${config.style}`
+    url: `https://img.shields.io/snyk/vulnerabilities/github/${user.github.slug}.svg?style=${config.style}&logo=npm`
   })]);
 }
 
