@@ -29,7 +29,7 @@ var updateNotifier = _interopDefault(require('update-notifier'));
 var verbosity = require('verbosity');
 
 const name = "@thebespokepixel/badges";
-const version = "1.0.3";
+const version = "1.0.4";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
@@ -96,7 +96,7 @@ const devDependencies = {
 	ava: "^1.2.1",
 	"babel-plugin-lodash": "^3.3.4",
 	documentation: "^9.1.1",
-	"documentation-theme-bespoke": "^0.4.11",
+	"documentation-theme-bespoke": "^0.5.0",
 	gulp: "^4.0.0",
 	"gulp-better-rollup": "^3.4.0",
 	"gulp-chmod": "^2.0.0",
@@ -261,7 +261,7 @@ function cc(config, user) {
     url: `https://codeclimate.com/github/${user.github.slug}/maintainability`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimate}/maintainability?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability?style=${config.style}`
   })]);
 }
 function ccCoverage(config, user) {
@@ -270,7 +270,7 @@ function ccCoverage(config, user) {
     url: `https://codeclimate.com/github/${user.github.slug}/test_coverage`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimate}/test_coverage?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage?style=${config.style}`
   })]);
 }
 
@@ -364,10 +364,30 @@ function render$8(config, user) {
 function render$9(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
+    url: 'https://greenkeeper.io/'
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://badges.greenkeeper.io/${user.github.slug}.svg?token=${user.greenkeeperToken}`
+  })]);
+}
+
+function render$a(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
+  })]);
+}
+
+function render$b(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://travis-ci.com/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch}&token=${user.travisToken}`
   })]);
 }
 
@@ -385,7 +405,9 @@ const services = {
   rollup: render$6,
   snyk: render$7,
   greenkeeper: render$8,
-  travis: render$9
+  'greenkeeper-pro': render$9,
+  travis: render$a,
+  'travis-pro': render$b
 };
 
 function parseQueue(collection, providers, user) {
@@ -411,7 +433,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$a(context, asAST = false) {
+async function render$c(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const {
@@ -440,7 +462,9 @@ async function render$a(context, asAST = false) {
         slug: `${config.github}/${config.name}`
       },
       npm: config.npm,
-      codeclimate: config.codeclimate
+      codeclimateToken: config.codeclimate,
+      travisToken: config.travis,
+      greenkeeperToken: config.greenkeeper
     },
     providers: _forIn(_defaultsDeep(config.providers, {
       status: {
@@ -498,7 +522,14 @@ async function render$a(context, asAST = false) {
       greenkeeper: {
         title: 'greenkeeper'
       },
+      'greenkeeper-pro': {
+        title: 'greenkeeper'
+      },
       travis: {
+        title: 'travis',
+        branch: 'master'
+      },
+      'travis-pro': {
         title: 'travis',
         branch: 'master'
       }
@@ -623,9 +654,9 @@ if (argv.verbose) {
   }
 }
 
-async function render$b(template) {
+async function render$d(template) {
   const content = {
-    badges: await render$a(argv.context),
+    badges: await render$c(argv.context),
     usage: ''
   };
 
@@ -639,4 +670,4 @@ async function render$b(template) {
 
 const source = path.resolve(argv._[0]);
 console.debug('Source path:', source);
-render$b(_template(fs.readFileSync(source)));
+render$d(_template(fs.readFileSync(source)));
