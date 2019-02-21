@@ -73,110 +73,110 @@ function parseQueue(collection, providers, user) {
  * @param  {Boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
  * @return {Promise}        A promise that resolves to the markdown formatted output.
  */
-export default function render(context, asAST = false) {
-	return Promise.all([
+export default async function render(context, asAST = false) {
+	const configArray = await Promise.all([
 		pkgConf('badges'),
 		readPkg()
-	]).then(configArray => {
-		const config = configArray[0]
-		const {pkg} = configArray[1]
-		if (!config.name || !config.github || !config.npm) {
-			throw new Error('Badges requires at least a package name, github repo and npm user account.')
-		}
+	])
+	const config = configArray[0]
+	const {pkg} = configArray[1]
 
-		if (!config[context]) {
-			throw new Error(`${context} is not provided in package.json.`)
-		}
+	if (!config.name || !config.github || !config.npm) {
+		throw new Error('Badges requires at least a package name, github repo and npm user account.')
+	}
 
-		if (!config.providers) {
-			throw new Error('At least one badge provider must be specified.')
-		}
+	if (!config[context]) {
+		throw new Error(`${context} is not provided in package.json.`)
+	}
 
-		return {
-			user: {
-				name: config.name,
-				fullName: pkg.name,
-				scoped: /^@.+?\//.test(pkg.name),
-				github: {
-					user: config.github,
-					slug: `${config.github}/${config.name}`
-				},
-				npm: config.npm,
-				codeclimate: config.codeclimate
+	if (!config.providers) {
+		throw new Error('At least one badge provider must be specified.')
+	}
+
+	const badgeQueue = {
+		user: {
+			name: config.name,
+			fullName: pkg.name,
+			scoped: /^@.+?\//.test(pkg.name),
+			github: {
+				user: config.github,
+				slug: `${config.github}/${config.name}`
 			},
-			providers: _.forIn(_.defaultsDeep(config.providers, {
-				status: {
-					title: 'status',
-					text: 'badge',
-					color: 'red',
-					link: false
-				},
-				'aux-1': {
-					title: 'aux1',
-					text: 'badge',
-					color: 'green',
-					link: false
-				},
-				'aux-2': {
-					title: 'aux2',
-					text: 'badge',
-					color: 'blue',
-					link: false
-				},
-				gitter: {
-					title: 'gitter',
-					room: 'help'
-				},
-				'code-climate': {
-					title: 'code-climate'
-				},
-				'code-climate-coverage': {
-					title: 'coverage'
-				},
-				david: {
-					title: 'david',
-					branch: 'master'
-				},
-				'david-dev': {
-					title: 'david-developer',
-					branch: 'master'
-				},
-				inch: {
-					title: 'inch',
-					branch: 'master',
-					style: 'shields'
-				},
-				npm: {
-					title: 'npm',
-					icon: true
-				},
-				rollup: {
-					title: 'rollup',
-					icon: true
-				},
-				snyk: {
-					title: 'snyk'
-				},
-				greenkeeper: {
-					title: 'greenkeeper'
-				},
-				travis: {
-					title: 'travis',
-					branch: 'master'
-				}
-			}), value => _.defaultsDeep(value, {
-				style: config.style || 'flat',
-				icon: false
-			})),
-			queue: config[context]
-		}
-	}).then(config => {
-		return node('root', parseQueue(config.queue, config.providers, config.user))
-	}).then(md => {
-		if (asAST) {
-			return md
-		}
+			npm: config.npm,
+			codeclimate: config.codeclimate
+		},
+		providers: _.forIn(_.defaultsDeep(config.providers, {
+			status: {
+				title: 'status',
+				text: 'badge',
+				color: 'red',
+				link: false
+			},
+			'aux-1': {
+				title: 'aux1',
+				text: 'badge',
+				color: 'green',
+				link: false
+			},
+			'aux-2': {
+				title: 'aux2',
+				text: 'badge',
+				color: 'blue',
+				link: false
+			},
+			gitter: {
+				title: 'gitter',
+				room: 'help'
+			},
+			'code-climate': {
+				title: 'code-climate'
+			},
+			'code-climate-coverage': {
+				title: 'coverage'
+			},
+			david: {
+				title: 'david',
+				branch: 'master'
+			},
+			'david-dev': {
+				title: 'david-developer',
+				branch: 'master'
+			},
+			inch: {
+				title: 'inch',
+				branch: 'master',
+				style: 'shields'
+			},
+			npm: {
+				title: 'npm',
+				icon: true
+			},
+			rollup: {
+				title: 'rollup',
+				icon: true
+			},
+			snyk: {
+				title: 'snyk'
+			},
+			greenkeeper: {
+				title: 'greenkeeper'
+			},
+			travis: {
+				title: 'travis',
+				branch: 'master'
+			}
+		}), value => _.defaultsDeep(value, {
+			style: config.style || 'flat',
+			icon: false
+		})),
+		queue: config[context]
+	}
 
-		return remark().use(gap).use(squeeze).stringify(md)
-	})
+	const ast = node('root', parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user))
+
+	if (asAST) {
+		return ast
+	}
+
+	return remark().use(gap).use(squeeze).stringify(ast)
 }
