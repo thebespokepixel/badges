@@ -6,12 +6,16 @@ import node from 'unist-builder'
 // [code-climate]: https://codeclimate.com/github/MarkGriffiths/badges
 // [coverage]: https://codeclimate.com/coverage/github/MarkGriffiths/badges
 
+function ccPath(user) {
+	return user.codeclimateRepoToken ?
+		`repos/${user.codeclimateRepoToken}` :
+		`github/${user.github.slug}`
+}
+
 export function cc(config, user) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://codeclimate.com/github/${
-			user.github.slug
-		}/maintainability`
+		url: `https://codeclimate.com/${ccPath(user)}/maintainability`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
@@ -27,9 +31,7 @@ export function cc(config, user) {
 export function ccCoverage(config, user) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://codeclimate.com/github/${
-			user.github.slug
-		}/test_coverage`
+		url: `https://codeclimate.com/${ccPath(user)}/test_coverage`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
