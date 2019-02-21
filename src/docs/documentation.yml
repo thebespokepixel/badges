@@ -45,14 +45,16 @@ toc:
       ```
       - status (plus similar aux1 and aux2)
       - travis
+      - travis-pro (requires a 'travis' token)
       - david and david-dev
-      - code-climate and code-climate-coverage
+      - code-climate and code-climate-coverage (requires a 'codeclimate' token)
       - inch
       - npm
       - rollup
       - snyk
       - gitter
       - greenkeeper
+      - greenkeeper-pro (requires a 'greenkeeper' token)
       ```
 
   - name: "CLI"

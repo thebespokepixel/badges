@@ -7,6 +7,22 @@ ${badges}
 ## Usage
 ${usage}
 
+## Supported badges
+
+- Status (plus similar aux1 and aux2)
+- Travis
+- Travis Pro (requires a `travis` private repo token)
+- David and David-dev
+- CodeClimate and CodeClimate-coverage (requires a `codeclimate` repo token)
+- Inch CI
+- npm
+- Rollup
+- Snyk
+- Gitter
+- Greenkeeper
+- Greenkeeper Pro (requires a `greenkeeper` private repo token)
+
+
 ## Configuration
 
 In `package.json`...
@@ -16,7 +32,9 @@ In `package.json`...
 "badges": {
   "github": "MarkGriffiths", // github user
   "npm": "thebespokepixel", // npm user
-  "codeclimate": "a0a755b0fce22eb0b784", // codeclimate badge asset id
+  "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token
+  "travis": "1a2b3c4d", // Travis 'Pro' private repo token
+  "greenkeeper": "1a2b3c4d", // Travis 'Pro' private repo token
   "name": "badges", // Package name
   "style": "flat", // Badge style (default 'flat')
   "providers": { // Non-default badge provider configuration
