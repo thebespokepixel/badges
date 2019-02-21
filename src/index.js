@@ -20,7 +20,9 @@ import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
 import snyk from './lib/providers/snyk'
 import greenkeeper from './lib/providers/greenkeeper'
+import greenkeeperPro from './lib/providers/greenkeeper-pro'
 import travis from './lib/providers/travis'
+import travisPro from './lib/providers/travis-pro'
 
 const services = {
 	status,
@@ -36,7 +38,9 @@ const services = {
 	rollup,
 	snyk,
 	greenkeeper,
-	travis
+	'greenkeeper-pro': greenkeeperPro,
+	travis,
+	'travis-pro': travisPro
 }
 
 function parseQueue(collection, providers, user) {
@@ -103,7 +107,9 @@ export default async function render(context, asAST = false) {
 				slug: `${config.github}/${config.name}`
 			},
 			npm: config.npm,
-			codeclimate: config.codeclimate
+			codeclimateToken: config.codeclimate,
+			travisToken: config.travis,
+			greenkeeperToken: config.greenkeeper
 		},
 		providers: _.forIn(_.defaultsDeep(config.providers, {
 			status: {
@@ -161,7 +167,14 @@ export default async function render(context, asAST = false) {
 			greenkeeper: {
 				title: 'greenkeeper'
 			},
+			'greenkeeper-pro': {
+				title: 'greenkeeper'
+			},
 			travis: {
+				title: 'travis',
+				branch: 'master'
+			},
+			'travis-pro': {
 				title: 'travis',
 				branch: 'master'
 			}

@@ -68,7 +68,7 @@ function cc(config, user) {
     url: `https://codeclimate.com/github/${user.github.slug}/maintainability`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimate}/maintainability?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability?style=${config.style}`
   })]);
 }
 function ccCoverage(config, user) {
@@ -77,7 +77,7 @@ function ccCoverage(config, user) {
     url: `https://codeclimate.com/github/${user.github.slug}/test_coverage`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimate}/test_coverage?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage?style=${config.style}`
   })]);
 }
 
@@ -171,10 +171,30 @@ function render$8(config, user) {
 function render$9(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
+    url: 'https://greenkeeper.io/'
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://badges.greenkeeper.io/${user.github.slug}.svg?token=${user.greenkeeperToken}`
+  })]);
+}
+
+function render$a(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
+  })]);
+}
+
+function render$b(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://travis-ci.com/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch}&token=${user.travisToken}`
   })]);
 }
 
@@ -192,7 +212,9 @@ const services = {
   rollup: render$6,
   snyk: render$7,
   greenkeeper: render$8,
-  travis: render$9
+  'greenkeeper-pro': render$9,
+  travis: render$a,
+  'travis-pro': render$b
 };
 
 function parseQueue(collection, providers, user) {
@@ -218,7 +240,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$a(context, asAST = false) {
+async function render$c(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const {
@@ -247,7 +269,9 @@ async function render$a(context, asAST = false) {
         slug: `${config.github}/${config.name}`
       },
       npm: config.npm,
-      codeclimate: config.codeclimate
+      codeclimateToken: config.codeclimate,
+      travisToken: config.travis,
+      greenkeeperToken: config.greenkeeper
     },
     providers: _forIn(_defaultsDeep(config.providers, {
       status: {
@@ -305,7 +329,14 @@ async function render$a(context, asAST = false) {
       greenkeeper: {
         title: 'greenkeeper'
       },
+      'greenkeeper-pro': {
+        title: 'greenkeeper'
+      },
       travis: {
+        title: 'travis',
+        branch: 'master'
+      },
+      'travis-pro': {
         title: 'travis',
         branch: 'master'
       }
@@ -324,4 +355,4 @@ async function render$a(context, asAST = false) {
   return remark().use(gap).use(squeeze).stringify(ast);
 }
 
-export default render$a;
+export default render$c;

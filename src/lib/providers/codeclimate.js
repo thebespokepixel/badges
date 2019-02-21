@@ -16,7 +16,7 @@ export function cc(config, user) {
 		node('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://api.codeclimate.com/v1/badges/${
-				user.codeclimate
+				user.codeclimateToken
 			}/maintainability?style=${
 				config.style
 			}`
@@ -34,7 +34,7 @@ export function ccCoverage(config, user) {
 		node('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://api.codeclimate.com/v1/badges/${
-				user.codeclimate
+				user.codeclimateToken
 			}/test_coverage?style=${
 				config.style
 			}`
