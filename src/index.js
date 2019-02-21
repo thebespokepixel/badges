@@ -108,6 +108,7 @@ export default async function render(context, asAST = false) {
 			},
 			npm: config.npm,
 			codeclimateToken: config.codeclimate,
+			codeclimateRepoToken: config['codeclimate-repo'],
 			travisToken: config.travis,
 			greenkeeperToken: config.greenkeeper
 		},

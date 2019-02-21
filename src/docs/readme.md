@@ -22,7 +22,6 @@ ${usage}
 - Greenkeeper
 - Greenkeeper Pro (requires a `greenkeeper` private repo token)
 
-
 ## Configuration
 
 In `package.json`...

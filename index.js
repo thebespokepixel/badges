@@ -66,10 +66,14 @@ function render$2(config) {
   return badgeNode;
 }
 
+function ccPath(user) {
+  return user.codeclimateRepoToken ? `repos/${user.codeclimateRepoToken}` : `github/${user.github.slug}`;
+}
+
 function cc(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://codeclimate.com/github/${user.github.slug}/maintainability`
+    url: `https://codeclimate.com/${ccPath(user)}/maintainability`
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability?style=${config.style}`
@@ -78,7 +82,7 @@ function cc(config, user) {
 function ccCoverage(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://codeclimate.com/github/${user.github.slug}/test_coverage`
+    url: `https://codeclimate.com/${ccPath(user)}/test_coverage`
   }, [node('image', {
     alt: _upperFirst(config.title),
     url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage?style=${config.style}`
@@ -274,6 +278,7 @@ async function render$c(context, asAST = false) {
       },
       npm: config.npm,
       codeclimateToken: config.codeclimate,
+      codeclimateRepoToken: config['codeclimate-repo'],
       travisToken: config.travis,
       greenkeeperToken: config.greenkeeper
     },
