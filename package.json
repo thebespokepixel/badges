@@ -47,7 +47,7 @@
     "lodash": "^4.17.11",
     "mdast-util-inject": "^1.1.0",
     "pkg-conf": "^2.1.0",
-    "read-pkg-up": "^4.0.0",
+    "read-pkg-up": "^5.0.0",
     "remark": "^10.0.1",
     "remark-heading-gap": "^3.1.0",
     "remark-squeeze-paragraphs": "^3.0.3",
