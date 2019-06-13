@@ -2,11 +2,6 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _upperFirst = _interopDefault(require('lodash/upperFirst'));
-var node = _interopDefault(require('unist-builder'));
-var fs = require('fs');
-var path = require('path');
-var urlencode = _interopDefault(require('urlencode'));
 var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
 var _forIn = _interopDefault(require('lodash/forIn'));
 var _map = _interopDefault(require('lodash/map'));
@@ -15,8 +10,13 @@ var _flatten = _interopDefault(require('lodash/flatten'));
 var pkgConf = _interopDefault(require('pkg-conf'));
 var readPkg = _interopDefault(require('read-pkg-up'));
 var remark = _interopDefault(require('remark'));
+var node = _interopDefault(require('unist-builder'));
 var gap = _interopDefault(require('remark-heading-gap'));
 var squeeze = _interopDefault(require('remark-squeeze-paragraphs'));
+var _upperFirst = _interopDefault(require('lodash/upperFirst'));
+var urlencode = _interopDefault(require('urlencode'));
+var fs = require('fs');
+var path = require('path');
 
 function render(config) {
   const badgeNode = node('image', {
@@ -251,9 +251,7 @@ function parseQueue(collection, providers, user) {
 async function render$c(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
-  const {
-    pkg
-  } = configArray[1];
+  const pkg = configArray[1].package;
 
   if (!config.name || !config.github || !config.npm) {
     throw new Error('Badges requires at least a package name, github repo and npm user account.');

@@ -1,8 +1,3 @@
-import _upperFirst from 'lodash/upperFirst';
-import node from 'unist-builder';
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-import urlencode from 'urlencode';
 import _defaultsDeep from 'lodash/defaultsDeep';
 import _forIn from 'lodash/forIn';
 import _map from 'lodash/map';
@@ -11,8 +6,13 @@ import _flatten from 'lodash/flatten';
 import pkgConf from 'pkg-conf';
 import readPkg from 'read-pkg-up';
 import remark from 'remark';
+import node from 'unist-builder';
 import gap from 'remark-heading-gap';
 import squeeze from 'remark-squeeze-paragraphs';
+import _upperFirst from 'lodash/upperFirst';
+import urlencode from 'urlencode';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 function render(config) {
   const badgeNode = node('image', {
@@ -247,9 +247,7 @@ function parseQueue(collection, providers, user) {
 async function render$c(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
-  const {
-    pkg
-  } = configArray[1];
+  const pkg = configArray[1].package;
 
   if (!config.name || !config.github || !config.npm) {
     throw new Error('Badges requires at least a package name, github repo and npm user account.');
