@@ -3,22 +3,9 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _upperFirst = _interopDefault(require('lodash/upperFirst'));
-var node = _interopDefault(require('unist-builder'));
-var fs = require('fs');
-var path = require('path');
-var urlencode = _interopDefault(require('urlencode'));
-var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
-var _forIn = _interopDefault(require('lodash/forIn'));
-var _map = _interopDefault(require('lodash/map'));
-var _isObject = _interopDefault(require('lodash/isObject'));
-var _flatten = _interopDefault(require('lodash/flatten'));
-var pkgConf = _interopDefault(require('pkg-conf'));
-var readPkg = _interopDefault(require('read-pkg-up'));
-var remark = _interopDefault(require('remark'));
-var gap = _interopDefault(require('remark-heading-gap'));
-var squeeze = _interopDefault(require('remark-squeeze-paragraphs'));
 var _template = _interopDefault(require('lodash/template'));
+var path = require('path');
+var fs = require('fs');
 var trucolor = require('trucolor');
 var truwrap = require('truwrap');
 var commonTags = require('common-tags');
@@ -27,6 +14,19 @@ var meta = _interopDefault(require('@thebespokepixel/meta'));
 var yargs = _interopDefault(require('yargs'));
 var updateNotifier = _interopDefault(require('update-notifier'));
 var verbosity = require('verbosity');
+var remark = _interopDefault(require('remark'));
+var gap = _interopDefault(require('remark-heading-gap'));
+var squeeze = _interopDefault(require('remark-squeeze-paragraphs'));
+var _defaultsDeep = _interopDefault(require('lodash/defaultsDeep'));
+var _forIn = _interopDefault(require('lodash/forIn'));
+var _map = _interopDefault(require('lodash/map'));
+var _isObject = _interopDefault(require('lodash/isObject'));
+var _flatten = _interopDefault(require('lodash/flatten'));
+var pkgConf = _interopDefault(require('pkg-conf'));
+var readPkg = _interopDefault(require('read-pkg-up'));
+var node = _interopDefault(require('unist-builder'));
+var _upperFirst = _interopDefault(require('lodash/upperFirst'));
+var urlencode = _interopDefault(require('urlencode'));
 
 const name = "@thebespokepixel/badges";
 const version = "1.0.6";
@@ -75,35 +75,36 @@ const dependencies = {
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.11",
 	"mdast-util-inject": "^1.1.0",
-	"pkg-conf": "^2.1.0",
-	"read-pkg-up": "^4.0.0",
+	"pkg-conf": "^3.1.0",
+	"read-pkg-up": "^6.0.0",
 	remark: "^10.0.1",
 	"remark-heading-gap": "^3.1.0",
 	"remark-squeeze-paragraphs": "^3.0.3",
 	"remark-usage": "^6.1.3",
 	trucolor: "^1.0.2",
 	truwrap: "^1.0.2",
-	"unist-builder": "^1.0.3",
-	"update-notifier": "^2.5.0",
+	"unist-builder": "^1.0.4",
+	"update-notifier": "^3.0.0",
 	urlencode: "^1.1.0",
-	verbosity: "^1.0.2",
-	yargs: "^13.2.1"
+	verbosity: "^1.1.0",
+	yargs: "^13.2.4"
 };
 const devDependencies = {
-	"@babel/core": "^7.2.2",
-	"@babel/preset-env": "^7.3.1",
-	ava: "^1.2.1",
+	"@babel/core": "^7.4.5",
+	"@babel/preset-env": "^7.4.5",
+	ava: "^2.1.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^0.5.2",
-	gulp: "^4.0.0",
-	"gulp-better-rollup": "^3.4.0",
-	"gulp-chmod": "^2.0.0",
+	"documentation-theme-bespoke": "^0.5.5",
+	gulp: "^4.0.2",
+	"gulp-better-rollup": "^4.0.1",
+	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^1.4.0",
-	nyc: "^13.3.0",
+	nyc: "^14.1.1",
+	rollup: "^1.15.2",
 	"rollup-plugin-babel": "^4.3.2",
-	"rollup-plugin-commonjs": "^9.2.1",
-	"rollup-plugin-json": "^3.1.0",
-	"rollup-plugin-node-resolve": "^4.0.1",
+	"rollup-plugin-commonjs": "^10.0.0",
+	"rollup-plugin-json": "^4.0.0",
+	"rollup-plugin-node-resolve": "^5.0.2",
 	xo: "^0.24.0"
 };
 const xo = {
@@ -115,6 +116,11 @@ const xo = {
 		"docs/**",
 		"src/docs/example.js",
 		"test/coverage/**"
+	]
+};
+const ava = {
+	files: [
+		"!test/fixtures"
 	]
 };
 const badges = {
@@ -201,6 +207,7 @@ var pkg = {
 	dependencies: dependencies,
 	devDependencies: devDependencies,
 	xo: xo,
+	ava: ava,
 	badges: badges,
 	engines: engines
 };
@@ -438,9 +445,7 @@ function parseQueue(collection, providers, user) {
 async function render$c(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
-  const {
-    pkg
-  } = configArray[1];
+  const pkg = configArray[1].package;
 
   if (!config.name || !config.github || !config.npm) {
     throw new Error('Badges requires at least a package name, github repo and npm user account.');
