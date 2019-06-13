@@ -29,7 +29,7 @@ var _upperFirst = _interopDefault(require('lodash/upperFirst'));
 var urlencode = _interopDefault(require('urlencode'));
 
 const name = "@thebespokepixel/badges";
-const version = "1.0.7";
+const version = "1.0.8";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
