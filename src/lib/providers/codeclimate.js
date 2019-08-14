@@ -21,9 +21,7 @@ export function cc(config, user) {
 			alt: _.upperFirst(config.title),
 			url: `https://api.codeclimate.com/v1/badges/${
 				user.codeclimateToken
-			}/maintainability?style=${
-				config.style
-			}`
+			}/maintainability`
 		})
 	])
 }
@@ -37,9 +35,7 @@ export function ccCoverage(config, user) {
 			alt: _.upperFirst(config.title),
 			url: `https://api.codeclimate.com/v1/badges/${
 				user.codeclimateToken
-			}/test_coverage?style=${
-				config.style
-			}`
+			}/test_coverage`
 		})
 	])
 }

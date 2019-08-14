@@ -19,9 +19,7 @@ export default function render(config, user) {
 				user.github.user
 			}/${
 				config.room
-			}.svg?style=${
-				config.style
-			}`
+			}.svg`
 		})
 	])
 }

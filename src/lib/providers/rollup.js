@@ -15,9 +15,7 @@ export default function render(config) {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
 				urlencode('module:mjs_✔')
-			}-64CA39.svg?style=${
-				config.style
-			}${config.icon && renderIconSVG('rollup')}`
+			}-64CA39.svg?${config.icon && renderIconSVG('rollup')}`
 		})
 	])
 }

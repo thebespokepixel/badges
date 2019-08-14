@@ -16,9 +16,7 @@ export default function render(config, user) {
 			url: `https://inch-ci.org/github/${
 				user.github.slug
 			}.svg?branch=${
-				user.branch
-			}&style=${
-				config.style
+				config.branch === 'dev' ? user.devBranch : config.branch
 			}`
 		})
 	])

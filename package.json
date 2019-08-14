@@ -99,7 +99,7 @@
     "npm": "thebespokepixel",
     "codeclimate": "07f2fcfc32f33b4acc05",
     "name": "badges",
-    "branch": "develop",
+    "devBranch": "develop",
     "providers": {
       "status": {
         "text": "production",
@@ -116,12 +116,23 @@
       "status"
     ],
     "readme": {
-      "Status": [
+      "Publishing Status": [
         [
+          "status",
           "npm",
-          "travis-com",
           "david",
-          "status"
+          "travis-com",
+          "rollup"
+        ]
+      ],
+      "Development Status (develop branch)": [
+        [
+          "greenkeeper",
+          "travis-com-dev"
+        ],
+        [
+          "david-dev",
+          "david-devdeps-dev"
         ],
         [
           "snyk",
@@ -129,12 +140,7 @@
           "code-climate-coverage"
         ]
       ],
-      "Developer": [
-        "greenkeeper",
-        "david-dev",
-        "rollup"
-      ],
-      "Help": [
+      "Documentation": [
         "inch"
       ]
     },
