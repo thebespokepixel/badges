@@ -120,7 +120,7 @@ function render$4(config, user) {
     url: `https://inch-ci.org/github/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch === 'dev' ? user.devBranch : config.branch}`
+    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch === 'dev' ? user.devBranch : config.branch}&style=shields`
   })]);
 }
 
@@ -338,13 +338,11 @@ async function render$8(context, asAST = false) {
       },
       inch: {
         title: 'inch',
-        branch: 'master',
-        style: 'shields'
+        branch: 'master'
       },
       'inch-dev': {
         title: 'inch',
-        branch: 'dev',
-        style: 'shields'
+        branch: 'dev'
       },
       npm: {
         title: 'npm',

@@ -17,7 +17,7 @@ export default function render(config, user) {
 				user.github.slug
 			}.svg?branch=${
 				config.branch === 'dev' ? user.devBranch : config.branch
-			}`
+			}&style=shields`
 		})
 	])
 }

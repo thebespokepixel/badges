@@ -165,13 +165,11 @@ export default async function render(context, asAST = false) {
 			},
 			inch: {
 				title: 'inch',
-				branch: 'master',
-				style: 'shields'
+				branch: 'master'
 			},
 			'inch-dev': {
 				title: 'inch',
-				branch: 'dev',
-				style: 'shields'
+				branch: 'dev'
 			},
 			npm: {
 				title: 'npm',
