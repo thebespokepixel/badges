@@ -4,19 +4,15 @@ import node from 'unist-builder'
 export default function render(config, user) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://travis-ci.com/${
-			user.github.slug
+		url: `https://twitter.com/${
+			user.twitter
 		}`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
-			url: `https://api.travis-ci.com/${
-				user.github.slug
-			}.svg?branch=${
-				config.branch
-			}&token=${
-				user.travisToken
-			}`
+			url: `https://img.shields.io/twitter/follow/${
+				user.twitter
+			}?style=social`
 		})
 	])
 }

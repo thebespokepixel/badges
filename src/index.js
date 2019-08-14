@@ -13,34 +13,41 @@ import status from './lib/providers/status'
 import aux1 from './lib/providers/aux-1'
 import aux2 from './lib/providers/aux-2'
 import {cc, ccCoverage} from './lib/providers/codeclimate'
-import {david, davidDev} from './lib/providers/david'
+import {david, davidDevDeps} from './lib/providers/david'
 import gitter from './lib/providers/gitter'
+import twitter from './lib/providers/twitter'
 import inch from './lib/providers/inch'
 import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
 import snyk from './lib/providers/snyk'
-import greenkeeper from './lib/providers/greenkeeper'
-import greenkeeperPro from './lib/providers/greenkeeper-pro'
-import travis from './lib/providers/travis'
-import travisPro from './lib/providers/travis-pro'
+import {greenkeeper, greenkeeperPro} from './lib/providers/greenkeeper'
+import {travis, travisCom, travisPro} from './lib/providers/travis'
 
 const services = {
 	status,
 	aux1,
 	aux2,
 	gitter,
+	twitter,
 	'code-climate': cc,
 	'code-climate-coverage': ccCoverage,
 	david,
-	'david-dev': davidDev,
+	'david-dev': david,
+	'david-devdeps': davidDevDeps,
+	'david-devdeps-dev': davidDevDeps,
 	inch,
+	'inch-dev': inch,
 	npm,
 	rollup,
 	snyk,
 	greenkeeper,
 	'greenkeeper-pro': greenkeeperPro,
 	travis,
-	'travis-pro': travisPro
+	'travis-dev': travis,
+	'travis-com': travisCom,
+	'travis-com-dev': travisCom,
+	'travis-pro': travisPro,
+	'travis-pro-dev': travisPro
 }
 
 function parseQueue(collection, providers, user) {
@@ -107,6 +114,8 @@ export default async function render(context, asAST = false) {
 				slug: `${config.github}/${config.name}`
 			},
 			npm: config.npm,
+			twitter: config.twitter || config.github,
+			devBranch: 'develop',
 			codeclimateToken: config.codeclimate,
 			codeclimateRepoToken: config['codeclimate-repo'],
 			travisToken: config.travis,
@@ -135,6 +144,9 @@ export default async function render(context, asAST = false) {
 				title: 'gitter',
 				room: 'help'
 			},
+			twitter: {
+				title: 'twitter'
+			},
 			'code-climate': {
 				title: 'code-climate'
 			},
@@ -145,14 +157,25 @@ export default async function render(context, asAST = false) {
 				title: 'david',
 				branch: 'master'
 			},
-			'david-dev': {
+			'david-devdeps': {
 				title: 'david-developer',
 				branch: 'master'
 			},
+			'david-dev': {
+				title: 'david',
+				branch: 'dev'
+			},
+			'david-devdeps-dev': {
+				title: 'david-developer',
+				branch: 'dev'
+			},
 			inch: {
 				title: 'inch',
-				branch: 'master',
-				style: 'shields'
+				branch: 'master'
+			},
+			'inch-dev': {
+				title: 'inch',
+				branch: 'dev'
 			},
 			npm: {
 				title: 'npm',
@@ -175,12 +198,27 @@ export default async function render(context, asAST = false) {
 				title: 'travis',
 				branch: 'master'
 			},
+			'travis-com': {
+				title: 'travis',
+				branch: 'master'
+			},
 			'travis-pro': {
 				title: 'travis',
 				branch: 'master'
+			},
+			'travis-dev': {
+				title: 'travis',
+				branch: 'dev'
+			},
+			'travis-com-dev': {
+				title: 'travis',
+				branch: 'dev'
+			},
+			'travis-pro-dev': {
+				title: 'travis',
+				branch: 'dev'
 			}
 		}), value => _.defaultsDeep(value, {
-			style: config.style || 'flat',
 			icon: false
 		})),
 		queue: config[context]

@@ -21,7 +21,7 @@ var path = require('path');
 function render(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/status-${config.text}-${config.color}.svg?style=${config.style}`
+    url: `https://img.shields.io/badge/status-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -37,7 +37,7 @@ function render(config) {
 function render$1(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
+    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -53,7 +53,7 @@ function render$1(config) {
 function render$2(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg?style=${config.style}`
+    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -76,7 +76,7 @@ function cc(config, user) {
     url: `https://codeclimate.com/${ccPath(user)}/maintainability`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability`
   })]);
 }
 function ccCoverage(config, user) {
@@ -85,26 +85,26 @@ function ccCoverage(config, user) {
     url: `https://codeclimate.com/${ccPath(user)}/test_coverage`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage?style=${config.style}`
+    url: `https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage`
   })]);
 }
 
 function david(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://david-dm.org/${user.github.slug}/${config.branch}`
+    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/david/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}/status.svg`
   })]);
 }
-function davidDev(config, user) {
+function davidDevDeps(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://david-dm.org/${user.github.slug}/${config.branch}#info=devDependencies`
+    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?type=dev`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/david/dev/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}/dev-status.svg`
   })]);
 }
 
@@ -114,27 +114,37 @@ function render$3(config, user) {
     url: `https://gitter.im/${user.github.user}/${config.room}?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/gitter/room/${user.github.user}/${config.room}.svg?style=${config.style}`
+    url: `https://img.shields.io/gitter/room/${user.github.user}/${config.room}`
   })]);
 }
 
 function render$4(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://inch-ci.org/github/${user.github.slug}`
+    url: `https://twitter.com/${user.twitter}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://img.shields.io/twitter/follow/${user.twitter}?style=social`
   })]);
 }
 
 function render$5(config, user) {
   return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://inch-ci.org/github/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch === 'dev' ? user.devBranch : config.branch}&style=shields`
+  })]);
+}
+
+function render$6(config, user) {
+  return node('link', {
     title: config.title,
     url: `https://www.npmjs.com/package/${user.fullName}`
   }, [node('image', {
     alt: config.title,
-    url: `https://img.shields.io/npm/v/${user.fullName}.svg?style=${config.style}&logo=npm`
+    url: `https://img.shields.io/npm/v/${user.fullName}?logo=npm`
   })]);
 }
 
@@ -146,27 +156,27 @@ function renderIcon(file, type) {
 
 const renderIconSVG = id => renderIcon(`../icons/${id}.svg`, 'image/svg+xml');
 
-function render$6(config) {
+function render$7(config) {
   return node('link', {
     title: _upperFirst(config.title),
     url: 'https://github.com/rollup/rollup/wiki/pkg.module'
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/es6-${urlencode('module:mjs_✔')}-64CA39.svg?style=${config.style}${config.icon && renderIconSVG('rollup')}`
+    url: `https://img.shields.io/badge/es6-${urlencode('module:mjs_✔')}-64CA39?${config.icon && renderIconSVG('rollup')}`
   })]);
 }
 
-function render$7(config, user) {
+function render$8(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: `https://snyk.io/test/github/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/snyk/vulnerabilities/github/${user.github.slug}.svg?style=${config.style}&logo=npm`
+    url: `https://snyk.io/test/github/${user.github.slug}/badge.svg`
   })]);
 }
 
-function render$8(config, user) {
+function greenkeeper(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: 'https://greenkeeper.io/'
@@ -175,8 +185,7 @@ function render$8(config, user) {
     url: `https://badges.greenkeeper.io/${user.github.slug}.svg`
   })]);
 }
-
-function render$9(config, user) {
+function greenkeeperPro(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: 'https://greenkeeper.io/'
@@ -186,23 +195,31 @@ function render$9(config, user) {
   })]);
 }
 
-function render$a(config, user) {
+function travis(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
+    url: `https://img.shields.io/travis/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?logo=travis`
   })]);
 }
-
-function render$b(config, user) {
+function travisCom(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: `https://travis-ci.com/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch}&token=${user.travisToken}`
+    url: `https://img.shields.io/travis/com/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?logo=travis`
+  })]);
+}
+function travisPro(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://travis-ci.com/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch === 'dev' ? user.devBranch : config.branch}&token=${user.travisToken}`
   })]);
 }
 
@@ -211,18 +228,26 @@ const services = {
   aux1: render$1,
   aux2: render$2,
   gitter: render$3,
+  twitter: render$4,
   'code-climate': cc,
   'code-climate-coverage': ccCoverage,
   david,
-  'david-dev': davidDev,
-  inch: render$4,
-  npm: render$5,
-  rollup: render$6,
-  snyk: render$7,
-  greenkeeper: render$8,
-  'greenkeeper-pro': render$9,
-  travis: render$a,
-  'travis-pro': render$b
+  'david-dev': david,
+  'david-devdeps': davidDevDeps,
+  'david-devdeps-dev': davidDevDeps,
+  inch: render$5,
+  'inch-dev': render$5,
+  npm: render$6,
+  rollup: render$7,
+  snyk: render$8,
+  greenkeeper,
+  'greenkeeper-pro': greenkeeperPro,
+  travis,
+  'travis-dev': travis,
+  'travis-com': travisCom,
+  'travis-com-dev': travisCom,
+  'travis-pro': travisPro,
+  'travis-pro-dev': travisPro
 };
 
 function parseQueue(collection, providers, user) {
@@ -248,7 +273,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$c(context, asAST = false) {
+async function render$9(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const pkg = configArray[1].package;
@@ -275,6 +300,8 @@ async function render$c(context, asAST = false) {
         slug: `${config.github}/${config.name}`
       },
       npm: config.npm,
+      twitter: config.twitter || config.github,
+      devBranch: 'develop',
       codeclimateToken: config.codeclimate,
       codeclimateRepoToken: config['codeclimate-repo'],
       travisToken: config.travis,
@@ -303,6 +330,9 @@ async function render$c(context, asAST = false) {
         title: 'gitter',
         room: 'help'
       },
+      twitter: {
+        title: 'twitter'
+      },
       'code-climate': {
         title: 'code-climate'
       },
@@ -313,14 +343,25 @@ async function render$c(context, asAST = false) {
         title: 'david',
         branch: 'master'
       },
-      'david-dev': {
+      'david-devdeps': {
         title: 'david-developer',
         branch: 'master'
       },
+      'david-dev': {
+        title: 'david',
+        branch: 'dev'
+      },
+      'david-devdeps-dev': {
+        title: 'david-developer',
+        branch: 'dev'
+      },
       inch: {
         title: 'inch',
-        branch: 'master',
-        style: 'shields'
+        branch: 'master'
+      },
+      'inch-dev': {
+        title: 'inch',
+        branch: 'dev'
       },
       npm: {
         title: 'npm',
@@ -343,12 +384,27 @@ async function render$c(context, asAST = false) {
         title: 'travis',
         branch: 'master'
       },
+      'travis-com': {
+        title: 'travis',
+        branch: 'master'
+      },
       'travis-pro': {
         title: 'travis',
         branch: 'master'
+      },
+      'travis-dev': {
+        title: 'travis',
+        branch: 'dev'
+      },
+      'travis-com-dev': {
+        title: 'travis',
+        branch: 'dev'
+      },
+      'travis-pro-dev': {
+        title: 'travis',
+        branch: 'dev'
       }
     }), value => _defaultsDeep(value, {
-      style: config.style || 'flat',
       icon: false
     })),
     queue: config[context]
@@ -362,4 +418,4 @@ async function render$c(context, asAST = false) {
   return remark().use(gap).use(squeeze).stringify(ast);
 }
 
-module.exports = render$c;
+module.exports = render$9;
