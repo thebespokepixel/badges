@@ -11,7 +11,7 @@ export default function render(config, user) {
 			alt: config.title,
 			url: `https://img.shields.io/npm/v/${
 				user.fullName
-			}.svg?logo=npm`
+			}?logo=npm`
 		})
 	])
 }

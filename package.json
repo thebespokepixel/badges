@@ -127,7 +127,7 @@
           "rollup"
         ]
       ],
-      "Development Status (develop branch)": [
+      "Development Status": [
         [
           "greenkeeper",
           "travis-com-dev"
@@ -142,8 +142,9 @@
           "code-climate-coverage"
         ]
       ],
-      "Documentation": [
-        "inch"
+      "Documentation/Help": [
+        "inch",
+        "twitter"
       ]
     },
     "docs": [

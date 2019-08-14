@@ -114,11 +114,21 @@ function render$3(config, user) {
     url: `https://gitter.im/${user.github.user}/${config.room}?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/gitter/room/${user.github.user}/${config.room}.svg`
+    url: `https://img.shields.io/gitter/room/${user.github.user}/${config.room}`
   })]);
 }
 
 function render$4(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://twitter.com/${user.twitter}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://img.shields.io/twitter/follow/${user.twitter}?style=social`
+  })]);
+}
+
+function render$5(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: `https://inch-ci.org/github/${user.github.slug}`
@@ -128,13 +138,13 @@ function render$4(config, user) {
   })]);
 }
 
-function render$5(config, user) {
+function render$6(config, user) {
   return node('link', {
     title: config.title,
     url: `https://www.npmjs.com/package/${user.fullName}`
   }, [node('image', {
     alt: config.title,
-    url: `https://img.shields.io/npm/v/${user.fullName}.svg?logo=npm`
+    url: `https://img.shields.io/npm/v/${user.fullName}?logo=npm`
   })]);
 }
 
@@ -146,17 +156,17 @@ function renderIcon(file, type) {
 
 const renderIconSVG = id => renderIcon(`../icons/${id}.svg`, 'image/svg+xml');
 
-function render$6(config) {
+function render$7(config) {
   return node('link', {
     title: _upperFirst(config.title),
     url: 'https://github.com/rollup/rollup/wiki/pkg.module'
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/es6-${urlencode('module:mjs_✔')}-64CA39.svg?${config.icon && renderIconSVG('rollup')}`
+    url: `https://img.shields.io/badge/es6-${urlencode('module:mjs_✔')}-64CA39?${config.icon && renderIconSVG('rollup')}`
   })]);
 }
 
-function render$7(config, user) {
+function render$8(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
     url: `https://snyk.io/test/github/${user.github.slug}`
@@ -218,17 +228,18 @@ const services = {
   aux1: render$1,
   aux2: render$2,
   gitter: render$3,
+  twitter: render$4,
   'code-climate': cc,
   'code-climate-coverage': ccCoverage,
   david,
   'david-dev': david,
   'david-devdeps': davidDevDeps,
   'david-devdeps-dev': davidDevDeps,
-  inch: render$4,
-  'inch-dev': render$4,
-  npm: render$5,
-  rollup: render$6,
-  snyk: render$7,
+  inch: render$5,
+  'inch-dev': render$5,
+  npm: render$6,
+  rollup: render$7,
+  snyk: render$8,
   greenkeeper,
   'greenkeeper-pro': greenkeeperPro,
   travis,
@@ -262,7 +273,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$8(context, asAST = false) {
+async function render$9(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const pkg = configArray[1].package;
@@ -289,6 +300,7 @@ async function render$8(context, asAST = false) {
         slug: `${config.github}/${config.name}`
       },
       npm: config.npm,
+      twitter: config.twitter || config.github,
       devBranch: 'develop',
       codeclimateToken: config.codeclimate,
       codeclimateRepoToken: config['codeclimate-repo'],
@@ -317,6 +329,9 @@ async function render$8(context, asAST = false) {
       gitter: {
         title: 'gitter',
         room: 'help'
+      },
+      twitter: {
+        title: 'twitter'
       },
       'code-climate': {
         title: 'code-climate'
@@ -403,4 +418,4 @@ async function render$8(context, asAST = false) {
   return remark().use(gap).use(squeeze).stringify(ast);
 }
 
-module.exports = render$8;
+module.exports = render$9;

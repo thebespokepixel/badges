@@ -15,6 +15,7 @@ import aux2 from './lib/providers/aux-2'
 import {cc, ccCoverage} from './lib/providers/codeclimate'
 import {david, davidDevDeps} from './lib/providers/david'
 import gitter from './lib/providers/gitter'
+import twitter from './lib/providers/twitter'
 import inch from './lib/providers/inch'
 import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
@@ -27,6 +28,7 @@ const services = {
 	aux1,
 	aux2,
 	gitter,
+	twitter,
 	'code-climate': cc,
 	'code-climate-coverage': ccCoverage,
 	david,
@@ -112,6 +114,7 @@ export default async function render(context, asAST = false) {
 				slug: `${config.github}/${config.name}`
 			},
 			npm: config.npm,
+			twitter: config.twitter || config.github,
 			devBranch: 'develop',
 			codeclimateToken: config.codeclimate,
 			codeclimateRepoToken: config['codeclimate-repo'],
@@ -140,6 +143,9 @@ export default async function render(context, asAST = false) {
 			gitter: {
 				title: 'gitter',
 				room: 'help'
+			},
+			twitter: {
+				title: 'twitter'
 			},
 			'code-climate': {
 				title: 'code-climate'

@@ -8,7 +8,7 @@ There's a wealth of status badges available out there, but even using a service 
 
 …how about handling differences in your published and development branches?
 
-…and, or course, you want it all looking tidy, organised and consistent, as much as possible…
+…and, of course, you want it all looking organised and consistent, as much as possible…
 
 Doing it properly means too much faffing about, despite it being useful to have 'at-a-glance' status reporting. This module is my attempt to cover off all that badge work into something I can simply include in `package.json` and move on.
 
@@ -29,6 +29,7 @@ ${usage}
 - Rollup
 - Snyk
 - Gitter
+- Twitter
 - Greenkeeper
 - Greenkeeper Pro (requires a `greenkeeper` private repo token)
 
@@ -39,13 +40,14 @@ In `package.json`...
 ```
 ...
 "badges": {
-  "github": "MarkGriffiths", // github user
+  "name": "badges", // Package name
+  "github": "thebespokepixel", // github user
   "npm": "thebespokepixel", // npm user
+  "twitter": "thebespokepixel", // twitter user (optional, defaults to github user name)
+  "devBranch": "develop", // Development branch name (optional, defaults to 'develop')
   "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token (optional)
   "travis": "1a2b3c4d", // Travis 'Pro' private repo token (optional)
   "greenkeeper": "1a2b3c4d", // Greenkeeper private repo token (optional)
-  "name": "badges", // Package name
-  "devBranch": "develop", // Development branch name (optional)
   "providers": { // Non-default badge provider configuration
     "status": {
       "text": "beta",
@@ -66,7 +68,7 @@ In `package.json`...
       [ "travis-com-dev", "david-dev", "david-devdeps-dev" ],
       [ "code-climate", "code-climate-coverage", "snyk" ]
     ],
-    "Documentation": [ "inch" ]
+    "Documentation/Help": [ "inch", "twitter" ]
   },
   "docs": [ // Lines as an array of arrays
     [ "aux1", "travis" ],
@@ -104,7 +106,7 @@ In `package.json`...
 |`travis-pro`|  Travis.com build status with private token|
 |`travis-pro-dev`| Travis.com build status with private token (dev branch)|
 
-Where possible, https://shields.io is used
+Where possible, https://shields.io is used, or shields.io 'flat' styling is chosen where available from other providors.
 
 ## Documentation
 Full documentation can be found at [https://thebespokepixel.github.io/badges/][1]
