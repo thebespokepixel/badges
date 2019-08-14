@@ -22,6 +22,7 @@ import snyk from './lib/providers/snyk'
 import greenkeeper from './lib/providers/greenkeeper'
 import greenkeeperPro from './lib/providers/greenkeeper-pro'
 import travis from './lib/providers/travis'
+import travisCom from './lib/providers/travis-com'
 import travisPro from './lib/providers/travis-pro'
 
 const services = {
@@ -40,6 +41,7 @@ const services = {
 	greenkeeper,
 	'greenkeeper-pro': greenkeeperPro,
 	travis,
+	'travis-com': travisCom,
 	'travis-pro': travisPro
 }
 
@@ -106,6 +108,7 @@ export default async function render(context, asAST = false) {
 				user: config.github,
 				slug: `${config.github}/${config.name}`
 			},
+			branch: config.branch,
 			npm: config.npm,
 			codeclimateToken: config.codeclimate,
 			codeclimateRepoToken: config['codeclimate-repo'],
@@ -143,15 +146,12 @@ export default async function render(context, asAST = false) {
 			},
 			david: {
 				title: 'david',
-				branch: 'master'
 			},
 			'david-dev': {
 				title: 'david-developer',
-				branch: 'master'
 			},
 			inch: {
 				title: 'inch',
-				branch: 'master',
 				style: 'shields'
 			},
 			npm: {
@@ -172,12 +172,13 @@ export default async function render(context, asAST = false) {
 				title: 'greenkeeper'
 			},
 			travis: {
-				title: 'travis',
-				branch: 'master'
+				title: 'travis'
+			},
+			'travis-com': {
+				title: 'travis'
 			},
 			'travis-pro': {
-				title: 'travis',
-				branch: 'master'
+				title: 'travis'
 			}
 		}), value => _.defaultsDeep(value, {
 			style: config.style || 'flat',

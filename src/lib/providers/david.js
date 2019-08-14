@@ -12,7 +12,7 @@ export function david(config, user) {
 		url: `https://david-dm.org/${
 			user.github.slug
 		}/${
-			config.branch
+			user.branch
 		}`
 	}, [
 		node('image', {
@@ -20,7 +20,7 @@ export function david(config, user) {
 			url: `https://img.shields.io/david/${
 				user.github.slug
 			}.svg?branch=${
-				config.branch
+				user.branch
 			}&style=${
 				config.style
 			}`

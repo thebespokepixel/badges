@@ -9,13 +9,13 @@ import node from 'unist-builder'
 export default function render(config, user) {
 	return node('link', {
 		title: _.upperFirst(config.title),
-		url: `https://travis-ci.org/${
+		url: `https://travis-ci.com/${
 			user.github.slug
 		}`
 	}, [
 		node('image', {
 			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/travis/${
+			url: `https://img.shields.io/travis/com/${
 				user.github.slug
 			}/${
 				user.branch

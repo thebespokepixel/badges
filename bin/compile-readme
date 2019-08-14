@@ -55,7 +55,7 @@ const scripts = {
 };
 const repository = {
 	type: "git",
-	url: "git+https://github.com/MarkGriffiths/badges.git"
+	url: "git+https://github.com/thebespokepixel/badges.git"
 };
 const keywords = [
 	"readme",
@@ -66,33 +66,33 @@ const keywords = [
 const author = "Mark Griffiths <mark@thebespokepixel.com> (http://thebespokepixel.com/)";
 const license = "MIT";
 const bugs = {
-	url: "https://github.com/MarkGriffiths/badges/issues"
+	url: "https://github.com/thebespokepixel/badges/issues"
 };
-const homepage = "https://github.com/MarkGriffiths/badges#readme";
+const homepage = "https://github.com/thebespokepixel/badges#readme";
 const dependencies = {
-	"@thebespokepixel/meta": "^1.0.2",
-	"@thebespokepixel/string": "^0.5.6",
+	"@thebespokepixel/meta": "^1.0.4",
+	"@thebespokepixel/string": "^0.5.8",
 	"common-tags": "^1.8.0",
-	lodash: "^4.17.11",
+	lodash: "^4.17.15",
 	"mdast-util-inject": "^1.1.0",
 	"pkg-conf": "^3.1.0",
 	"read-pkg-up": "^6.0.0",
-	remark: "^10.0.1",
-	"remark-heading-gap": "^3.1.0",
-	"remark-squeeze-paragraphs": "^3.0.3",
-	"remark-usage": "^6.1.3",
-	trucolor: "^1.0.2",
-	truwrap: "^1.0.2",
+	remark: "^11.0.1",
+	"remark-heading-gap": "^3.1.1",
+	"remark-squeeze-paragraphs": "^3.0.4",
+	"remark-usage": "^7.0.1",
+	trucolor: "^1.0.5",
+	truwrap: "^1.0.4",
 	"unist-builder": "^1.0.4",
-	"update-notifier": "^3.0.0",
+	"update-notifier": "^3.0.1",
 	urlencode: "^1.1.0",
-	verbosity: "^1.1.0",
-	yargs: "^13.2.4"
+	verbosity: "^1.1.2",
+	yargs: "^13.3.0"
 };
 const devDependencies = {
-	"@babel/core": "^7.4.5",
-	"@babel/preset-env": "^7.4.5",
-	ava: "^2.1.0",
+	"@babel/core": "^7.5.5",
+	"@babel/preset-env": "^7.5.5",
+	ava: "^2.2.0",
 	"babel-plugin-lodash": "^3.3.4",
 	"documentation-theme-bespoke": "^0.5.6",
 	gulp: "^4.0.2",
@@ -100,11 +100,11 @@ const devDependencies = {
 	"gulp-chmod": "^3.0.0",
 	"gulp-rename": "^1.4.0",
 	nyc: "^14.1.1",
-	rollup: "^1.15.3",
-	"rollup-plugin-babel": "^4.3.2",
-	"rollup-plugin-commonjs": "^10.0.0",
+	rollup: "^1.19.4",
+	"rollup-plugin-babel": "^4.3.3",
+	"rollup-plugin-commonjs": "^10.0.2",
 	"rollup-plugin-json": "^4.0.0",
-	"rollup-plugin-node-resolve": "^5.0.2",
+	"rollup-plugin-node-resolve": "^5.2.0",
 	xo: "^0.24.0"
 };
 const xo = {
@@ -124,10 +124,11 @@ const ava = {
 	]
 };
 const badges = {
-	github: "MarkGriffiths",
+	github: "thebespokepixel",
 	npm: "thebespokepixel",
 	codeclimate: "a0a755b0fce22eb0b784",
 	name: "badges",
+	branch: "develop",
 	providers: {
 		status: {
 			text: "production",
@@ -137,7 +138,7 @@ const badges = {
 			title: "github",
 			text: "source",
 			color: "4E73B6",
-			link: "https://github.com/MarkGriffiths/badges"
+			link: "https://github.com/thebespokepixel/badges"
 		}
 	},
 	"test-1": [
@@ -147,7 +148,7 @@ const badges = {
 		Status: [
 			[
 				"npm",
-				"travis",
+				"travis-com",
 				"david",
 				"status"
 			],
@@ -163,8 +164,7 @@ const badges = {
 			"rollup"
 		],
 		Help: [
-			"inch",
-			"gitter"
+			"inch"
 		]
 	},
 	docs: [
@@ -172,7 +172,7 @@ const badges = {
 			"aux1"
 		],
 		[
-			"travis"
+			"travis-com"
 		],
 		[
 			"david"
@@ -286,10 +286,10 @@ function ccCoverage(config, user) {
 function david(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://david-dm.org/${user.github.slug}/${config.branch}`
+    url: `https://david-dm.org/${user.github.slug}/${user.branch}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/david/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://img.shields.io/david/${user.github.slug}.svg?branch=${user.branch}&style=${config.style}`
   })]);
 }
 function davidDev(config, user) {
@@ -318,7 +318,7 @@ function render$4(config, user) {
     url: `https://inch-ci.org/github/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${user.branch}&style=${config.style}`
   })]);
 }
 
@@ -386,7 +386,7 @@ function render$a(config, user) {
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
+    url: `https://img.shields.io/travis/${user.github.slug}/${user.branch}&style=${config.style}&logo=travis`
   })]);
 }
 
@@ -396,7 +396,17 @@ function render$b(config, user) {
     url: `https://travis-ci.com/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch}&token=${user.travisToken}`
+    url: `https://img.shields.io/travis/com/${user.github.slug}/${user.branch}&style=${config.style}&logo=travis`
+  })]);
+}
+
+function render$c(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://travis-ci.com/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${user.branch}&token=${user.travisToken}`
   })]);
 }
 
@@ -416,7 +426,8 @@ const services = {
   greenkeeper: render$8,
   'greenkeeper-pro': render$9,
   travis: render$a,
-  'travis-pro': render$b
+  'travis-com': render$b,
+  'travis-pro': render$c
 };
 
 function parseQueue(collection, providers, user) {
@@ -442,7 +453,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$c(context, asAST = false) {
+async function render$d(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const pkg = configArray[1].package;
@@ -468,6 +479,7 @@ async function render$c(context, asAST = false) {
         user: config.github,
         slug: `${config.github}/${config.name}`
       },
+      branch: config.branch,
       npm: config.npm,
       codeclimateToken: config.codeclimate,
       codeclimateRepoToken: config['codeclimate-repo'],
@@ -504,16 +516,13 @@ async function render$c(context, asAST = false) {
         title: 'coverage'
       },
       david: {
-        title: 'david',
-        branch: 'master'
+        title: 'david'
       },
       'david-dev': {
-        title: 'david-developer',
-        branch: 'master'
+        title: 'david-developer'
       },
       inch: {
         title: 'inch',
-        branch: 'master',
         style: 'shields'
       },
       npm: {
@@ -534,12 +543,13 @@ async function render$c(context, asAST = false) {
         title: 'greenkeeper'
       },
       travis: {
-        title: 'travis',
-        branch: 'master'
+        title: 'travis'
+      },
+      'travis-com': {
+        title: 'travis'
       },
       'travis-pro': {
-        title: 'travis',
-        branch: 'master'
+        title: 'travis'
       }
     }), value => _defaultsDeep(value, {
       style: config.style || 'flat',
@@ -662,9 +672,9 @@ if (argv.verbose) {
   }
 }
 
-async function render$d(template) {
+async function render$e(template) {
   const content = {
-    badges: await render$c(argv.context),
+    badges: await render$d(argv.context),
     usage: ''
   };
 
@@ -678,4 +688,4 @@ async function render$d(template) {
 
 const source = path.resolve(argv._[0]);
 console.debug('Source path:', source);
-render$d(_template(fs.readFileSync(source)));
+render$e(_template(fs.readFileSync(source)));

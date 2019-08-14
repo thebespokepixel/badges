@@ -92,10 +92,10 @@ function ccCoverage(config, user) {
 function david(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
-    url: `https://david-dm.org/${user.github.slug}/${config.branch}`
+    url: `https://david-dm.org/${user.github.slug}/${user.branch}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/david/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://img.shields.io/david/${user.github.slug}.svg?branch=${user.branch}&style=${config.style}`
   })]);
 }
 function davidDev(config, user) {
@@ -124,7 +124,7 @@ function render$4(config, user) {
     url: `https://inch-ci.org/github/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}`
+    url: `https://inch-ci.org/github/${user.github.slug}.svg?branch=${user.branch}&style=${config.style}`
   })]);
 }
 
@@ -192,7 +192,7 @@ function render$a(config, user) {
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/${user.github.slug}.svg?branch=${config.branch}&style=${config.style}&logo=travis`
+    url: `https://img.shields.io/travis/${user.github.slug}/${user.branch}&style=${config.style}&logo=travis`
   })]);
 }
 
@@ -202,7 +202,17 @@ function render$b(config, user) {
     url: `https://travis-ci.com/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${config.branch}&token=${user.travisToken}`
+    url: `https://img.shields.io/travis/com/${user.github.slug}/${user.branch}&style=${config.style}&logo=travis`
+  })]);
+}
+
+function render$c(config, user) {
+  return node('link', {
+    title: _upperFirst(config.title),
+    url: `https://travis-ci.com/${user.github.slug}`
+  }, [node('image', {
+    alt: _upperFirst(config.title),
+    url: `https://api.travis-ci.com/${user.github.slug}.svg?branch=${user.branch}&token=${user.travisToken}`
   })]);
 }
 
@@ -222,7 +232,8 @@ const services = {
   greenkeeper: render$8,
   'greenkeeper-pro': render$9,
   travis: render$a,
-  'travis-pro': render$b
+  'travis-com': render$b,
+  'travis-pro': render$c
 };
 
 function parseQueue(collection, providers, user) {
@@ -248,7 +259,7 @@ function parseQueue(collection, providers, user) {
   return services[collection](providers[collection], user);
 }
 
-async function render$c(context, asAST = false) {
+async function render$d(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
   const pkg = configArray[1].package;
@@ -274,6 +285,7 @@ async function render$c(context, asAST = false) {
         user: config.github,
         slug: `${config.github}/${config.name}`
       },
+      branch: config.branch,
       npm: config.npm,
       codeclimateToken: config.codeclimate,
       codeclimateRepoToken: config['codeclimate-repo'],
@@ -310,16 +322,13 @@ async function render$c(context, asAST = false) {
         title: 'coverage'
       },
       david: {
-        title: 'david',
-        branch: 'master'
+        title: 'david'
       },
       'david-dev': {
-        title: 'david-developer',
-        branch: 'master'
+        title: 'david-developer'
       },
       inch: {
         title: 'inch',
-        branch: 'master',
         style: 'shields'
       },
       npm: {
@@ -340,12 +349,13 @@ async function render$c(context, asAST = false) {
         title: 'greenkeeper'
       },
       travis: {
-        title: 'travis',
-        branch: 'master'
+        title: 'travis'
+      },
+      'travis-com': {
+        title: 'travis'
       },
       'travis-pro': {
-        title: 'travis',
-        branch: 'master'
+        title: 'travis'
       }
     }), value => _defaultsDeep(value, {
       style: config.style || 'flat',
@@ -362,4 +372,4 @@ async function render$c(context, asAST = false) {
   return remark().use(gap).use(squeeze).stringify(ast);
 }
 
-module.exports = render$c;
+module.exports = render$d;

@@ -33,7 +33,7 @@ In `package.json`...
   "npm": "thebespokepixel", // npm user
   "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token
   "travis": "1a2b3c4d", // Travis 'Pro' private repo token
-  "greenkeeper": "1a2b3c4d", // Travis 'Pro' private repo token
+  "greenkeeper": "1a2b3c4d", // Greenkeeper private repo token
   "name": "badges", // Package name
   "style": "flat", // Badge style (default 'flat')
   "providers": { // Non-default badge provider configuration

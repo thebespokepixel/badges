@@ -13,7 +13,7 @@ export default function render(config, user) {
 			url: `https://api.travis-ci.com/${
 				user.github.slug
 			}.svg?branch=${
-				config.branch
+				user.branch
 			}&token=${
 				user.travisToken
 			}`
