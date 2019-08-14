@@ -1,11 +1,6 @@
 import _ from 'lodash'
 import node from 'unist-builder'
 
-// [code-climate-badge]: https://codeclimate.com/github/MarkGriffiths/badges/badges/gpa.svg
-// [coverage-badge]: https://codeclimate.com/github/MarkGriffiths/badges/badges/coverage.svg
-// [code-climate]: https://codeclimate.com/github/MarkGriffiths/badges
-// [coverage]: https://codeclimate.com/coverage/github/MarkGriffiths/badges
-
 function ccPath(user) {
 	return user.codeclimateRepoToken ?
 		`repos/${user.codeclimateRepoToken}` :

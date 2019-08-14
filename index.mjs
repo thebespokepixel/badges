@@ -17,7 +17,7 @@ import { resolve } from 'path';
 function render(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/status-${config.text}-${config.color}.svg?style=${config.style}`
+    url: `https://img.shields.io/badge/status-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -33,7 +33,7 @@ function render(config) {
 function render$1(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg`
+    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -49,7 +49,7 @@ function render$1(config) {
 function render$2(config) {
   const badgeNode = node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}.svg`
+    url: `https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`
   });
 
   if (config.link) {
@@ -100,7 +100,7 @@ function davidDevDeps(config, user) {
     url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?type=dev`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}/status.svg`
+    url: `https://david-dm.org/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}/dev-status.svg`
   })]);
 }
 
@@ -187,7 +187,7 @@ function travis(config, user) {
     url: `https://travis-ci.org/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?style=${config.style}&logo=travis`
+    url: `https://img.shields.io/travis/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?logo=travis`
   })]);
 }
 function travisCom(config, user) {
@@ -196,7 +196,7 @@ function travisCom(config, user) {
     url: `https://travis-ci.com/${user.github.slug}`
   }, [node('image', {
     alt: _upperFirst(config.title),
-    url: `https://img.shields.io/travis/com/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?style=${config.style}&logo=travis`
+    url: `https://img.shields.io/travis/com/${user.github.slug}/${config.branch === 'dev' ? user.devBranch : config.branch}?logo=travis`
   })]);
 }
 function travisPro(config, user) {
@@ -386,7 +386,6 @@ async function render$8(context, asAST = false) {
         branch: 'dev'
       }
     }), value => _defaultsDeep(value, {
-      style: config.style || 'flat',
       icon: false
     })),
     queue: config[context]

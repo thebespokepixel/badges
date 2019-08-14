@@ -213,7 +213,6 @@ export default async function render(context, asAST = false) {
 				branch: 'dev'
 			}
 		}), value => _.defaultsDeep(value, {
-			style: config.style || 'flat',
 			icon: false
 		})),
 		queue: config[context]

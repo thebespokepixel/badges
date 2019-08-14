@@ -14,8 +14,6 @@ export default function render(config) {
 			config.text
 		}-${
 			config.color
-		}.svg?style=${
-			config.style
 		}`
 	})
 

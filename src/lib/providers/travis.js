@@ -19,9 +19,7 @@ export function travis(config, user) {
 				user.github.slug
 			}/${
 				config.branch === 'dev' ? user.devBranch : config.branch
-			}?style=${
-				config.style
-			}&logo=travis`
+			}?logo=travis`
 		})
 	])
 }
@@ -39,9 +37,7 @@ export function travisCom(config, user) {
 				user.github.slug
 			}/${
 				config.branch === 'dev' ? user.devBranch : config.branch
-			}?style=${
-				config.style
-			}&logo=travis`
+			}?logo=travis`
 		})
 	])
 }
