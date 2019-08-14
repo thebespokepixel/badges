@@ -145,10 +145,10 @@ export default async function render(context, asAST = false) {
 				title: 'coverage'
 			},
 			david: {
-				title: 'david',
+				title: 'david'
 			},
 			'david-dev': {
-				title: 'david-developer',
+				title: 'david-developer'
 			},
 			inch: {
 				title: 'inch',

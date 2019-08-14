@@ -126,7 +126,7 @@ const ava = {
 const badges = {
 	github: "thebespokepixel",
 	npm: "thebespokepixel",
-	codeclimate: "a0a755b0fce22eb0b784",
+	codeclimate: "07f2fcfc32f33b4acc05",
 	name: "badges",
 	branch: "develop",
 	providers: {
