@@ -55,7 +55,7 @@
     "trucolor": "^1.0.5",
     "truwrap": "^1.0.4",
     "unist-builder": "^1.0.4",
-    "update-notifier": "^3.0.1",
+    "update-notifier": "^4.0.0",
     "urlencode": "^1.1.0",
     "verbosity": "^1.1.2",
     "yargs": "^13.3.0"
