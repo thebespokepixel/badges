@@ -42,7 +42,7 @@
   "homepage": "https://github.com/thebespokepixel/badges#readme",
   "dependencies": {
     "@thebespokepixel/meta": "^1.0.5",
-    "@thebespokepixel/string": "^0.5.10",
+    "@thebespokepixel/string": "^1.0.0",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.15",
     "mdast-util-inject": "^1.1.0",
