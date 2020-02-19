@@ -90,7 +90,7 @@ export default async function render(context, asAST = false) {
 		readPkg()
 	])
 	const config = configArray[0]
-	const pkg = configArray[1].package
+	const pkg = configArray[1]
 
 	if (!config.name || !config.github || !config.npm) {
 		throw new Error('Badges requires at least a package name, github repo and npm user account.')
