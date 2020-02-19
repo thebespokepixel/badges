@@ -272,7 +272,7 @@ function parseQueue(collection, providers, user) {
 async function render$9(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
-  const pkg = configArray[1];
+  const pkg = configArray[1].packageJson;
 
   if (!config.name || !config.github || !config.npm) {
     throw new Error('Badges requires at least a package name, github repo and npm user account.');

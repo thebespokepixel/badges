@@ -29,7 +29,7 @@ var _upperFirst = _interopDefault(require('lodash/upperFirst'));
 var urlencode = _interopDefault(require('urlencode'));
 
 const name = "@thebespokepixel/badges";
-const version = "2.1.1";
+const version = "2.1.2";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
@@ -481,7 +481,7 @@ function parseQueue(collection, providers, user) {
 async function render$9(context, asAST = false) {
   const configArray = await Promise.all([pkgConf('badges'), readPkg()]);
   const config = configArray[0];
-  const pkg = configArray[1];
+  const pkg = configArray[1].packageJson;
 
   if (!config.name || !config.github || !config.npm) {
     throw new Error('Badges requires at least a package name, github repo and npm user account.');
