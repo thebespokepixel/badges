@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "module": "index.mjs",
@@ -41,42 +41,43 @@
   },
   "homepage": "https://github.com/thebespokepixel/badges#readme",
   "dependencies": {
-    "@thebespokepixel/meta": "^1.0.4",
-    "@thebespokepixel/string": "^0.5.8",
+    "@thebespokepixel/meta": "^1.0.5",
+    "@thebespokepixel/string": "^0.5.10",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.15",
     "mdast-util-inject": "^1.1.0",
     "pkg-conf": "^3.1.0",
-    "read-pkg-up": "^6.0.0",
-    "remark": "^11.0.1",
+    "read-pkg-up": "^7.0.1",
+    "remark": "^11.0.2",
     "remark-heading-gap": "^3.1.1",
     "remark-squeeze-paragraphs": "^3.0.4",
     "remark-usage": "^7.0.1",
-    "trucolor": "^1.0.5",
-    "truwrap": "^1.0.4",
-    "unist-builder": "^1.0.4",
-    "update-notifier": "^3.0.1",
+    "trucolor": "^1.0.6",
+    "truwrap": "^1.0.5",
+    "unist-builder": "^2.0.3",
+    "update-notifier": "^4.1.0",
     "urlencode": "^1.1.0",
-    "verbosity": "^1.1.2",
-    "yargs": "^13.3.0"
+    "verbosity": "^1.2.0",
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "ava": "^2.2.0",
+    "@ava/babel": "^1.0.1",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "ava": "^3.3.0",
     "babel-plugin-lodash": "^3.3.4",
-    "documentation-theme-bespoke": "^1.0.0",
+    "documentation-theme-bespoke": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
     "gulp-chmod": "^3.0.0",
-    "gulp-rename": "^1.4.0",
-    "nyc": "^14.1.1",
-    "rollup": "^1.19.4",
+    "gulp-rename": "^2.0.0",
+    "nyc": "^15.0.0",
+    "rollup": "^1.31.1",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.0.2",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "xo": "^0.24.0"
+    "xo": "^0.26.1"
   },
   "xo": {
     "semicolon": false,
@@ -90,6 +91,7 @@
     ]
   },
   "ava": {
+    "babel": true,
     "files": [
       "test/*.js"
     ]
@@ -166,6 +168,6 @@
     ]
   },
   "engines": {
-    "node": ">=8.0"
+    "node": ">=10.0"
   }
 }
