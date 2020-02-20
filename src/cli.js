@@ -52,7 +52,7 @@ const usage = stripIndent(colorReplacer)`
 	Usage:
 	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`
 
-const epilogue = colorReplacer`${'green|© 2019'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`
+const epilogue = colorReplacer`${'brightGreen|' + metadata.copyright} ${'grey|Released under the MIT License.'}`
 
 yargs.strict().help(false).version(false).options({
 	h: {
@@ -100,9 +100,9 @@ if (argv.help) {
 	renderer.write(usage)
 	renderer.break(2)
 	renderer.write(yargs.getUsageInstance().help())
-	renderer.break()
+	renderer.break(2)
 	renderer.write(epilogue)
-	renderer.break(1)
+	renderer.break(2)
 	process.exit(0)
 }
 
