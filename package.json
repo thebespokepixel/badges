@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "2.1.2",
+  "version": "3.0.0",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "module": "index.mjs",
@@ -40,9 +40,13 @@
     "url": "https://github.com/thebespokepixel/badges/issues"
   },
   "homepage": "https://github.com/thebespokepixel/badges#readme",
+  "copyright": {
+    "year": "2020",
+    "owner": "The Bespoke Pixel"
+  },
   "dependencies": {
-    "@thebespokepixel/meta": "^1.0.5",
-    "@thebespokepixel/string": "^0.5.10",
+    "@thebespokepixel/meta": "^2.0.1",
+    "@thebespokepixel/string": "^1.0.0",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.15",
     "mdast-util-inject": "^1.1.0",
@@ -52,12 +56,12 @@
     "remark-heading-gap": "^3.1.1",
     "remark-squeeze-paragraphs": "^3.0.4",
     "remark-usage": "^7.0.1",
-    "trucolor": "^1.0.6",
-    "truwrap": "^1.0.5",
+    "trucolor": "^2.0.0",
+    "truwrap": "^2.0.0",
     "unist-builder": "^2.0.3",
     "update-notifier": "^4.1.0",
     "urlencode": "^1.1.0",
-    "verbosity": "^1.2.0",
+    "verbosity": "^2.0.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
@@ -66,7 +70,7 @@
     "@babel/preset-env": "^7.8.4",
     "ava": "^3.3.0",
     "babel-plugin-lodash": "^3.3.4",
-    "documentation-theme-bespoke": "^1.1.1",
+    "documentation-theme-bespoke": "^1.1.2",
     "gulp": "^4.0.2",
     "gulp-better-rollup": "^4.0.1",
     "gulp-chmod": "^3.0.0",

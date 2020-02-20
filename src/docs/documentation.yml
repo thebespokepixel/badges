@@ -75,7 +75,7 @@ toc:
         -u, --usage    Path to a usage markdown example
         --color        Force color output. Disable with --no-color
 
-        © 2018 The Bespoke Pixel. Released under the MIT License.
+        © 2020 The Bespoke Pixel. Released under the MIT License.
       ```
   - name: "API"
     description: |

@@ -29,7 +29,7 @@ var _upperFirst = _interopDefault(require('lodash/upperFirst'));
 var urlencode = _interopDefault(require('urlencode'));
 
 const name = "@thebespokepixel/badges";
-const version = "2.1.2";
+const version = "3.0.0";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const module$1 = "index.mjs";
@@ -69,9 +69,13 @@ const bugs = {
 	url: "https://github.com/thebespokepixel/badges/issues"
 };
 const homepage = "https://github.com/thebespokepixel/badges#readme";
+const copyright = {
+	year: "2020",
+	owner: "The Bespoke Pixel"
+};
 const dependencies = {
-	"@thebespokepixel/meta": "^1.0.5",
-	"@thebespokepixel/string": "^0.5.10",
+	"@thebespokepixel/meta": "^2.0.1",
+	"@thebespokepixel/string": "^1.0.0",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.15",
 	"mdast-util-inject": "^1.1.0",
@@ -81,12 +85,12 @@ const dependencies = {
 	"remark-heading-gap": "^3.1.1",
 	"remark-squeeze-paragraphs": "^3.0.4",
 	"remark-usage": "^7.0.1",
-	trucolor: "^1.0.6",
-	truwrap: "^1.0.5",
+	trucolor: "^2.0.0",
+	truwrap: "^2.0.0",
 	"unist-builder": "^2.0.3",
 	"update-notifier": "^4.1.0",
 	urlencode: "^1.1.0",
-	verbosity: "^1.2.0",
+	verbosity: "^2.0.0",
 	yargs: "^15.1.0"
 };
 const devDependencies = {
@@ -95,7 +99,7 @@ const devDependencies = {
 	"@babel/preset-env": "^7.8.4",
 	ava: "^3.3.0",
 	"babel-plugin-lodash": "^3.3.4",
-	"documentation-theme-bespoke": "^1.1.1",
+	"documentation-theme-bespoke": "^1.1.2",
 	gulp: "^4.0.2",
 	"gulp-better-rollup": "^4.0.1",
 	"gulp-chmod": "^3.0.0",
@@ -215,6 +219,7 @@ var pkg = {
 	license: license,
 	bugs: bugs,
 	homepage: homepage,
+	copyright: copyright,
 	dependencies: dependencies,
 	devDependencies: devDependencies,
 	xo: xo,
@@ -652,7 +657,7 @@ const usage = commonTags.stripIndent(colorReplacer)`
 
 	Usage:
 	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`;
-const epilogue = colorReplacer`${'green|© 2019'} ${'brightGreen|The Bespoke Pixel.'} ${'grey|Released under the MIT License.'}`;
+const epilogue = colorReplacer`${'brightGreen|' + metadata.copyright} ${'grey|Released under the MIT License.'}`;
 yargs.strict().help(false).version(false).options({
   h: {
     alias: 'help',
@@ -700,9 +705,9 @@ if (argv.help) {
   renderer.write(usage);
   renderer.break(2);
   renderer.write(yargs.getUsageInstance().help());
-  renderer.break();
+  renderer.break(2);
   renderer.write(epilogue);
-  renderer.break(1);
+  renderer.break(2);
   process.exit(0);
 }
 
