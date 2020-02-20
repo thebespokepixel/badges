@@ -42,7 +42,7 @@
   "homepage": "https://github.com/thebespokepixel/badges#readme",
   "dependencies": {
     "@thebespokepixel/meta": "^1.0.5",
-    "@thebespokepixel/string": "^0.5.10",
+    "@thebespokepixel/string": "^1.0.0",
     "common-tags": "^1.8.0",
     "lodash": "^4.17.15",
     "mdast-util-inject": "^1.1.0",
@@ -57,7 +57,7 @@
     "unist-builder": "^2.0.3",
     "update-notifier": "^4.1.0",
     "urlencode": "^1.1.0",
-    "verbosity": "^1.2.0",
+    "verbosity": "^2.0.0",
     "yargs": "^15.1.0"
   },
   "devDependencies": {
