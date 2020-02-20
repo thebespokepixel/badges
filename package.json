@@ -52,7 +52,7 @@
     "remark-heading-gap": "^3.1.1",
     "remark-squeeze-paragraphs": "^3.0.4",
     "remark-usage": "^7.0.1",
-    "trucolor": "^1.0.6",
+    "trucolor": "^2.0.0",
     "truwrap": "^1.0.5",
     "unist-builder": "^2.0.3",
     "update-notifier": "^4.1.0",
