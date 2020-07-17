@@ -76,8 +76,6 @@ const page = await remark().process(template(content))
 -   Snyk
 -   Gitter
 -   Twitter
--   Greenkeeper
--   Greenkeeper Pro (requires a `greenkeeper` private repo token)
 
 
 ## Configuration
@@ -93,7 +91,6 @@ In `package.json`...
       "devBranch": "develop", // Development branch name (optional, defaults to 'develop')
       "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token (optional)
       "travis": "1a2b3c4d", // Travis 'Pro' private repo token (optional)
-      "greenkeeper": "1a2b3c4d", // Greenkeeper private repo token (optional)
       "providers": { // Non-default badge provider configuration
         "status": {
           "text": "beta",
@@ -142,8 +139,6 @@ In `package.json`...
 | `npm`                   | NPM published version                                   | <https://www.npmjs.com>          |
 | `rollup`                | Show Rollup/Treeshaking module/mjs support              | <https://rollupjs.org/guide/en/> |
 | `snyk`                  | Show Snyk Vulnerablilities                              | <https://snyk.io>                |
-| `greenkeeper`           | Greenkeeper enabled                                     | <https://greenkeeper.io>         |
-| `greenkeeper-pro`       | Greenkeeper with private repo token                     |                                  |
 | `travis`                | Travis.org build status                                 | <https://travis.org>             |
 | `travis-dev`            | Travis.org build status (dev branch)                    |                                  |
 | `travis-com`            | Travis.com build status                                 | <https://travis.com>             |
