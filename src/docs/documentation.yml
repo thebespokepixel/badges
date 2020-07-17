@@ -53,8 +53,6 @@ toc:
       - rollup
       - snyk
       - gitter
-      - greenkeeper
-      - greenkeeper-pro (requires a 'greenkeeper' token)
       ```
 
   - name: "CLI"
