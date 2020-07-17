@@ -176,25 +176,6 @@ function render$8(config, user) {
   })]);
 }
 
-function greenkeeper(config, user) {
-  return node('link', {
-    title: _upperFirst(config.title),
-    url: 'https://greenkeeper.io/'
-  }, [node('image', {
-    alt: _upperFirst(config.title),
-    url: `https://badges.greenkeeper.io/${user.github.slug}.svg`
-  })]);
-}
-function greenkeeperPro(config, user) {
-  return node('link', {
-    title: _upperFirst(config.title),
-    url: 'https://greenkeeper.io/'
-  }, [node('image', {
-    alt: _upperFirst(config.title),
-    url: `https://badges.greenkeeper.io/${user.github.slug}.svg?token=${user.greenkeeperToken}`
-  })]);
-}
-
 function travis(config, user) {
   return node('link', {
     title: _upperFirst(config.title),
@@ -240,8 +221,6 @@ const services = {
   npm: render$6,
   rollup: render$7,
   snyk: render$8,
-  greenkeeper,
-  'greenkeeper-pro': greenkeeperPro,
   travis,
   'travis-dev': travis,
   'travis-com': travisCom,
@@ -304,8 +283,7 @@ async function render$9(context, asAST = false) {
       devBranch: 'develop',
       codeclimateToken: config.codeclimate,
       codeclimateRepoToken: config['codeclimate-repo'],
-      travisToken: config.travis,
-      greenkeeperToken: config.greenkeeper
+      travisToken: config.travis
     },
     providers: _forIn(_defaultsDeep(config.providers, {
       status: {
@@ -373,12 +351,6 @@ async function render$9(context, asAST = false) {
       },
       snyk: {
         title: 'snyk'
-      },
-      greenkeeper: {
-        title: 'greenkeeper'
-      },
-      'greenkeeper-pro': {
-        title: 'greenkeeper'
       },
       travis: {
         title: 'travis',

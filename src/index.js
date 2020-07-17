@@ -20,7 +20,6 @@ import inch from './lib/providers/inch'
 import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
 import snyk from './lib/providers/snyk'
-import {greenkeeper, greenkeeperPro} from './lib/providers/greenkeeper'
 import {travis, travisCom, travisPro} from './lib/providers/travis'
 
 const services = {
@@ -40,8 +39,6 @@ const services = {
 	npm,
 	rollup,
 	snyk,
-	greenkeeper,
-	'greenkeeper-pro': greenkeeperPro,
 	travis,
 	'travis-dev': travis,
 	'travis-com': travisCom,
@@ -118,8 +115,7 @@ export default async function render(context, asAST = false) {
 			devBranch: 'develop',
 			codeclimateToken: config.codeclimate,
 			codeclimateRepoToken: config['codeclimate-repo'],
-			travisToken: config.travis,
-			greenkeeperToken: config.greenkeeper
+			travisToken: config.travis
 		},
 		providers: _.forIn(_.defaultsDeep(config.providers, {
 			status: {
@@ -187,12 +183,6 @@ export default async function render(context, asAST = false) {
 			},
 			snyk: {
 				title: 'snyk'
-			},
-			greenkeeper: {
-				title: 'greenkeeper'
-			},
-			'greenkeeper-pro': {
-				title: 'greenkeeper'
 			},
 			travis: {
 				title: 'travis',
