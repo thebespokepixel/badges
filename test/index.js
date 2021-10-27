@@ -3,7 +3,7 @@ import badges from '../index.js'
 
 test('Simple status', async t => {
 	const content = await badges('test-1')
-	t.is(content, '![Status](https://img.shields.io/badge/status-production-green) &#x20;\n')
+	t.is(content, '![Status](https://img.shields.io/badge/status-production-green)  &#x20;\n')
 })
 
 test('Simple status as AST', async t => {
@@ -22,7 +22,7 @@ test('Simple status as AST', async t => {
 			},
 			{
 				type: 'text',
-				value: ' \n'
+				value: '  \n'
 			}
 		]
 	}
@@ -85,7 +85,7 @@ test('Readme output', async t => {
 										]
 									},
 									{ type: 'text', value: ' ' },
-									{ type: 'text', value: ' \n' }
+									{ type: 'text', value: '  \n' }
 								]
 							},
 							{ type: 'text', value: ' ' },
@@ -118,11 +118,11 @@ test('Readme output', async t => {
 										]
 									},
 									{ type: 'text', value: ' ' },
-									{ type: 'text', value: ' \n' }
+									{ type: 'text', value: '  \n' }
 								]
 							},
 							{ type: 'text', value: ' ' },
-							{ type: 'text', value: ' \n' }
+							{ type: 'text', value: '  \n' }
 						]
 					}
 				]
@@ -167,7 +167,7 @@ test('Readme output', async t => {
 										]
 									},
 									{ type: 'text', value: ' ' },
-									{ type: 'text', value: ' \n' }
+									{ type: 'text', value: '  \n' }
 								]
 							},
 							{ type: 'text', value: ' ' },
@@ -213,11 +213,11 @@ test('Readme output', async t => {
 										]
 									},
 									{ type: 'text', value: ' ' },
-									{ type: 'text', value: ' \n' }
+									{ type: 'text', value: '  \n' }
 								]
 							},
 							{ type: 'text', value: ' ' },
-							{ type: 'text', value: ' \n' }
+							{ type: 'text', value: '  \n' }
 						]
 					}
 				]
@@ -246,7 +246,7 @@ test('Readme output', async t => {
 								]
 							},
 							{ type: 'text', value: ' ' },
-							{ type: 'text', value: ' \n' }
+							{ type: 'text', value: '  \n' }
 						]
 					}
 				]
