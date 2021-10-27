@@ -41,8 +41,7 @@ const files = [
 const scripts = {
 	build: "rollup -c && chmod 755 bin/compile-readme.js",
 	test: "xo && c8 --reporter=lcov --reporter=text ava",
-	"doc-serve": "documentation serve --watch -github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
-	"doc-build": "documentation build --format html --output docs/ --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "echo 'No Documentation to build'",
 	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
 	coverage: "c8 --reporter=lcov --reporter=text ava",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
@@ -444,7 +443,7 @@ function render$3(config) {
 		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
-				urlencode('module:mjs_✔')
+				urlencode('type: module: ✔')
 			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 		}),
 	])
