@@ -1,18 +1,18 @@
 import _ from 'lodash'
-import node from 'unist-builder'
+import {u} from 'unist-builder'
 import urlencode from 'urlencode'
-import {renderIconSVG} from '../utils'
+import {renderIconSVG} from '../utils.js'
 
 export default function render(config) {
-	return node('link', {
+	return u('link', {
 		title: _.upperFirst(config.title),
-		url: 'https://github.com/rollup/rollup/wiki/pkg.module'
+		url: 'https://github.com/rollup/rollup/wiki/pkg.module',
 	}, [
-		node('image', {
+		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
 				urlencode('module:mjs_✔')
-			}-64CA39?${config.icon && renderIconSVG('rollup')}`
-		})
+			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
+		}),
 	])
 }

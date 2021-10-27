@@ -1,9 +1,12 @@
-import {readFileSync} from 'fs'
-import {resolve} from 'path'
+/* eslint node/prefer-global/buffer: [error] */
+
+import {readFileSync} from 'node:fs'
+import {resolve, dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 import urlencode from 'urlencode'
 
 function renderIcon(file, type) {
-	const iconSource = readFileSync(resolve(__dirname, file))
+	const iconSource = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), file))
 	const iconBuffer = Buffer.from(iconSource)
 
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`

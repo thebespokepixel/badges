@@ -1,9 +1,9 @@
 import test from 'ava'
-import badges from '..'
+import badges from '../index.js'
 
 test('Simple status', async t => {
 	const content = await badges('test-1')
-	t.is(content, '![Status](https://img.shields.io/badge/status-production-green)   \n')
+	t.is(content, '![Status](https://img.shields.io/badge/status-production-green) \\\n')
 })
 
 test('Simple status as AST', async t => {

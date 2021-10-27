@@ -1,7 +1,8 @@
-/* eslint unicorn/no-process-exit:0, import/extensions:0 */
+/* eslint unicorn/no-process-exit:0, import/extensions:0, node/prefer-global/process: [error] */
 
-import {resolve} from 'path'
-import {readFileSync} from 'fs'
+import {resolve, dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
+import {readFileSync} from 'node:fs'
 import _ from 'lodash'
 import {simple} from 'trucolor'
 import {truwrap} from 'truwrap'
@@ -9,41 +10,42 @@ import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-t
 import {box} from '@thebespokepixel/string'
 import meta from '@thebespokepixel/meta'
 import yargs from 'yargs'
+import {hideBin} from 'yargs/helpers'
 import updateNotifier from 'update-notifier'
 import {createConsole} from 'verbosity'
-import remark from 'remark'
+import {remark} from 'remark'
 import gap from 'remark-heading-gap'
 import squeeze from 'remark-squeeze-paragraphs'
 import pkg from '../package.json'
-import badges from '.'
+import badges from './index.js'
 
 const console = createConsole({outStream: process.stderr})
 const clr = simple({format: 'sgr'})
-const metadata = meta(__dirname)
+const metadata = meta(dirname(fileURLToPath(import.meta.url)))
 
 const renderer = truwrap({
 	right: 4,
-	outStream: process.stderr
+	outStream: process.stderr,
 })
 
 const colorReplacer = new TemplateTag(
 	replaceSubstitutionTransformer(
 		/([a-zA-Z]+?)[:/|](.+)/,
-		(match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`
-	)
+		(match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`,
+	),
 )
 
 const title = box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.version(3)}`}`, {
 	borderColor: 'yellow',
 	margin: {
-		top: 1
+		top: 1,
 	},
 	padding: {
 		bottom: 0,
 		top: 0,
 		left: 2,
-		right: 2
-	}
+		right: 2,
+	},
 })
 
 const usage = stripIndent(colorReplacer)`
@@ -54,40 +56,44 @@ const usage = stripIndent(colorReplacer)`
 
 const epilogue = colorReplacer`${'brightGreen|' + metadata.copyright} ${'grey|Released under the MIT License.'}`
 
-yargs.strict().help(false).version(false).options({
-	h: {
-		alias: 'help',
-		describe: 'Display help.'
-	},
-	v: {
-		alias: 'version',
-		count: true,
-		describe: 'Print version to stdout. -vv Print name & version.'
-	},
-	V: {
-		alias: 'verbose',
-		count: true,
-		describe: 'Be verbose. -VV Be loquacious.'
-	},
-	c: {
-		alias: 'context',
-		default: 'readme',
-		describe: 'The named badges context in package.json.'
-	},
-	u: {
-		alias: 'usage',
-		describe: 'Path to a markdown usage example'
-	},
-	color: {
-		describe: 'Force color output. Disable with --no-color'
-	}
-}).wrap(renderer.getWidth())
+const yargsInstance = yargs(hideBin(process.argv))
+	.strictOptions()
+	.help(false)
+	.version(false)
+	.options({
+		h: {
+			alias: 'help',
+			describe: 'Display help.',
+		},
+		v: {
+			alias: 'version',
+			count: true,
+			describe: 'Print version to stdout. -vv Print name & version.',
+		},
+		V: {
+			alias: 'verbose',
+			count: true,
+			describe: 'Be verbose. -VV Be loquacious.',
+		},
+		c: {
+			alias: 'context',
+			default: 'readme',
+			describe: 'The named badges context in package.json.',
+		},
+		u: {
+			alias: 'usage',
+			describe: 'Path to a markdown usage example',
+		},
+		color: {
+			describe: 'Force color output. Disable with --no-color',
+		},
+	})
 
-const {argv} = yargs
+const {argv} = yargsInstance
 
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
 	updateNotifier({
-		pkg
+		pkg,
 	}).notify()
 }
 
@@ -96,14 +102,17 @@ if (argv._.length === 0) {
 }
 
 if (argv.help) {
-	renderer.write(title).break(2)
-	renderer.write(usage)
-	renderer.break(2)
-	renderer.write(yargs.getUsageInstance().help())
-	renderer.break(2)
-	renderer.write(epilogue)
-	renderer.break(2)
-	process.exit(0)
+	(async () => {
+		const usageContent = await yargsInstance.getHelp().wrap(renderer.getWidth())
+		renderer.write(title).break(2)
+		renderer.write(usage)
+		renderer.break(2)
+		renderer.write(usageContent)
+		renderer.break(2)
+		renderer.write(epilogue)
+		renderer.break(2)
+		process.exit(0)
+	})()
 }
 
 if (argv.version) {
@@ -132,17 +141,21 @@ if (argv.verbose) {
  * @param  {lodash} template A processed lodash template of the source
  */
 async function render(template) {
+	const badgeContent = await badges(argv.context)
+
+	console.log(badgeContent)
+
 	const content = {
-		badges: await badges(argv.context),
-		usage: ''
+		badges: badgeContent,
+		usage: '',
 	}
 
 	if (argv.usage) {
 		content.usage = readFileSync(resolve(argv.usage))
 	}
 
-	const page = await remark().use(gap).use(squeeze).process(template(content))
-	process.stdout.write(page.toString())
+	const page = template(content)
+	process.stdout.write(page)
 }
 
 const source = resolve(argv._[0])
