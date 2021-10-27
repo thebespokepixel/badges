@@ -168,7 +168,7 @@ function libsRepo(config, user) {
 		u('image', {
 			alt: config.title,
 			url: `https://img.shields.io/librariesio/github/${
-				user.fullName
+				user.librariesIoName
 			}?${config.icon && renderIconSVG('libraries-io')}`,
 		}),
 	])
@@ -423,6 +423,7 @@ async function render(context, asAST = false) {
 		user: {
 			name: config.name,
 			fullName: pkg.name,
+			librariesIoName: `${config['libraries-io']}/${config.name}`,
 			scoped: /^@.+?\//.test(pkg.name),
 			github: {
 				user: config.github,

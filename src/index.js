@@ -104,6 +104,7 @@ export default async function render(context, asAST = false) {
 		user: {
 			name: config.name,
 			fullName: pkg.name,
+			librariesIoName: `${config['libraries-io']}/${config.name}`,
 			scoped: /^@.+?\//.test(pkg.name),
 			github: {
 				user: config.github,

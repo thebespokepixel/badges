@@ -27,7 +27,7 @@ export function libsRepo(config, user) {
 		u('image', {
 			alt: config.title,
 			url: `https://img.shields.io/librariesio/github/${
-				user.fullName
+				user.librariesIoName
 			}?${config.icon && renderIconSVG('libraries-io')}`,
 		}),
 	])

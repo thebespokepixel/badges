@@ -40,12 +40,12 @@ const files = [
 ];
 const scripts = {
 	build: "rollup -c && chmod 755 bin/compile-readme.js",
-	test: "xo && nyc ava",
+	test: "xo && c8 --reporter=lcov --reporter=text ava",
 	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
 	"doc-build": "documentation build --format html --output docs/ --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
-	readme: "./bin/compile-readme.js -VV -u src/docs/example.md src/docs/readme.md > readme.md",
-	coverage: "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
-	clean: "gulp clean"
+	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
+	coverage: "c8 --reporter=lcov --reporter=text ava",
+	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
 const repository = {
 	type: "git",
@@ -92,6 +92,7 @@ const devDependencies = {
 	"@rollup/plugin-json": "^4.1.0",
 	"@rollup/plugin-node-resolve": "^13.0.6",
 	ava: "^4.0.0-alpha.2",
+	c8: "^7.10.0",
 	"remark-gfm": "^3.0.0",
 	rollup: "^2.58.3",
 	xo: "^0.45.0"
@@ -112,6 +113,7 @@ const xo = {
 const badges = {
 	github: "thebespokepixel",
 	npm: "thebespokepixel",
+	"libraries-io": "TheBespokePixel",
 	codeclimate: "07f2fcfc32f33b4acc05",
 	name: "badges",
 	devBranch: "develop",
@@ -360,7 +362,7 @@ function libsRepo(config, user) {
 		u('image', {
 			alt: config.title,
 			url: `https://img.shields.io/librariesio/github/${
-				user.fullName
+				user.librariesIoName
 			}?${config.icon && renderIconSVG('libraries-io')}`,
 		}),
 	])
@@ -615,6 +617,7 @@ async function render$1(context, asAST = false) {
 		user: {
 			name: config.name,
 			fullName: pkg.name,
+			librariesIoName: `${config['libraries-io']}/${config.name}`,
 			scoped: /^@.+?\//.test(pkg.name),
 			github: {
 				user: config.github,
@@ -849,12 +852,8 @@ if (argv.verbose) {
  * @param  {lodash} template A processed lodash template of the source
  */
 async function render(template) {
-	const badgeContent = await render$1(argv.context);
-
-	console.log(badgeContent);
-
 	const content = {
-		badges: badgeContent,
+		badges: await render$1(argv.context),
 		usage: '',
 	};
 
@@ -862,8 +861,8 @@ async function render(template) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
 
-	const page = template(content);
-	process.stdout.write(page);
+	const page = await remark().use(remarkGap).use(remarkSqueeze).process(template(content));
+	process.stdout.write(page.toString());
 }
 
 const source = resolve(argv._[0]);

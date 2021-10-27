@@ -141,12 +141,8 @@ if (argv.verbose) {
  * @param  {lodash} template A processed lodash template of the source
  */
 async function render(template) {
-	const badgeContent = await badges(argv.context)
-
-	console.log(badgeContent)
-
 	const content = {
-		badges: badgeContent,
+		badges: await badges(argv.context),
 		usage: '',
 	}
 
@@ -154,8 +150,8 @@ async function render(template) {
 		content.usage = readFileSync(resolve(argv.usage))
 	}
 
-	const page = template(content)
-	process.stdout.write(page)
+	const page = await remark().use(gap).use(squeeze).process(template(content))
+	process.stdout.write(page.toString())
 }
 
 const source = resolve(argv._[0])
