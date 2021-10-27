@@ -103,8 +103,3 @@ In `package.json`...
 |`travis-pro-dev`| Travis.com build status with private token (dev branch)|
 
 Where possible, https://shields.io is used, or shields.io 'flat' styling is chosen where available from other providers.
-
-## Documentation
-Full documentation can be found at [https://thebespokepixel.github.io/badges/][1]
-
-[1]: https://thebespokepixel.github.io/badges/

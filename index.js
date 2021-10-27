@@ -140,7 +140,7 @@ function renderIcon(file, type) {
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
 
-const renderIconSVG = id => renderIcon(`../icons/${id}.svg`, 'image/svg+xml');
+const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml');
 
 function libsRelease(config, user) {
 	return u('link', {
@@ -368,7 +368,7 @@ const services = {
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]));
-		badges.push(u('break'));
+		badges.push(u('text', ' \n'));
 		return u('paragraph', {}, badges)
 	}
 

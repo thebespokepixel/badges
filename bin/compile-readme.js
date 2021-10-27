@@ -41,8 +41,8 @@ const files = [
 const scripts = {
 	build: "rollup -c && chmod 755 bin/compile-readme.js",
 	test: "xo && c8 --reporter=lcov --reporter=text ava",
-	"doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
-	"doc-build": "documentation build --format html --output docs/ --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-serve": "documentation serve --watch -github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
+	"doc-build": "documentation build --format html --output docs/ --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
 	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
 	coverage: "c8 --reporter=lcov --reporter=text ava",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
@@ -155,7 +155,6 @@ const badges = {
 			]
 		],
 		"Documentation/Help": [
-			"inch",
 			"twitter"
 		]
 	},
@@ -333,7 +332,7 @@ function renderIcon(file, type) {
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
 
-const renderIconSVG = id => renderIcon(`../icons/${id}.svg`, 'image/svg+xml');
+const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml');
 
 function libsRelease(config, user) {
 	return u('link', {
@@ -561,7 +560,7 @@ const services = {
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]));
-		badges.push(u('break'));
+		badges.push(u('text', ' \n'));
 		return u('paragraph', {}, badges)
 	}
 

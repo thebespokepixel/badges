@@ -49,7 +49,7 @@ const services = {
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]))
-		badges.push(u('break'))
+		badges.push(u('text', ' \n'))
 		return u('paragraph', {}, badges)
 	}
 
