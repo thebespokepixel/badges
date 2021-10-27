@@ -73,11 +73,10 @@
     "c8": "^7.10.0",
     "remark-gfm": "^3.0.0",
     "rollup": "^2.58.3",
-    "xo": "^0.45.0"
+    "xo": "^0.46.0"
   },
   "xo": {
     "semicolon": false,
-    "esnext": true,
     "ignores": [
       "gulpfile.js",
       "index.js",

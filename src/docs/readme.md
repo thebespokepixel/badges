@@ -43,6 +43,7 @@ In `package.json`...
   "name": "badges", // Package name
   "github": "thebespokepixel", // github user
   "npm": "thebespokepixel", // npm user
+  "libraries-io": "TheBespokePixel", // libraries-io github user (seems to use the name)
   "twitter": "thebespokepixel", // twitter user (optional, defaults to github user name)
   "devBranch": "develop", // Development branch name (optional, defaults to 'develop')
   "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token (optional)

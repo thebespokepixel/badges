@@ -95,11 +95,10 @@ const devDependencies = {
 	c8: "^7.10.0",
 	"remark-gfm": "^3.0.0",
 	rollup: "^2.58.3",
-	xo: "^0.45.0"
+	xo: "^0.46.0"
 };
 const xo = {
 	semicolon: false,
-	esnext: true,
 	ignores: [
 		"gulpfile.js",
 		"index.js",
@@ -179,7 +178,7 @@ const badges = {
 	]
 };
 const engines = {
-	node: ">=12.0"
+	node: ">=14.0"
 };
 var pkg = {
 	name: name,
@@ -562,7 +561,7 @@ const services = {
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]));
-		badges.push(u('text', '  \n'));
+		badges.push(u('break'));
 		return u('paragraph', {}, badges)
 	}
 

@@ -10,7 +10,7 @@ import {stripIndent, TemplateTag, replaceSubstitutionTransformer} from 'common-t
 import {box} from '@thebespokepixel/string'
 import meta from '@thebespokepixel/meta'
 import yargs from 'yargs'
-import {hideBin} from 'yargs/helpers'
+import {hideBin} from 'yargs/helpers' // eslint-disable-line node/file-extension-in-import
 import updateNotifier from 'update-notifier'
 import {createConsole} from 'verbosity'
 import {remark} from 'remark'
