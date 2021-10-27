@@ -10,7 +10,7 @@
 ##### Development Status
 
 [![Travis](https://img.shields.io/travis/com/thebespokepixel/badges/develop?logo=travis)](https://travis-ci.com/thebespokepixel/badges "Travis") [![David](https://david-dm.org/thebespokepixel/badges/develop/status.svg)](https://david-dm.org/thebespokepixel/badges/develop "David") [![David-developer](https://david-dm.org/thebespokepixel/badges/develop/dev-status.svg)](https://david-dm.org/thebespokepixel/badges/develop?type=dev "David-developer")  
- [![Snyk](https://snyk.io/test/github/thebespokepixel/badges/badge.svg)](https://snyk.io/test/github/thebespokepixel/badges "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/07f2fcfc32f33b4acc05/maintainability)](https://codeclimate.com/github/thebespokepixel/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/07f2fcfc32f33b4acc05/test_coverage)](https://codeclimate.com/github/thebespokepixel/badges/test_coverage "Coverage")   
+ [![Snyk](https://snyk.io/test/github/thebespokepixel/badges/badge.svg)](https://snyk.io/test/github/thebespokepixel/badges "Snyk") [![Code-climate](https://api.codeclimate.com/v1/badges/07f2fcfc32f33b4acc05/maintainability)](https://codeclimate.com/github/thebespokepixel/badges/maintainability "Code-climate") [![Coverage](https://api.codeclimate.com/v1/badges/07f2fcfc32f33b4acc05/test\_coverage)](https://codeclimate.com/github/thebespokepixel/badges/test\_coverage "Coverage")   
 
 ##### Documentation/Help
 
