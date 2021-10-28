@@ -23,7 +23,7 @@ import { u } from 'unist-builder';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "3.0.2";
+const version = "4.0.0";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
