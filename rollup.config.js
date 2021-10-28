@@ -17,7 +17,7 @@ const config = [{
 	plugins: [resolve(), json({preferConst: true}), commonjs()],
 	input: 'src/compile-readme.js',
 	output: {
-		banner: '#! /usr/bin/env -S node',
+		banner: '#! /usr/bin/env node',
 		file: 'bin/compile-readme.js',
 		format: 'es',
 	},
