@@ -7,6 +7,8 @@ engines:
         enabled: false
       Similar code:
         enabled: false
+      comma-dangle:
+        enabled: false
     config:
       languages:
       - javascript

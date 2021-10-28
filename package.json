@@ -1,11 +1,11 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
-  "module": "index.mjs",
+  "type": "module",
   "bin": {
-    "compile-readme": "./bin/compile-readme"
+    "compile-readme": "./bin/compile-readme.js"
   },
   "directories": {
     "test": "test"
@@ -17,12 +17,12 @@
     "bin"
   ],
   "scripts": {
-    "test": "xo && nyc ava",
-    "doc-serve": "documentation serve --watch --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
-    "doc-build": "documentation build --format html --output docs/ --theme node_modules/documentation-theme-bespoke --github --config src/docs/documentation.yml --project-name $npm_package_name  --project-version $npm_package_version src/index.js",
-    "readme": "./bin/compile-readme -u src/docs/example.md src/docs/readme.md > readme.md",
-    "coverage": "nyc ava && nyc report --reporter=lcov --report-dir test/coverage; open test/coverage/lcov-report/index.html",
-    "clean": "gulp clean"
+    "build": "rollup -c && chmod 755 bin/*.js",
+    "test": "xo && c8 --reporter=lcov --reporter=text ava",
+    "doc-build": "echo 'No Documentation to build'",
+    "readme": "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
+    "coverage": "c8 --reporter=lcov --reporter=text ava",
+    "generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
   "repository": {
     "type": "git",
@@ -41,68 +41,54 @@
   },
   "homepage": "https://github.com/thebespokepixel/badges#readme",
   "copyright": {
-    "year": "2020",
+    "year": "2021",
     "owner": "The Bespoke Pixel"
   },
   "dependencies": {
-    "@thebespokepixel/meta": "^2.0.3",
-    "@thebespokepixel/string": "^1.0.1",
+    "@thebespokepixel/meta": "^2.0.4",
+    "@thebespokepixel/string": "^1.0.3",
     "common-tags": "^1.8.0",
-    "lodash": "^4.17.19",
-    "mdast-util-inject": "^1.1.0",
-    "pkg-conf": "^3.1.0",
-    "read-pkg-up": "^7.0.1",
-    "remark": "^12.0.0",
-    "remark-heading-gap": "^3.1.2",
-    "remark-squeeze-paragraphs": "^4.0.0",
-    "remark-usage": "^8.0.0",
-    "trucolor": "^2.0.2",
-    "truwrap": "^2.0.2",
-    "unist-builder": "^2.0.3",
-    "update-notifier": "^4.1.0",
+    "lodash": "^4.17.21",
+    "pkg-conf": "^4.0.0",
+    "read-pkg-up": "^9.0.0",
+    "remark": "^14.0.1",
+    "remark-heading-gap": "^5.0.0",
+    "remark-squeeze-paragraphs": "^5.0.0",
+    "trucolor": "^2.0.4",
+    "truwrap": "^2.0.4",
+    "unist-builder": "^3.0.0",
+    "update-notifier": "^5.1.0",
     "urlencode": "^1.1.0",
-    "verbosity": "^2.0.1",
-    "yargs": "^15.4.1"
+    "verbosity": "^2.0.2",
+    "yargs": "^17.2.1"
   },
   "devDependencies": {
-    "@ava/babel": "^1.0.1",
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "ava": "^3.10.1",
-    "babel-plugin-lodash": "^3.3.4",
-    "documentation-theme-bespoke": "^1.1.6",
-    "gulp": "^4.0.2",
-    "gulp-better-rollup": "^4.0.1",
-    "gulp-chmod": "^3.0.0",
-    "gulp-rename": "^2.0.0",
-    "nyc": "^15.1.0",
-    "rollup": "^2.21.0",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "xo": "^0.32.1"
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "ava": "^4.0.0-alpha.2",
+    "c8": "^7.10.0",
+    "mdast-builder": "^1.1.1",
+    "remark-gfm": "^3.0.0",
+    "rollup": "^2.58.3",
+    "xo": "^0.46.3"
   },
   "xo": {
     "semicolon": false,
-    "esnext": true,
     "ignores": [
+      "gulpfile.js",
       "index.js",
+      "bin/compile-readme.js",
       "lib/**",
       "docs/**",
       "src/docs/example.js",
       "test/coverage/**"
     ]
   },
-  "ava": {
-    "babel": true,
-    "files": [
-      "test/*.js"
-    ]
-  },
   "badges": {
     "github": "thebespokepixel",
     "npm": "thebespokepixel",
+    "libraries-io": "TheBespokePixel",
     "codeclimate": "07f2fcfc32f33b4acc05",
     "name": "badges",
     "devBranch": "develop",
@@ -126,7 +112,7 @@
         [
           "status",
           "npm",
-          "david"
+          "libraries-io-npm"
         ],
         [
           "travis-com",
@@ -136,8 +122,7 @@
       "Development Status": [
         [
           "travis-com-dev",
-          "david-dev",
-          "david-devdeps-dev"
+          "libraries-io-github"
         ],
         [
           "snyk",
@@ -146,7 +131,6 @@
         ]
       ],
       "Documentation/Help": [
-        "inch",
         "twitter"
       ]
     },
@@ -169,6 +153,6 @@
     ]
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=14.0"
   }
 }

@@ -1,22 +1,22 @@
 import _ from 'lodash'
-import node from 'unist-builder'
+import {u} from 'unist-builder'
 
 export default function render(config, user) {
-	return node('link', {
+	return u('link', {
 		title: _.upperFirst(config.title),
 		url: `https://gitter.im/${
 			user.github.user
 		}/${
 			config.room
-		}?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge`
+		}?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge`,
 	}, [
-		node('image', {
+		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/gitter/room/${
 				user.github.user
 			}/${
 				config.room
-			}`
-		})
+			}`,
+		}),
 	])
 }

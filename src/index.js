@@ -3,17 +3,24 @@
  ╰─────────────────────────┴─────────────────────────────────────────────────── */
 
 import _ from 'lodash'
-import pkgConf from 'pkg-conf'
-import readPkg from 'read-pkg-up'
-import remark from 'remark'
-import node from 'unist-builder'
-import gap from 'remark-heading-gap'
-import squeeze from 'remark-squeeze-paragraphs'
+import {packageConfig} from 'pkg-conf'
+import {readPackageUp} from 'read-pkg-up'
+import {remark} from 'remark'
+import {
+  root,
+  rootWithTitle,
+  paragraph,
+  text,
+  brk
+} from 'mdast-builder'
+import remarkGap from 'remark-heading-gap'
+import remarkSqueeze from 'remark-squeeze-paragraphs'
+import remarkGfm from 'remark-gfm'
 import status from './lib/providers/status'
 import aux1 from './lib/providers/aux-1'
 import aux2 from './lib/providers/aux-2'
 import {cc, ccCoverage} from './lib/providers/codeclimate'
-import {david, davidDevDeps} from './lib/providers/david'
+import {libsRelease, libsRepo} from './lib/providers/libraries-io'
 import gitter from './lib/providers/gitter'
 import twitter from './lib/providers/twitter'
 import inch from './lib/providers/inch'
@@ -30,10 +37,8 @@ const services = {
 	twitter,
 	'code-climate': cc,
 	'code-climate-coverage': ccCoverage,
-	david,
-	'david-dev': david,
-	'david-devdeps': davidDevDeps,
-	'david-devdeps-dev': davidDevDeps,
+	'libraries-io-npm': libsRelease,
+	'libraries-io-github': libsRepo,
 	inch,
 	'inch-dev': inch,
 	npm,
@@ -49,21 +54,17 @@ const services = {
 
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
-		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), node('text', ' ')]))
-		badges.push(node('break'))
-		return node('paragraph', badges)
+		if (Array.isArray(collection[0])) {
+			return paragraph(collection.map(content => parseQueue(content, providers, user)))
+		}
+		const badges = collection.map(content => parseQueue(content, providers, user))
+		badges.push(brk)
+		return paragraph(badges)
 	}
 
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
-			return node('root', [
-				node('heading', {
-					depth: 5
-				}, [
-					node('text', title)
-				]),
-				parseQueue(content, providers, user)
-			])
+			return rootWithTitle(5, text(title), parseQueue(content, providers, user))
 		})
 	}
 
@@ -71,7 +72,7 @@ function parseQueue(collection, providers, user) {
 		throw new Error(`${collection} not found`)
 	}
 
-	return services[collection](providers[collection], user)
+	return paragraph([services[collection](providers[collection], user), text(' ')])
 }
 
 /**
@@ -83,8 +84,8 @@ function parseQueue(collection, providers, user) {
  */
 export default async function render(context, asAST = false) {
 	const configArray = await Promise.all([
-		pkgConf('badges'),
-		readPkg()
+		packageConfig('badges'),
+		readPackageUp()
 	])
 	const config = configArray[0]
 	const pkg = configArray[1].packageJson
@@ -105,6 +106,7 @@ export default async function render(context, asAST = false) {
 		user: {
 			name: config.name,
 			fullName: pkg.name,
+			librariesIoName: `${config['libraries-io']}/${config.name}`,
 			scoped: /^@.+?\//.test(pkg.name),
 			github: {
 				user: config.github,
@@ -149,21 +151,13 @@ export default async function render(context, asAST = false) {
 			'code-climate-coverage': {
 				title: 'coverage'
 			},
-			david: {
-				title: 'david',
-				branch: 'master'
+			'libraries-io-npm': {
+				title: 'libraries-io',
+				icon: true
 			},
-			'david-devdeps': {
-				title: 'david-developer',
-				branch: 'master'
-			},
-			'david-dev': {
-				title: 'david',
-				branch: 'dev'
-			},
-			'david-devdeps-dev': {
-				title: 'david-developer',
-				branch: 'dev'
+			'libraries-io-github': {
+				title: 'libraries-io',
+				icon: true
 			},
 			inch: {
 				title: 'inch',
@@ -214,11 +208,11 @@ export default async function render(context, asAST = false) {
 		queue: config[context]
 	}
 
-	const ast = node('root', parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user))
+	const ast = root(parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user))
 
 	if (asAST) {
 		return ast
 	}
 
-	return remark().use(gap).use(squeeze).stringify(ast)
+	return remark().use(remarkGfm).use(remarkGap).use(remarkSqueeze).stringify(ast)
 }

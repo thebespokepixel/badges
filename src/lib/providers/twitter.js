@@ -1,18 +1,18 @@
 import _ from 'lodash'
-import node from 'unist-builder'
+import {u} from 'unist-builder'
 
 export default function render(config, user) {
-	return node('link', {
+	return u('link', {
 		title: _.upperFirst(config.title),
 		url: `https://twitter.com/${
 			user.twitter
-		}`
+		}`,
 	}, [
-		node('image', {
+		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/twitter/follow/${
 				user.twitter
-			}?style=social`
-		})
+			}?style=social`,
+		}),
 	])
 }

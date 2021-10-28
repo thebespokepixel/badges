@@ -22,7 +22,7 @@ ${usage}
 - Status (plus similar aux1 and aux2)
 - Travis (.org and .com)
 - Travis private repos (requires a `travis` private repo token)
-- David and David development dependencies
+- Libraries.io [New]
 - Code Climate and Code Climate Coverage (requires a `codeclimate` repo token)
 - Inch CI
 - npm
@@ -30,6 +30,8 @@ ${usage}
 - Snyk
 - Gitter
 - Twitter
+
+David has been dropped as it seems the site is now dead.
 
 ## Configuration
 
@@ -41,6 +43,7 @@ In `package.json`...
   "name": "badges", // Package name
   "github": "thebespokepixel", // github user
   "npm": "thebespokepixel", // npm user
+  "libraries-io": "TheBespokePixel", // libraries-io github user (seems to use the name)
   "twitter": "thebespokepixel", // twitter user (optional, defaults to github user name)
   "devBranch": "develop", // Development branch name (optional, defaults to 'develop')
   "codeclimate": "a0a755b0fce22eb0b784", // codeclimate repo token (optional)
@@ -59,10 +62,10 @@ In `package.json`...
   }
   "readme": { // Section with subtitles as map of arrays
     "Status": [
-      [ "status", "npm", "travis-com", "david" ],
+      [ "status", "npm", "travis-com", "libraries-io-npm" ],
     ],
     "Dev Status": [
-      [ "travis-com-dev", "david-dev", "david-devdeps-dev" ],
+      [ "travis-com-dev", "libraries-io-repo" ],
       [ "code-climate", "code-climate-coverage", "snyk" ]
     ],
     "Documentation/Help": [ "inch", "twitter" ]
@@ -70,7 +73,7 @@ In `package.json`...
   "docs": [ // Lines as an array of arrays
     [ "aux1", "travis" ],
     [ "code-climate", "code-climate-coverage" ],
-    [ "david" ]
+    [ "libraries-io-npm" ]
   ]
 }
 ```
@@ -85,10 +88,8 @@ In `package.json`...
 |`gitter`|Gitter chat badge|https://gitter.im|
 |`code-climate`|Code Climate Maintainability|https://codeclimate.com|
 |`code-climate-coverage`|Code Climate Coverage|
-|`david`|David-dm dependency status badge|https://david-dm.org|
-|`david-dev`|David-dm dependency status badge (dev branch)|
-|`david-devdeps`|David-dm devDependency status badge|
-|`david-devdeps-dev`|David-dm devDependency status badge|
+|`libraries-io-npm`|Libraries.io latest release dependency status badge|https://libraries.io|
+|`libraries-io-repo`|Libraries.io repo deep dependency status badge (dev branch)|
 |`inch`|Inch-CI doumentation coverage|https://inch-ci.org|
 |`inch-dev`|Inch-CI doumentation coverage (dev branch)|
 |`npm`|NPM published version|https://www.npmjs.com|
@@ -102,8 +103,3 @@ In `package.json`...
 |`travis-pro-dev`| Travis.com build status with private token (dev branch)|
 
 Where possible, https://shields.io is used, or shields.io 'flat' styling is chosen where available from other providers.
-
-## Documentation
-Full documentation can be found at [https://thebespokepixel.github.io/badges/][1]
-
-[1]: https://thebespokepixel.github.io/badges/

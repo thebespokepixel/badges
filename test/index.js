@@ -1,29 +1,21 @@
 import test from 'ava'
-import badges from '..'
+import badges from '../index.js'
 
 test('Simple status', async t => {
 	const content = await badges('test-1')
-	t.is(content, '![Status](https://img.shields.io/badge/status-production-green)   \n')
+	t.is(content, '![Status](https://img.shields.io/badge/status-production-green)&#x20;\\\n')
 })
 
-test('Simple status as AST', async t => {
-	const content = await badges('test-1', true)
-	const expected = {
-		type: 'paragraph',
-		children: [
-			{
-				alt: 'Status',
-				url: 'https://img.shields.io/badge/status-production-green',
-				type: 'image'
-			},
-			{
-				type: 'text',
-				value: ' '
-			},
-			{
-				type: 'break'
-			}
-		]
-	}
-	t.deepEqual(content, expected)
+test('Simple status as Markdown', async t => {
+	const content = await badges('test-1')
+	t.snapshot(content)
+})
+
+test('Missing config', async t => {
+	await t.throwsAsync(() => badges('test-2', true))
+})
+
+test('Readme output as AST', async t => {
+	const content = await badges('readme', true)
+	t.snapshot(content)
 })
