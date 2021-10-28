@@ -15,15 +15,14 @@ import { createConsole } from 'verbosity';
 import { packageConfig } from 'pkg-conf';
 import { readPackageUp } from 'read-pkg-up';
 import { remark } from 'remark';
-import { root, paragraph, brk, rootWithTitle, text } from 'mdast-builder';
+import { image, link, root, paragraph, brk, rootWithTitle, text } from 'mdast-builder';
 import remarkGap from 'remark-heading-gap';
 import remarkSqueeze from 'remark-squeeze-paragraphs';
 import remarkGfm from 'remark-gfm';
-import { u } from 'unist-builder';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.0";
+const version = "4.0.1";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
@@ -35,16 +34,15 @@ const directories = {
 };
 const files = [
 	"index.js",
-	"index.mjs",
 	"icons",
 	"bin"
 ];
 const scripts = {
 	build: "rollup -c && chmod 755 bin/*.js",
-	test: "xo && c8 --reporter=lcov --reporter=text ava",
+	test: "xo && c8 --reporter=text ava",
 	"doc-build": "echo 'No Documentation to build'",
 	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
-	coverage: "c8 --reporter=lcov --reporter=text ava",
+	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
 const repository = {
@@ -79,7 +77,8 @@ const dependencies = {
 	"remark-squeeze-paragraphs": "^5.0.0",
 	trucolor: "^2.0.4",
 	truwrap: "^2.0.4",
-	"unist-builder": "^3.0.0",
+	"mdast-builder": "^1.1.1",
+	"remark-gfm": "^3.0.0",
 	"update-notifier": "^5.1.0",
 	urlencode: "^1.1.0",
 	verbosity: "^2.0.2",
@@ -91,8 +90,6 @@ const devDependencies = {
 	"@rollup/plugin-node-resolve": "^13.0.6",
 	ava: "^4.0.0-alpha.2",
 	c8: "^7.10.0",
-	"mdast-builder": "^1.1.1",
-	"remark-gfm": "^3.0.0",
 	rollup: "^2.58.3",
 	xo: "^0.46.3"
 };
@@ -209,22 +206,18 @@ var pkg = {
  * @return {Node}          MDAST node containing badge.
  */
 function render$a(config) {
-	const badgeNode = u('image', {
-		alt: _.upperFirst(config.title),
-		url: `https://img.shields.io/badge/status-${
-			config.text
-		}-${
-			config.color
-		}`,
-	});
+	const badgeNode = image(
+		`https://img.shields.io/badge/status-${config.text}-${config.color}`,
+		config.title,
+		config.title,
+	);
 
 	if (config.link) {
-		return u('link', {
-			title: _.upperFirst(config.title),
-			url: config.link,
-		}, [
-			badgeNode,
-		])
+		return link(
+			config.link,
+			config.title,
+			[badgeNode],
+		)
 	}
 
 	return badgeNode
@@ -237,54 +230,42 @@ function render$a(config) {
  * @return {Node}          MDAST node containing badge.
  */
 function render$9(config) {
-	const badgeNode = u('image', {
-		alt: _.upperFirst(config.title),
-		url: `https://img.shields.io/badge/${
-			config.title
-		}-${
-			config.text
-		}-${
-			config.color
-		}`,
-	});
+	const badgeNode = image(
+		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
+		config.title,
+		config.title,
+	);
 
 	if (config.link) {
-		return u('link', {
-			title: _.upperFirst(config.title),
-			url: config.link,
-		}, [
-			badgeNode,
-		])
+		return link(
+			config.link,
+			config.title,
+			[badgeNode],
+		)
 	}
 
 	return badgeNode
 }
 
 /**
- * Render a auxillary badge.
+ * Render a second auxillary badge.
  * @private
  * @param  {Object} config Configuration object.
  * @return {Node}          MDAST node containing badge.
  */
 function render$8(config) {
-	const badgeNode = u('image', {
-		alt: _.upperFirst(config.title),
-		url: `https://img.shields.io/badge/${
-			config.title
-		}-${
-			config.text
-		}-${
-			config.color
-		}`,
-	});
+	const badgeNode = image(
+		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
+		config.title,
+		config.title,
+	);
 
 	if (config.link) {
-		return u('link', {
-			title: _.upperFirst(config.title),
-			url: config.link,
-		}, [
-			badgeNode,
-		])
+		return link(
+			config.link,
+			config.title,
+			[badgeNode],
+		)
 	}
 
 	return badgeNode
@@ -297,29 +278,31 @@ function ccPath(user) {
 }
 
 function cc(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://codeclimate.com/${ccPath(user)}/maintainability`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://api.codeclimate.com/v1/badges/${
-				user.codeclimateToken
-			}/maintainability`,
-		}),
-	])
+	return link(
+		`https://codeclimate.com/${ccPath(user)}/maintainability`,
+		config.title,
+		[
+			image(
+				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function ccCoverage(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://codeclimate.com/${ccPath(user)}/test_coverage`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: 'https://api.codeclimate.com/v1/badges/' + user.codeclimateToken + '/test_coverage',
-		}),
-	])
+	return link(
+		`https://codeclimate.com/${ccPath(user)}/test_coverage`,
+		config.title,
+		[
+			image(
+				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 /* eslint node/prefer-global/buffer: [error] */
@@ -334,199 +317,175 @@ function renderIcon(file, type) {
 const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml');
 
 function libsRelease(config, user) {
-	return u('link', {
-		title: config.title,
-		url: `https://libraries.io/github/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: config.title,
-			url: `https://img.shields.io/librariesio/release/npm/${
-				user.fullName
-			}/latest?${config.icon && renderIconSVG('libraries-io')}`,
-		}),
-	])
+	return link(
+		`https://libraries.io/github/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://img.shields.io/librariesio/release/npm/${
+					user.fullName
+				}/latest?${config.icon && renderIconSVG('libraries-io')}`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function libsRepo(config, user) {
-	return u('link', {
-		title: config.title,
-		url: `https://libraries.io/github/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: config.title,
-			url: `https://img.shields.io/librariesio/github/${
-				user.librariesIoName
-			}?${config.icon && renderIconSVG('libraries-io')}`,
-		}),
-	])
+	return link(
+		`https://libraries.io/github/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://img.shields.io/librariesio/github/${
+					user.librariesIoName
+				}?${config.icon && renderIconSVG('libraries-io')}`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function render$7(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://gitter.im/${
+	return link(
+		`https://gitter.im/${
 			user.github.user
 		}/${
 			config.room
 		}?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/gitter/room/${
-				user.github.user
-			}/${
-				config.room
-			}`,
-		}),
-	])
+		config.title,
+		[
+			image(
+				`https://img.shields.io/gitter/room/${
+					user.github.user
+				}/${
+					config.room
+				}`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function render$6(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://twitter.com/${
-			user.twitter
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/twitter/follow/${
-				user.twitter
-			}?style=social`,
-		}),
-	])
+	return link(
+		`https://twitter.com/${user.twitter}`,
+		config.title,
+		[
+			image(
+				`https://img.shields.io/twitter/follow/${user.twitter}?style=social`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function render$5(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://inch-ci.org/github/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://inch-ci.org/github/${
-				user.github.slug
-			}.svg?branch=${
-				config.branch === 'dev' ? user.devBranch : config.branch
-			}&style=shields`,
-		}),
-	])
+	return link(
+		`https://inch-ci.org/github/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://inch-ci.org/github/${
+					user.github.slug
+				}.svg?branch=${
+					config.branch === 'dev' ? user.devBranch : config.branch
+				}&style=shields`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function render$4(config, user) {
-	return u('link', {
-		title: config.title,
-		url: `https://www.npmjs.com/package/${
-			user.fullName
-		}`,
-	}, [
-		u('image', {
-			alt: config.title,
-			url: `https://img.shields.io/npm/v/${
-				user.fullName
-			}?logo=npm`,
-		}),
-	])
+	return link(
+		`https://www.npmjs.com/package/${user.fullName}`,
+		config.title,
+		[
+			image(
+				`https://img.shields.io/npm/v/${user.fullName}?logo=npm`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function render$3(config) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: 'https://github.com/rollup/rollup/wiki/pkg.module',
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/badge/es6-${
-				urlencode('type: module ✔')
-			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
-		}),
-	])
+	return link(
+		'https://github.com/rollup/rollup/wiki/pkg.module',
+		config.title,
+		[
+			image(
+				`https://img.shields.io/badge/es6-${
+					urlencode('type: module ✔')
+				}-64CA39?${config.icon && renderIconSVG('rollup')}`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 // [snyk-badge]:https://snyk.io/test/github/thebespokepixel/es-tinycolor/badge.svg
 // [snyk]: https://snyk.io/test/github/MarkGriffiths/meta
 
 function render$2(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://snyk.io/test/github/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://snyk.io/test/github/${
-				user.github.slug
-			}/badge.svg`,
-		}),
-	])
+	return link(
+		`https://snyk.io/test/github/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://snyk.io/test/github/${user.github.slug}/badge.svg`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 // https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat
 // https://img.shields.io/travis/thebespokepixel/trucolor?logo=travis&style=flat-square
 // https://img.shields.io/travis/thebespokepixel/trucolor/develop?style=flat&logo=travis
 // https://travis-ci.org/MarkGriffiths/badges
-
+//
 function travis(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://travis-ci.org/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/travis/${
-				user.github.slug
-			}/${
-				config.branch === 'dev' ? user.devBranch : config.branch
-			}?logo=travis`,
-		}),
-	])
-}
-
-function travisCom(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://travis-ci.com/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://img.shields.io/travis/com/${
-				user.github.slug
-			}/${
-				config.branch === 'dev' ? user.devBranch : config.branch
-			}?logo=travis`,
-		}),
-	])
+	return link(
+		`https://travis-ci.com/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://img.shields.io/travis/com/${user.github.slug}/${
+					config.branch === 'dev' ? user.devBranch : config.branch
+				}?logo=travis`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 function travisPro(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://travis-ci.com/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://api.travis-ci.com/${
-				user.github.slug
-			}.svg?branch=${
-				config.branch === 'dev' ? user.devBranch : config.branch
-			}&token=${
-				user.travisToken
-			}`,
-		}),
-	])
+	return link(
+		`https://travis-ci.com/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://api.travis-ci.com/${user.github.slug}.svg?branch=${
+					config.branch === 'dev' ? user.devBranch : config.branch
+				}&token=${
+					user.travisToken
+				}`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
 
 /* ────────────────────────╮
@@ -550,8 +509,8 @@ const services = {
 	snyk: render$2,
 	travis,
 	'travis-dev': travis,
-	'travis-com': travisCom,
-	'travis-com-dev': travisCom,
+	'travis-com': travis,
+	'travis-com-dev': travis,
 	'travis-pro': travisPro,
 	'travis-pro-dev': travisPro
 };
@@ -625,50 +584,50 @@ async function render$1(context, asAST = false) {
 		},
 		providers: _.forIn(_.defaultsDeep(config.providers, {
 			status: {
-				title: 'status',
+				title: 'Status',
 				text: 'badge',
 				color: 'red',
 				link: false
 			},
 			'aux-1': {
-				title: 'aux1',
+				title: 'Green',
 				text: 'badge',
 				color: 'green',
 				link: false
 			},
 			'aux-2': {
-				title: 'aux2',
+				title: 'Blue',
 				text: 'badge',
 				color: 'blue',
 				link: false
 			},
 			gitter: {
-				title: 'gitter',
+				title: 'Gitter',
 				room: 'help'
 			},
 			twitter: {
-				title: 'twitter'
+				title: 'Twitter'
 			},
 			'code-climate': {
-				title: 'code-climate'
+				title: 'Code-Climate'
 			},
 			'code-climate-coverage': {
-				title: 'coverage'
+				title: 'Code-Climate Coverage'
 			},
 			'libraries-io-npm': {
-				title: 'libraries-io',
+				title: 'Libraries.io',
 				icon: true
 			},
 			'libraries-io-github': {
-				title: 'libraries-io',
+				title: 'Libraries.io',
 				icon: true
 			},
 			inch: {
-				title: 'inch',
+				title: 'Inch.io',
 				branch: 'master'
 			},
 			'inch-dev': {
-				title: 'inch',
+				title: 'Inch.io',
 				branch: 'dev'
 			},
 			npm: {
@@ -676,34 +635,34 @@ async function render$1(context, asAST = false) {
 				icon: true
 			},
 			rollup: {
-				title: 'rollup',
+				title: 'Rollup',
 				icon: true
 			},
 			snyk: {
-				title: 'snyk'
+				title: 'Snyk'
 			},
 			travis: {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-com': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-pro': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			},
 			'travis-com-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			},
 			'travis-pro-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			}
 		}), value => _.defaultsDeep(value, {

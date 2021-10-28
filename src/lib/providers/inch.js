@@ -1,20 +1,22 @@
-import _ from 'lodash'
-import {u} from 'unist-builder'
+import {
+	image,
+	link,
+} from 'mdast-builder'
 
 export default function render(config, user) {
-	return u('link', {
-		title: _.upperFirst(config.title),
-		url: `https://inch-ci.org/github/${
-			user.github.slug
-		}`,
-	}, [
-		u('image', {
-			alt: _.upperFirst(config.title),
-			url: `https://inch-ci.org/github/${
-				user.github.slug
-			}.svg?branch=${
-				config.branch === 'dev' ? user.devBranch : config.branch
-			}&style=shields`,
-		}),
-	])
+	return link(
+		`https://inch-ci.org/github/${user.github.slug}`,
+		config.title,
+		[
+			image(
+				`https://inch-ci.org/github/${
+					user.github.slug
+				}.svg?branch=${
+					config.branch === 'dev' ? user.devBranch : config.branch
+				}&style=shields`,
+				config.title,
+				config.title,
+			),
+		],
+	)
 }
