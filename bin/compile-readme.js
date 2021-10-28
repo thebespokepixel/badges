@@ -12,13 +12,14 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import updateNotifier from 'update-notifier';
 import { createConsole } from 'verbosity';
-import { remark } from 'remark';
-import remarkGap from 'remark-heading-gap';
-import remarkSqueeze from 'remark-squeeze-paragraphs';
 import { packageConfig } from 'pkg-conf';
 import { readPackageUp } from 'read-pkg-up';
-import { u } from 'unist-builder';
+import { remark } from 'remark';
+import { root, paragraph, brk, rootWithTitle, text } from 'mdast-builder';
+import remarkGap from 'remark-heading-gap';
+import remarkSqueeze from 'remark-squeeze-paragraphs';
 import remarkGfm from 'remark-gfm';
+import { u } from 'unist-builder';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
@@ -39,7 +40,7 @@ const files = [
 	"bin"
 ];
 const scripts = {
-	build: "rollup -c && chmod 755 bin/compile-readme.js",
+	build: "rollup -c && chmod 755 bin/*.js",
 	test: "xo && c8 --reporter=lcov --reporter=text ava",
 	"doc-build": "echo 'No Documentation to build'",
 	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
@@ -92,6 +93,7 @@ const devDependencies = {
 	"@rollup/plugin-node-resolve": "^13.0.6",
 	ava: "^4.0.0-alpha.2",
 	c8: "^7.10.0",
+	"mdast-builder": "^1.1.1",
 	"remark-gfm": "^3.0.0",
 	rollup: "^2.58.3",
 	xo: "^0.46.0"
@@ -443,7 +445,7 @@ function render$3(config) {
 		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
-				urlencode('type: module: ✔')
+				urlencode('type: module ✔')
 			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 		}),
 	])
@@ -558,21 +560,17 @@ const services = {
 
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
-		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]));
-		badges.push(u('break'));
-		return u('paragraph', badges)
+		if (Array.isArray(collection[0])) {
+			return paragraph(collection.map(content => parseQueue(content, providers, user)))
+		}
+		const badges = collection.map(content => parseQueue(content, providers, user));
+		badges.push(brk);
+		return paragraph(badges)
 	}
 
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
-			return u('root', [
-				u('heading', {
-					depth: 5
-				}, [
-					u('text', title)
-				]),
-				parseQueue(content, providers, user)
-			])
+			return rootWithTitle(5, text(title), parseQueue(content, providers, user))
 		})
 	}
 
@@ -580,7 +578,7 @@ function parseQueue(collection, providers, user) {
 		throw new Error(`${collection} not found`)
 	}
 
-	return services[collection](providers[collection], user)
+	return paragraph([services[collection](providers[collection], user), text(' ')])
 }
 
 /**
@@ -716,7 +714,7 @@ async function render$1(context, asAST = false) {
 		queue: config[context]
 	};
 
-	const ast = u('root', parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
+	const ast = root(parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
 
 	if (asAST) {
 		return ast
@@ -858,8 +856,7 @@ async function render(template) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
 
-	const page = await remark().use(remarkGap).use(remarkSqueeze).process(template(content));
-	process.stdout.write(page.toString());
+	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
 }
 
 const source = resolve(argv._[0]);

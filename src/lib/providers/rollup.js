@@ -11,7 +11,7 @@ export default function render(config) {
 		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
-				urlencode('type: module: ✔')
+				urlencode('type: module ✔')
 			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 		}),
 	])

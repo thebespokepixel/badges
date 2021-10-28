@@ -2,10 +2,11 @@ import _ from 'lodash';
 import { packageConfig } from 'pkg-conf';
 import { readPackageUp } from 'read-pkg-up';
 import { remark } from 'remark';
-import { u } from 'unist-builder';
+import { root, paragraph, brk, rootWithTitle, text } from 'mdast-builder';
 import remarkGap from 'remark-heading-gap';
 import remarkSqueeze from 'remark-squeeze-paragraphs';
 import remarkGfm from 'remark-gfm';
+import { u } from 'unist-builder';
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -252,7 +253,7 @@ function render$2(config) {
 		u('image', {
 			alt: _.upperFirst(config.title),
 			url: `https://img.shields.io/badge/es6-${
-				urlencode('type: module: ✔')
+				urlencode('type: module ✔')
 			}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 		}),
 	])
@@ -367,21 +368,17 @@ const services = {
 
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
-		const badges = _.flatten(collection.map(content => [parseQueue(content, providers, user), u('text', ' ')]));
-		badges.push(u('break'));
-		return u('paragraph', badges)
+		if (Array.isArray(collection[0])) {
+			return paragraph(collection.map(content => parseQueue(content, providers, user)))
+		}
+		const badges = collection.map(content => parseQueue(content, providers, user));
+		badges.push(brk);
+		return paragraph(badges)
 	}
 
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
-			return u('root', [
-				u('heading', {
-					depth: 5
-				}, [
-					u('text', title)
-				]),
-				parseQueue(content, providers, user)
-			])
+			return rootWithTitle(5, text(title), parseQueue(content, providers, user))
 		})
 	}
 
@@ -389,7 +386,7 @@ function parseQueue(collection, providers, user) {
 		throw new Error(`${collection} not found`)
 	}
 
-	return services[collection](providers[collection], user)
+	return paragraph([services[collection](providers[collection], user), text(' ')])
 }
 
 /**
@@ -525,7 +522,7 @@ async function render(context, asAST = false) {
 		queue: config[context]
 	};
 
-	const ast = u('root', parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
+	const ast = root(parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
 
 	if (asAST) {
 		return ast

@@ -13,9 +13,6 @@ import yargs from 'yargs'
 import {hideBin} from 'yargs/helpers' // eslint-disable-line node/file-extension-in-import
 import updateNotifier from 'update-notifier'
 import {createConsole} from 'verbosity'
-import {remark} from 'remark'
-import gap from 'remark-heading-gap'
-import squeeze from 'remark-squeeze-paragraphs'
 import pkg from '../package.json'
 import badges from './index.js'
 
@@ -150,8 +147,7 @@ async function render(template) {
 		content.usage = readFileSync(resolve(argv.usage))
 	}
 
-	const page = await remark().use(gap).use(squeeze).process(template(content))
-	process.stdout.write(page.toString())
+	process.stdout.write(template(content).replace(/\\\n/g, '  \n'))
 }
 
 const source = resolve(argv._[0])
