@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.0";
+const version = "4.0.1";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
