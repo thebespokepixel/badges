@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 
 // https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat
@@ -18,9 +18,9 @@ export function travis(config, user) {
 					config.branch === 'dev' ? user.devBranch : config.branch
 				}?logo=travis`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -36,8 +36,8 @@ export function travisPro(config, user) {
 					user.travisToken
 				}`,
 				config.title,
-				_.upperFirst(config.title)
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }

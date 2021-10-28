@@ -209,14 +209,14 @@ function render$a(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/status-${config.text}-${config.color}`,
 		config.title,
-		config.title
+		config.title,
 	);
 
 	if (config.link) {
 		return link(
 			config.link,
 			config.title,
-			[badgeNode]
+			[badgeNode],
 		)
 	}
 
@@ -233,14 +233,14 @@ function render$9(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
-		config.title
+		config.title,
 	);
 
 	if (config.link) {
 		return link(
 			config.link,
 			config.title,
-			[badgeNode]
+			[badgeNode],
 		)
 	}
 
@@ -257,14 +257,14 @@ function render$8(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
-		config.title
+		config.title,
 	);
 
 	if (config.link) {
 		return link(
 			config.link,
 			config.title,
-			[badgeNode]
+			[badgeNode],
 		)
 	}
 
@@ -285,9 +285,9 @@ function cc(config, user) {
 			image(
 				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -299,9 +299,9 @@ function ccCoverage(config, user) {
 			image(
 				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -323,12 +323,12 @@ function libsRelease(config, user) {
 		[
 			image(
 				`https://img.shields.io/librariesio/release/npm/${
-				user.fullName
-			}/latest?${config.icon && renderIconSVG('libraries-io')}`,
+					user.fullName
+				}/latest?${config.icon && renderIconSVG('libraries-io')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -339,12 +339,12 @@ function libsRepo(config, user) {
 		[
 			image(
 				`https://img.shields.io/librariesio/github/${
-				user.librariesIoName
-			}?${config.icon && renderIconSVG('libraries-io')}`,
+					user.librariesIoName
+				}?${config.icon && renderIconSVG('libraries-io')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -364,9 +364,9 @@ function render$7(config, user) {
 					config.room
 				}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -378,9 +378,9 @@ function render$6(config, user) {
 			image(
 				`https://img.shields.io/twitter/follow/${user.twitter}?style=social`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -396,9 +396,9 @@ function render$5(config, user) {
 					config.branch === 'dev' ? user.devBranch : config.branch
 				}&style=shields`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -410,13 +410,13 @@ function render$4(config, user) {
 			image(
 				`https://img.shields.io/npm/v/${user.fullName}?logo=npm`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
-function render$3(config, user) {
+function render$3(config) {
 	return link(
 		'https://github.com/rollup/rollup/wiki/pkg.module',
 		config.title,
@@ -426,9 +426,9 @@ function render$3(config, user) {
 					urlencode('type: module ✔')
 				}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -443,9 +443,9 @@ function render$2(config, user) {
 			image(
 				`https://snyk.io/test/github/${user.github.slug}/badge.svg`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -457,23 +457,23 @@ function render$2(config, user) {
 function travis(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
-		_.upperFirst(config.title),
+		config.title,
 		[
 			image(
 				`https://img.shields.io/travis/com/${user.github.slug}/${
 					config.branch === 'dev' ? user.devBranch : config.branch
 				}?logo=travis`,
-				_.upperFirst(config.title),
-				_.upperFirst(config.title)
-			)
-		]
+				config.title,
+				config.title,
+			),
+		],
 	)
 }
 
 function travisPro(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
-		_.upperFirst(config.title),
+		config.title,
 		[
 			image(
 				`https://api.travis-ci.com/${user.github.slug}.svg?branch=${
@@ -481,10 +481,10 @@ function travisPro(config, user) {
 				}&token=${
 					user.travisToken
 				}`,
-				_.upperFirst(config.title),
-				_.upperFirst(config.title)
-			)
-		]
+				config.title,
+				config.title,
+			),
+		],
 	)
 }
 

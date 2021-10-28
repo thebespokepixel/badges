@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 
 export default function render(config, user) {
@@ -15,8 +15,8 @@ export default function render(config, user) {
 					config.branch === 'dev' ? user.devBranch : config.branch
 				}&style=shields`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }

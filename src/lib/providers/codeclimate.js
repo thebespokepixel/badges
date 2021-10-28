@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 
 function ccPath(user) {
@@ -17,9 +17,9 @@ export function cc(config, user) {
 			image(
 				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/maintainability`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -31,8 +31,8 @@ export function ccCoverage(config, user) {
 			image(
 				`https://api.codeclimate.com/v1/badges/${user.codeclimateToken}/test_coverage`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }

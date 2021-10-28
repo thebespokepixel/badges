@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 import {renderIconSVG} from '../utils.js'
 
@@ -11,12 +11,12 @@ export function libsRelease(config, user) {
 		[
 			image(
 				`https://img.shields.io/librariesio/release/npm/${
-				user.fullName
-			}/latest?${config.icon && renderIconSVG('libraries-io')}`,
+					user.fullName
+				}/latest?${config.icon && renderIconSVG('libraries-io')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 
@@ -27,11 +27,11 @@ export function libsRepo(config, user) {
 		[
 			image(
 				`https://img.shields.io/librariesio/github/${
-				user.librariesIoName
-			}?${config.icon && renderIconSVG('libraries-io')}`,
+					user.librariesIoName
+				}?${config.icon && renderIconSVG('libraries-io')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }

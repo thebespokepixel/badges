@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 
 // [snyk-badge]:https://snyk.io/test/github/thebespokepixel/es-tinycolor/badge.svg
@@ -14,8 +14,8 @@ export default function render(config, user) {
 			image(
 				`https://snyk.io/test/github/${user.github.slug}/badge.svg`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }

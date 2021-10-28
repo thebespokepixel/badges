@@ -1,11 +1,11 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 import urlencode from 'urlencode'
 import {renderIconSVG} from '../utils.js'
 
-export default function render(config, user) {
+export default function render(config) {
 	return link(
 		'https://github.com/rollup/rollup/wiki/pkg.module',
 		config.title,
@@ -15,9 +15,9 @@ export default function render(config, user) {
 					urlencode('type: module ✔')
 				}-64CA39?${config.icon && renderIconSVG('rollup')}`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
 

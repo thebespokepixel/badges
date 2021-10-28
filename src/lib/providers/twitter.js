@@ -1,6 +1,6 @@
 import {
 	image,
-	link
+	link,
 } from 'mdast-builder'
 
 export default function render(config, user) {
@@ -11,8 +11,8 @@ export default function render(config, user) {
 			image(
 				`https://img.shields.io/twitter/follow/${user.twitter}?style=social`,
 				config.title,
-				config.title
-			)
-		]
+				config.title,
+			),
+		],
 	)
 }
