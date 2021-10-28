@@ -1,11 +1,11 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "compile-readme": "./bin/compile-readme.js"
+    "compile-readme": "./compile-readme.js"
   },
   "directories": {
     "test": "test"
@@ -16,10 +16,10 @@
     "bin"
   ],
   "scripts": {
-    "build": "rollup -c && chmod 755 bin/*.js",
+    "build": "rollup -c && chmod 755 compile-readme.js",
     "test": "xo && c8 --reporter=text ava",
     "doc-build": "echo 'No Documentation to build'",
-    "readme": "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
+    "readme": "./compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
     "coverage": "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
     "generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
@@ -76,7 +76,7 @@
     "ignores": [
       "gulpfile.js",
       "index.js",
-      "bin/compile-readme.js",
+      "compile-readme.js",
       "lib/**",
       "docs/**",
       "src/docs/example.js",

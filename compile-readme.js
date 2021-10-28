@@ -22,12 +22,12 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.1";
+const version = "4.0.2";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
 const bin = {
-	"compile-readme": "./bin/compile-readme.js"
+	"compile-readme": "./compile-readme.js"
 };
 const directories = {
 	test: "test"
@@ -38,10 +38,10 @@ const files = [
 	"bin"
 ];
 const scripts = {
-	build: "rollup -c && chmod 755 bin/*.js",
+	build: "rollup -c && chmod 755 compile-readme.js",
 	test: "xo && c8 --reporter=text ava",
 	"doc-build": "echo 'No Documentation to build'",
-	readme: "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
+	readme: "./compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
 	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
@@ -98,7 +98,7 @@ const xo = {
 	ignores: [
 		"gulpfile.js",
 		"index.js",
-		"bin/compile-readme.js",
+		"compile-readme.js",
 		"lib/**",
 		"docs/**",
 		"src/docs/example.js",
@@ -314,7 +314,7 @@ function renderIcon(file, type) {
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
 
-const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml');
+const renderIconSVG = id => renderIcon(`icons/${id}.svg`, 'image/svg+xml');
 
 function libsRelease(config, user) {
 	return link(
