@@ -12,5 +12,5 @@ function renderIcon(file, type) {
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
 
-export const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml')
-export const renderIconPNG = id => renderIcon(resolve(`icons/${id}.png`), 'image/png')
+export const renderIconSVG = id => renderIcon(`icons/${id}.svg`, 'image/svg+xml')
+export const renderIconPNG = id => renderIcon(`icons/${id}.png`, 'image/png')

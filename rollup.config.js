@@ -18,7 +18,7 @@ const config = [{
 	input: 'src/compile-readme.js',
 	output: {
 		banner: '#! /usr/bin/env node',
-		file: 'bin/compile-readme.js',
+		file: 'compile-readme.js',
 		format: 'es',
 	},
 }]

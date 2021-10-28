@@ -126,7 +126,7 @@ function renderIcon(file, type) {
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
 
-const renderIconSVG = id => renderIcon(resolve(`icons/${id}.svg`), 'image/svg+xml');
+const renderIconSVG = id => renderIcon(`icons/${id}.svg`, 'image/svg+xml');
 
 function libsRelease(config, user) {
 	return link(
