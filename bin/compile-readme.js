@@ -72,13 +72,11 @@ const dependencies = {
 	"@thebespokepixel/string": "^1.0.3",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.21",
-	"mdast-util-inject": "^1.1.0",
 	"pkg-conf": "^4.0.0",
 	"read-pkg-up": "^9.0.0",
 	remark: "^14.0.1",
 	"remark-heading-gap": "^5.0.0",
 	"remark-squeeze-paragraphs": "^5.0.0",
-	"remark-usage": "^10.0.1",
 	trucolor: "^2.0.4",
 	truwrap: "^2.0.4",
 	"unist-builder": "^3.0.0",
@@ -96,7 +94,7 @@ const devDependencies = {
 	"mdast-builder": "^1.1.1",
 	"remark-gfm": "^3.0.0",
 	rollup: "^2.58.3",
-	xo: "^0.46.0"
+	xo: "^0.46.3"
 };
 const xo = {
 	semicolon: false,
