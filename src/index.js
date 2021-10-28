@@ -27,7 +27,7 @@ import inch from './lib/providers/inch'
 import npm from './lib/providers/npm'
 import rollup from './lib/providers/rollup'
 import snyk from './lib/providers/snyk'
-import {travis, travisCom, travisPro} from './lib/providers/travis'
+import {travis, travisPro} from './lib/providers/travis'
 
 const services = {
 	status,
@@ -46,8 +46,8 @@ const services = {
 	snyk,
 	travis,
 	'travis-dev': travis,
-	'travis-com': travisCom,
-	'travis-com-dev': travisCom,
+	'travis-com': travis,
+	'travis-com-dev': travis,
 	'travis-pro': travisPro,
 	'travis-pro-dev': travisPro
 }
@@ -121,50 +121,50 @@ export default async function render(context, asAST = false) {
 		},
 		providers: _.forIn(_.defaultsDeep(config.providers, {
 			status: {
-				title: 'status',
+				title: 'Status',
 				text: 'badge',
 				color: 'red',
 				link: false
 			},
 			'aux-1': {
-				title: 'aux1',
+				title: 'Green',
 				text: 'badge',
 				color: 'green',
 				link: false
 			},
 			'aux-2': {
-				title: 'aux2',
+				title: 'Blue',
 				text: 'badge',
 				color: 'blue',
 				link: false
 			},
 			gitter: {
-				title: 'gitter',
+				title: 'Gitter',
 				room: 'help'
 			},
 			twitter: {
-				title: 'twitter'
+				title: 'Twitter'
 			},
 			'code-climate': {
-				title: 'code-climate'
+				title: 'Code-Climate'
 			},
 			'code-climate-coverage': {
-				title: 'coverage'
+				title: 'Code-Climate Coverage'
 			},
 			'libraries-io-npm': {
-				title: 'libraries-io',
+				title: 'Libraries.io',
 				icon: true
 			},
 			'libraries-io-github': {
-				title: 'libraries-io',
+				title: 'Libraries.io',
 				icon: true
 			},
 			inch: {
-				title: 'inch',
+				title: 'Inch.io',
 				branch: 'master'
 			},
 			'inch-dev': {
-				title: 'inch',
+				title: 'Inch.io',
 				branch: 'dev'
 			},
 			npm: {
@@ -172,34 +172,34 @@ export default async function render(context, asAST = false) {
 				icon: true
 			},
 			rollup: {
-				title: 'rollup',
+				title: 'Rollup',
 				icon: true
 			},
 			snyk: {
-				title: 'snyk'
+				title: 'Snyk'
 			},
 			travis: {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-com': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-pro': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'master'
 			},
 			'travis-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			},
 			'travis-com-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			},
 			'travis-pro-dev': {
-				title: 'travis',
+				title: 'Travis',
 				branch: 'dev'
 			}
 		}), value => _.defaultsDeep(value, {

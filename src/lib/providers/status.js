@@ -1,5 +1,7 @@
-import _ from 'lodash'
-import {u} from 'unist-builder'
+import {
+	image,
+	link
+} from 'mdast-builder'
 
 /**
  * Render a status badge.
@@ -8,22 +10,18 @@ import {u} from 'unist-builder'
  * @return {Node}          MDAST node containing badge.
  */
 export default function render(config) {
-	const badgeNode = u('image', {
-		alt: _.upperFirst(config.title),
-		url: `https://img.shields.io/badge/status-${
-			config.text
-		}-${
-			config.color
-		}`,
-	})
+	const badgeNode = image(
+		`https://img.shields.io/badge/status-${config.text}-${config.color}`,
+		config.title,
+		config.title
+	)
 
 	if (config.link) {
-		return u('link', {
-			title: _.upperFirst(config.title),
-			url: config.link,
-		}, [
-			badgeNode,
-		])
+		return link(
+			config.link,
+			config.title,
+			[badgeNode]
+		)
 	}
 
 	return badgeNode

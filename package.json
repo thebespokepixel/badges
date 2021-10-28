@@ -12,16 +12,15 @@
   },
   "files": [
     "index.js",
-    "index.mjs",
     "icons",
     "bin"
   ],
   "scripts": {
     "build": "rollup -c && chmod 755 bin/*.js",
-    "test": "xo && c8 --reporter=lcov --reporter=text ava",
+    "test": "xo && c8 --reporter=text ava",
     "doc-build": "echo 'No Documentation to build'",
     "readme": "./bin/compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
-    "coverage": "c8 --reporter=lcov --reporter=text ava",
+    "coverage": "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
     "generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
   "repository": {
@@ -56,7 +55,8 @@
     "remark-squeeze-paragraphs": "^5.0.0",
     "trucolor": "^2.0.4",
     "truwrap": "^2.0.4",
-    "unist-builder": "^3.0.0",
+    "mdast-builder": "^1.1.1",
+    "remark-gfm": "^3.0.0",
     "update-notifier": "^5.1.0",
     "urlencode": "^1.1.0",
     "verbosity": "^2.0.2",
@@ -68,8 +68,6 @@
     "@rollup/plugin-node-resolve": "^13.0.6",
     "ava": "^4.0.0-alpha.2",
     "c8": "^7.10.0",
-    "mdast-builder": "^1.1.1",
-    "remark-gfm": "^3.0.0",
     "rollup": "^2.58.3",
     "xo": "^0.46.3"
   },
