@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.2";
+const version = "4.0.3";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
@@ -100,11 +100,12 @@ const xo = {
 	ignores: [
 		"gulpfile.js",
 		"index.js",
+		"index.d.ts",
 		"compile-readme.js",
 		"lib/**",
 		"docs/**",
 		"src/docs/example.js",
-		"test/coverage/**"
+		"coverage/**"
 	]
 };
 const badges = {
