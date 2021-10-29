@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.3";
+const version = "4.0.4";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
@@ -44,9 +44,8 @@ const scripts = {
 	"doc-build": "echo 'No Documentation to build'",
 	readme: "./compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
 	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
-	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
+	prepublishOnly: "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
-const prepublish = "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly";
 const repository = {
 	type: "git",
 	url: "git+https://github.com/thebespokepixel/badges.git"
@@ -72,15 +71,15 @@ const dependencies = {
 	"@thebespokepixel/string": "^1.0.3",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.21",
+	"mdast-builder": "^1.1.1",
 	"pkg-conf": "^4.0.0",
 	"read-pkg-up": "^9.0.0",
 	remark: "^14.0.1",
+	"remark-gfm": "^3.0.0",
 	"remark-heading-gap": "^5.0.0",
 	"remark-squeeze-paragraphs": "^5.0.0",
 	trucolor: "^2.0.4",
 	truwrap: "^2.0.4",
-	"mdast-builder": "^1.1.1",
-	"remark-gfm": "^3.0.0",
 	"update-notifier": "^5.1.0",
 	urlencode: "^1.1.0",
 	verbosity: "^2.0.2",
@@ -90,6 +89,7 @@ const devDependencies = {
 	"@rollup/plugin-commonjs": "^21.0.1",
 	"@rollup/plugin-json": "^4.1.0",
 	"@rollup/plugin-node-resolve": "^13.0.6",
+	"@types/estree": "^0.0.50",
 	ava: "^4.0.0-alpha.2",
 	c8: "^7.10.0",
 	rollup: "^2.58.3",
@@ -188,7 +188,6 @@ var pkg = {
 	directories: directories,
 	files: files,
 	scripts: scripts,
-	prepublish: prepublish,
 	repository: repository,
 	keywords: keywords,
 	author: author,
