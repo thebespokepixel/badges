@@ -34,6 +34,7 @@ const directories = {
 };
 const files = [
 	"index.js",
+	"index.d.ts",
 	"icons",
 	"bin"
 ];
@@ -45,6 +46,7 @@ const scripts = {
 	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
+const prepublish = "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly";
 const repository = {
 	type: "git",
 	url: "git+https://github.com/thebespokepixel/badges.git"
@@ -185,6 +187,7 @@ var pkg = {
 	directories: directories,
 	files: files,
 	scripts: scripts,
+	prepublish: prepublish,
 	repository: repository,
 	keywords: keywords,
 	author: author,
