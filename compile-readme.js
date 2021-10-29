@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.2";
+const version = "4.0.3";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const type = "module";
@@ -34,6 +34,7 @@ const directories = {
 };
 const files = [
 	"index.js",
+	"index.d.ts",
 	"icons",
 	"bin"
 ];
@@ -45,6 +46,7 @@ const scripts = {
 	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
 	"generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
+const prepublish = "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly";
 const repository = {
 	type: "git",
 	url: "git+https://github.com/thebespokepixel/badges.git"
@@ -98,11 +100,12 @@ const xo = {
 	ignores: [
 		"gulpfile.js",
 		"index.js",
+		"index.d.ts",
 		"compile-readme.js",
 		"lib/**",
 		"docs/**",
 		"src/docs/example.js",
-		"test/coverage/**"
+		"coverage/**"
 	]
 };
 const badges = {
@@ -185,6 +188,7 @@ var pkg = {
 	directories: directories,
 	files: files,
 	scripts: scripts,
+	prepublish: prepublish,
 	repository: repository,
 	keywords: keywords,
 	author: author,

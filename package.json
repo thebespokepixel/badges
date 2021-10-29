@@ -1,6 +1,6 @@
 {
   "name": "@thebespokepixel/badges",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "documentation/readme badge generation and management",
   "main": "index.js",
   "type": "module",
@@ -12,6 +12,7 @@
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "icons",
     "bin"
   ],
@@ -23,6 +24,7 @@
     "coverage": "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
     "generate-types": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
   },
+  "prepublish": "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thebespokepixel/badges.git"
@@ -76,11 +78,12 @@
     "ignores": [
       "gulpfile.js",
       "index.js",
+      "index.d.ts",
       "compile-readme.js",
       "lib/**",
       "docs/**",
       "src/docs/example.js",
-      "test/coverage/**"
+      "coverage/**"
     ]
   },
   "badges": {
