@@ -1,2 +1,9 @@
 export { render as default };
-declare function render(context: any, asAST?: boolean): Promise<string | import("unist").Parent<import("unist").Node<import("unist").Data>, import("unist").Data>>;
+/**
+ * Render project badge configuration as markdown.
+ * @param  {string} context The desired render context i.e: `readme`, `docs` as
+ *                          defined in `package.json`.
+ * @param  {boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
+ * @return {Promise}        A promise that resolves to the markdown formatted output.
+ */
+declare function render(context: string, asAST?: boolean): Promise<any>;

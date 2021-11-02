@@ -7,7 +7,7 @@ const external = id => !id.startsWith('src') && !id.startsWith('.') && !id.start
 
 const config = [{
 	external,
-	plugins: [resolve(), commonjs(), cleanup(cleanup({comments: [/^\*\*/]}))],
+	plugins: [resolve(), commonjs(), cleanup({comments: [/^\*\*/]})],
 	input: 'src/index.js',
 	output: {
 		file: 'index.js',

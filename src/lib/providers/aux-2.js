@@ -3,12 +3,6 @@ import {
 	link,
 } from 'mdast-builder'
 
-/**
- * Render a second auxillary badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 export default function render(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
