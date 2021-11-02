@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.5";
+const version = "4.0.6";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const types = "index.d.ts";
@@ -735,7 +735,7 @@ async function render(template) {
 	if (argv.usage) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
-	process.stdout.write(template(content));
+	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
 }
 const source = resolve(argv._[0]);
 console.debug('Source path:', source);
