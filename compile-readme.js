@@ -735,7 +735,7 @@ async function render(template) {
 	if (argv.usage) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
-	process.stdout.write(template(content));
+	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
 }
 const source = resolve(argv._[0]);
 console.debug('Source path:', source);
