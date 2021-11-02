@@ -3,11 +3,6 @@ import {
 	link,
 } from 'mdast-builder'
 
-// https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat
-// https://img.shields.io/travis/thebespokepixel/trucolor?logo=travis&style=flat-square
-// https://img.shields.io/travis/thebespokepixel/trucolor/develop?style=flat&logo=travis
-// https://travis-ci.org/MarkGriffiths/badges
-//
 export function travis(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
