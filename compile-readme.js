@@ -22,9 +22,10 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.4";
+const version = "4.0.5";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
+const types = "index.d.ts";
 const type = "module";
 const bin = {
 	"compile-readme": "./compile-readme.js"
@@ -39,11 +40,11 @@ const files = [
 	"bin"
 ];
 const scripts = {
-	build: "rollup -c && chmod 755 compile-readme.js",
+	build: "rollup -c && chmod 755 compile-readme.js && npm run readme",
 	test: "xo && c8 --reporter=text ava",
 	"doc-build": "echo 'No Documentation to build'",
 	readme: "./compile-readme.js -u src/docs/example.md src/docs/readme.md > readme.md",
-	coverage: "c8 --reporter=lcov ava; open test/coverage/lcov-report/index.html",
+	coverage: "c8 --reporter=lcov ava; open coverage/lcov-report/index.html",
 	prepublishOnly: "npx -p typescript tsc index.js --declaration --allowJs --emitDeclarationOnly"
 };
 const repository = {
@@ -67,7 +68,7 @@ const copyright = {
 	owner: "The Bespoke Pixel"
 };
 const dependencies = {
-	"@thebespokepixel/meta": "^2.0.4",
+	"@thebespokepixel/meta": "^3.0.3",
 	"@thebespokepixel/string": "^1.0.3",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.21",
@@ -93,6 +94,7 @@ const devDependencies = {
 	ava: "^4.0.0-alpha.2",
 	c8: "^7.10.0",
 	rollup: "^2.58.3",
+	"rollup-plugin-cleanup": "^3.2.1",
 	xo: "^0.46.3"
 };
 const xo = {
@@ -183,6 +185,7 @@ var pkg = {
 	version: version,
 	description: description,
 	main: main,
+	types: types,
 	type: type,
 	bin: bin,
 	directories: directories,
@@ -202,19 +205,12 @@ var pkg = {
 	engines: engines
 };
 
-/**
- * Render a status badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$a(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/status-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -222,23 +218,15 @@ function render$a(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
-/**
- * Render a auxillary badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$9(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -246,23 +234,15 @@ function render$9(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
-/**
- * Render a second auxillary badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$8(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -270,7 +250,6 @@ function render$8(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
@@ -279,7 +258,6 @@ function ccPath(user) {
 		? `repos/${user.codeclimateRepoToken}`
 		: `github/${user.github.slug}`
 }
-
 function cc(config, user) {
 	return link(
 		`https://codeclimate.com/${ccPath(user)}/maintainability`,
@@ -293,7 +271,6 @@ function cc(config, user) {
 		],
 	)
 }
-
 function ccCoverage(config, user) {
 	return link(
 		`https://codeclimate.com/${ccPath(user)}/test_coverage`,
@@ -308,15 +285,11 @@ function ccCoverage(config, user) {
 	)
 }
 
-/* eslint node/prefer-global/buffer: [error] */
-
 function renderIcon(file, type) {
 	const iconSource = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), file));
 	const iconBuffer = Buffer.from(iconSource);
-
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
-
 const renderIconSVG = id => renderIcon(`icons/${id}.svg`, 'image/svg+xml');
 
 function libsRelease(config, user) {
@@ -334,7 +307,6 @@ function libsRelease(config, user) {
 		],
 	)
 }
-
 function libsRepo(config, user) {
 	return link(
 		`https://libraries.io/github/${user.github.slug}`,
@@ -435,9 +407,6 @@ function render$3(config) {
 	)
 }
 
-// [snyk-badge]:https://snyk.io/test/github/thebespokepixel/es-tinycolor/badge.svg
-// [snyk]: https://snyk.io/test/github/MarkGriffiths/meta
-
 function render$2(config, user) {
 	return link(
 		`https://snyk.io/test/github/${user.github.slug}`,
@@ -452,11 +421,6 @@ function render$2(config, user) {
 	)
 }
 
-// https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat
-// https://img.shields.io/travis/thebespokepixel/trucolor?logo=travis&style=flat-square
-// https://img.shields.io/travis/thebespokepixel/trucolor/develop?style=flat&logo=travis
-// https://travis-ci.org/MarkGriffiths/badges
-//
 function travis(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
@@ -472,7 +436,6 @@ function travis(config, user) {
 		],
 	)
 }
-
 function travisPro(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
@@ -490,10 +453,6 @@ function travisPro(config, user) {
 		],
 	)
 }
-
-/* ────────────────────────╮
- │ @thebespokepixel/badges │
- ╰─────────────────────────┴─────────────────────────────────────────────────── */
 
 const services = {
 	status: render$a,
@@ -517,7 +476,6 @@ const services = {
 	'travis-pro': travisPro,
 	'travis-pro-dev': travisPro
 };
-
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		if (Array.isArray(collection[0])) {
@@ -527,27 +485,16 @@ function parseQueue(collection, providers, user) {
 		badges.push(brk);
 		return paragraph(badges)
 	}
-
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
 			return rootWithTitle(5, text(title), parseQueue(content, providers, user))
 		})
 	}
-
 	if (!services[collection]) {
 		throw new Error(`${collection} not found`)
 	}
-
 	return paragraph([services[collection](providers[collection], user), text(' ')])
 }
-
-/**
- * Render project badge configuration as markdown.
- * @param  {String} context The desired render context i.e: `readme`, `docs` as
- *                          defined in `package.json`.
- * @param  {Boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
- * @return {Promise}        A promise that resolves to the markdown formatted output.
- */
 async function render$1(context, asAST = false) {
 	const configArray = await Promise.all([
 		packageConfig('badges'),
@@ -555,19 +502,15 @@ async function render$1(context, asAST = false) {
 	]);
 	const config = configArray[0];
 	const pkg = configArray[1].packageJson;
-
 	if (!config.name || !config.github || !config.npm) {
 		throw new Error('Badges requires at least a package name, github repo and npm user account.')
 	}
-
 	if (!config[context]) {
 		throw new Error(`${context} is not provided in package.json.`)
 	}
-
 	if (!config.providers) {
 		throw new Error('At least one badge provider must be specified.')
 	}
-
 	const badgeQueue = {
 		user: {
 			name: config.name,
@@ -673,34 +616,26 @@ async function render$1(context, asAST = false) {
 		})),
 		queue: config[context]
 	};
-
 	const ast = root(parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
-
 	if (asAST) {
 		return ast
 	}
-
 	return remark().use(remarkGfm).use(remarkGap).use(remarkSqueeze).stringify(ast)
 }
-
-/* eslint unicorn/no-process-exit:0, import/extensions:0, node/prefer-global/process: [error] */
 
 const console = createConsole({outStream: process.stderr});
 const clr = simple({format: 'sgr'});
 const metadata = meta(dirname(fileURLToPath(import.meta.url)));
-
 const renderer = truwrap({
 	right: 4,
 	outStream: process.stderr,
 });
-
 const colorReplacer = new TemplateTag(
 	replaceSubstitutionTransformer(
 		/([a-zA-Z]+?)[:/|](.+)/,
 		(match, colorName, content) => `${clr[colorName]}${content}${clr[colorName].out}`,
 	),
 );
-
 const title = box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.version(3)}`}`, {
 	borderColor: 'yellow',
 	margin: {
@@ -713,15 +648,12 @@ const title = box(colorReplacer`${'title|compile-readme'}${`dim| │ ${metadata.
 		right: 2,
 	},
 });
-
 const usage = stripIndent(colorReplacer)`
 	Inject project badges into a tagged markdown-formatted source file.
 
 	Usage:
 	${'command|compile-readme'} ${'option|[options]'} ${'operator|>'} ${'argument|outputFile'}`;
-
 const epilogue = colorReplacer`${'brightGreen|' + metadata.copyright} ${'grey|Released under the MIT License.'}`;
-
 const yargsInstance = yargs(hideBin(process.argv))
 	.strictOptions()
 	.help(false)
@@ -754,19 +686,15 @@ const yargsInstance = yargs(hideBin(process.argv))
 			describe: 'Force color output. Disable with --no-color',
 		},
 	});
-
 const {argv} = yargsInstance;
-
 if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)) {
 	updateNotifier({
 		pkg,
 	}).notify();
 }
-
 if (argv._.length === 0) {
 	argv.help = true;
 }
-
 if (argv.help) {
 	(async () => {
 		const usageContent = await yargsInstance.getHelp().wrap(renderer.getWidth());
@@ -780,12 +708,10 @@ if (argv.help) {
 		process.exit(0);
 	})();
 }
-
 if (argv.version) {
 	process.stdout.write(metadata.version(argv.version));
 	process.exit(0);
 }
-
 if (argv.verbose) {
 	switch (argv.verbose) {
 		case 1:
@@ -801,24 +727,16 @@ if (argv.verbose) {
 			console.verbosity(3);
 	}
 }
-
-/**
- * Render the page to stdout
- * @param  {lodash} template A processed lodash template of the source
- */
 async function render(template) {
 	const content = {
 		badges: await render$1(argv.context),
 		usage: '',
 	};
-
 	if (argv.usage) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
-
-	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
+	process.stdout.write(template(content));
 }
-
 const source = resolve(argv._[0]);
 console.debug('Source path:', source);
 render(_.template(readFileSync(source)));

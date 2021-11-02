@@ -147,7 +147,7 @@ async function render(template) {
 		content.usage = readFileSync(resolve(argv.usage))
 	}
 
-	process.stdout.write(template(content).replace(/\\\n/g, '  \n'))
+	process.stdout.write(template(content))
 }
 
 const source = resolve(argv._[0])

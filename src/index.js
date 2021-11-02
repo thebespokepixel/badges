@@ -77,9 +77,9 @@ function parseQueue(collection, providers, user) {
 
 /**
  * Render project badge configuration as markdown.
- * @param  {String} context The desired render context i.e: `readme`, `docs` as
+ * @param  {string} context The desired render context i.e: `readme`, `docs` as
  *                          defined in `package.json`.
- * @param  {Boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
+ * @param  {boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
  * @return {Promise}        A promise that resolves to the markdown formatted output.
  */
 export default async function render(context, asAST = false) {
