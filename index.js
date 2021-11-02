@@ -11,19 +11,12 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import urlencode from 'urlencode';
 
-/**
- * Render a status badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$9(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/status-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -31,23 +24,15 @@ function render$9(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
-/**
- * Render a auxillary badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$8(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -55,23 +40,15 @@ function render$8(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
-/**
- * Render a second auxillary badge.
- * @private
- * @param  {Object} config Configuration object.
- * @return {Node}          MDAST node containing badge.
- */
 function render$7(config) {
 	const badgeNode = image(
 		`https://img.shields.io/badge/${config.title}-${config.text}-${config.color}`,
 		config.title,
 		config.title,
 	);
-
 	if (config.link) {
 		return link(
 			config.link,
@@ -79,7 +56,6 @@ function render$7(config) {
 			[badgeNode],
 		)
 	}
-
 	return badgeNode
 }
 
@@ -88,7 +64,6 @@ function ccPath(user) {
 		? `repos/${user.codeclimateRepoToken}`
 		: `github/${user.github.slug}`
 }
-
 function cc(config, user) {
 	return link(
 		`https://codeclimate.com/${ccPath(user)}/maintainability`,
@@ -102,7 +77,6 @@ function cc(config, user) {
 		],
 	)
 }
-
 function ccCoverage(config, user) {
 	return link(
 		`https://codeclimate.com/${ccPath(user)}/test_coverage`,
@@ -117,15 +91,11 @@ function ccCoverage(config, user) {
 	)
 }
 
-/* eslint node/prefer-global/buffer: [error] */
-
 function renderIcon(file, type) {
 	const iconSource = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), file));
 	const iconBuffer = Buffer.from(iconSource);
-
 	return `&logo=${urlencode(`data:${type};base64,${iconBuffer.toString('base64')}`)}`
 }
-
 const renderIconSVG = id => renderIcon(`icons/${id}.svg`, 'image/svg+xml');
 
 function libsRelease(config, user) {
@@ -143,7 +113,6 @@ function libsRelease(config, user) {
 		],
 	)
 }
-
 function libsRepo(config, user) {
 	return link(
 		`https://libraries.io/github/${user.github.slug}`,
@@ -244,9 +213,6 @@ function render$2(config) {
 	)
 }
 
-// [snyk-badge]:https://snyk.io/test/github/thebespokepixel/es-tinycolor/badge.svg
-// [snyk]: https://snyk.io/test/github/MarkGriffiths/meta
-
 function render$1(config, user) {
 	return link(
 		`https://snyk.io/test/github/${user.github.slug}`,
@@ -261,11 +227,6 @@ function render$1(config, user) {
 	)
 }
 
-// https://img.shields.io/travis/MarkGriffiths/badges.svg?branch=master&style=flat
-// https://img.shields.io/travis/thebespokepixel/trucolor?logo=travis&style=flat-square
-// https://img.shields.io/travis/thebespokepixel/trucolor/develop?style=flat&logo=travis
-// https://travis-ci.org/MarkGriffiths/badges
-//
 function travis(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
@@ -281,7 +242,6 @@ function travis(config, user) {
 		],
 	)
 }
-
 function travisPro(config, user) {
 	return link(
 		`https://travis-ci.com/${user.github.slug}`,
@@ -299,10 +259,6 @@ function travisPro(config, user) {
 		],
 	)
 }
-
-/* ────────────────────────╮
- │ @thebespokepixel/badges │
- ╰─────────────────────────┴─────────────────────────────────────────────────── */
 
 const services = {
 	status: render$9,
@@ -326,7 +282,6 @@ const services = {
 	'travis-pro': travisPro,
 	'travis-pro-dev': travisPro
 };
-
 function parseQueue(collection, providers, user) {
 	if (Array.isArray(collection)) {
 		if (Array.isArray(collection[0])) {
@@ -336,27 +291,16 @@ function parseQueue(collection, providers, user) {
 		badges.push(brk);
 		return paragraph(badges)
 	}
-
 	if (_.isObject(collection)) {
 		return _.map(collection, (content, title) => {
 			return rootWithTitle(5, text(title), parseQueue(content, providers, user))
 		})
 	}
-
 	if (!services[collection]) {
 		throw new Error(`${collection} not found`)
 	}
-
 	return paragraph([services[collection](providers[collection], user), text(' ')])
 }
-
-/**
- * Render project badge configuration as markdown.
- * @param  {String} context The desired render context i.e: `readme`, `docs` as
- *                          defined in `package.json`.
- * @param  {Boolean} asAST  Render badges as {@link https://github.com/wooorm/mdast|MDAST}
- * @return {Promise}        A promise that resolves to the markdown formatted output.
- */
 async function render(context, asAST = false) {
 	const configArray = await Promise.all([
 		packageConfig('badges'),
@@ -364,19 +308,15 @@ async function render(context, asAST = false) {
 	]);
 	const config = configArray[0];
 	const pkg = configArray[1].packageJson;
-
 	if (!config.name || !config.github || !config.npm) {
 		throw new Error('Badges requires at least a package name, github repo and npm user account.')
 	}
-
 	if (!config[context]) {
 		throw new Error(`${context} is not provided in package.json.`)
 	}
-
 	if (!config.providers) {
 		throw new Error('At least one badge provider must be specified.')
 	}
-
 	const badgeQueue = {
 		user: {
 			name: config.name,
@@ -482,13 +422,10 @@ async function render(context, asAST = false) {
 		})),
 		queue: config[context]
 	};
-
 	const ast = root(parseQueue(badgeQueue.queue, badgeQueue.providers, badgeQueue.user));
-
 	if (asAST) {
 		return ast
 	}
-
 	return remark().use(remarkGfm).use(remarkGap).use(remarkSqueeze).stringify(ast)
 }
 

@@ -7,13 +7,14 @@ engines:
         enabled: false
       Similar code:
         enabled: false
-      comma-dangle:
-        enabled: false
     config:
       languages:
       - javascript
   eslint:
     enabled: true
+    checks:
+      comma-dangle:
+        enabled: false
     config:
       config: test/fixtures/config/.eslintrc
   fixme:
