@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.4";
+const version = "4.0.5";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const types = "index.d.ts";
@@ -68,7 +68,7 @@ const copyright = {
 	owner: "The Bespoke Pixel"
 };
 const dependencies = {
-	"@thebespokepixel/meta": "^2.0.4",
+	"@thebespokepixel/meta": "^3.0.3",
 	"@thebespokepixel/string": "^1.0.3",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.21",
@@ -735,7 +735,7 @@ async function render(template) {
 	if (argv.usage) {
 		content.usage = readFileSync(resolve(argv.usage));
 	}
-	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
+	process.stdout.write(template(content));
 }
 const source = resolve(argv._[0]);
 console.debug('Source path:', source);
