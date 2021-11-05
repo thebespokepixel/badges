@@ -22,7 +22,7 @@ import remarkGfm from 'remark-gfm';
 import urlencode from 'urlencode';
 
 const name = "@thebespokepixel/badges";
-const version = "4.0.7";
+const version = "4.0.8";
 const description = "documentation/readme badge generation and management";
 const main = "index.js";
 const types = "index.d.ts";
@@ -36,8 +36,7 @@ const directories = {
 const files = [
 	"index.js",
 	"index.d.ts",
-	"icons",
-	"bin"
+	"icons"
 ];
 const scripts = {
 	build: "rollup -c && chmod 755 compile-readme.js && npm run readme",
@@ -68,22 +67,22 @@ const copyright = {
 	owner: "The Bespoke Pixel"
 };
 const dependencies = {
-	"@thebespokepixel/meta": "^3.0.3",
-	"@thebespokepixel/string": "^1.0.3",
+	"@thebespokepixel/meta": "^3.0.4",
+	"@thebespokepixel/string": "^2.0.1",
 	"common-tags": "^1.8.0",
 	lodash: "^4.17.21",
 	"mdast-builder": "^1.1.1",
 	"pkg-conf": "^4.0.0",
 	"read-pkg-up": "^9.0.0",
 	remark: "^14.0.1",
-	"remark-gfm": "^3.0.0",
+	"remark-gfm": "^3.0.1",
 	"remark-heading-gap": "^5.0.0",
 	"remark-squeeze-paragraphs": "^5.0.0",
-	trucolor: "^2.0.4",
-	truwrap: "^2.0.4",
+	trucolor: "^4.0.3",
+	truwrap: "^4.0.3",
 	"update-notifier": "^5.1.0",
 	urlencode: "^1.1.0",
-	verbosity: "^2.0.2",
+	verbosity: "^3.0.2",
 	yargs: "^17.2.1"
 };
 const devDependencies = {
@@ -91,22 +90,19 @@ const devDependencies = {
 	"@rollup/plugin-json": "^4.1.0",
 	"@rollup/plugin-node-resolve": "^13.0.6",
 	"@types/estree": "^0.0.50",
-	ava: "^4.0.0-alpha.2",
+	ava: "^4.0.0-rc.1",
 	c8: "^7.10.0",
 	rollup: "^2.58.3",
 	"rollup-plugin-cleanup": "^3.2.1",
-	xo: "^0.46.3"
+	xo: "^0.46.4"
 };
 const xo = {
 	semicolon: false,
 	ignores: [
-		"gulpfile.js",
 		"index.js",
 		"index.d.ts",
 		"compile-readme.js",
-		"lib/**",
 		"docs/**",
-		"src/docs/example.js",
 		"coverage/**"
 	]
 };
@@ -692,26 +688,6 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 		pkg,
 	}).notify();
 }
-if (argv._.length === 0) {
-	argv.help = true;
-}
-if (argv.help) {
-	(async () => {
-		const usageContent = await yargsInstance.getHelp().wrap(renderer.getWidth());
-		renderer.write(title).break(2);
-		renderer.write(usage);
-		renderer.break(2);
-		renderer.write(usageContent);
-		renderer.break(2);
-		renderer.write(epilogue);
-		renderer.break(2);
-		process.exit(0);
-	})();
-}
-if (argv.version) {
-	process.stdout.write(metadata.version(argv.version));
-	process.exit(0);
-}
 if (argv.verbose) {
 	switch (argv.verbose) {
 		case 1:
@@ -727,6 +703,13 @@ if (argv.verbose) {
 			console.verbosity(3);
 	}
 }
+if (argv._.length === 0) {
+	argv.help = true;
+}
+if (argv.version) {
+	process.stdout.write(metadata.version(argv.version));
+	process.exit(0);
+}
 async function render(template) {
 	const content = {
 		badges: await render$1(argv.context),
@@ -737,6 +720,19 @@ async function render(template) {
 	}
 	process.stdout.write(template(content).replace(/\\\n/g, '  \n'));
 }
-const source = resolve(argv._[0]);
-console.debug('Source path:', source);
-render(_.template(readFileSync(source)));
+if (argv.help) {
+	(async () => {
+		const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp();
+		renderer.write(title).break(2);
+		renderer.write(usage);
+		renderer.break(2);
+		renderer.write(usageContent);
+		renderer.break(2);
+		renderer.write(epilogue);
+		renderer.break(2);
+	})();
+} else {
+	const source = resolve(argv._[0]);
+	console.debug('Source path:', source);
+	render(_.template(readFileSync(source)));
+}
