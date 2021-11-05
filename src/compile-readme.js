@@ -94,29 +94,6 @@ if (!(process.env.USER === 'root' && process.env.SUDO_USER !== process.env.USER)
 	}).notify()
 }
 
-if (argv._.length === 0) {
-	argv.help = true
-}
-
-if (argv.help) {
-	(async () => {
-		const usageContent = await yargsInstance.getHelp().wrap(renderer.getWidth())
-		renderer.write(title).break(2)
-		renderer.write(usage)
-		renderer.break(2)
-		renderer.write(usageContent)
-		renderer.break(2)
-		renderer.write(epilogue)
-		renderer.break(2)
-		process.exit(0)
-	})()
-}
-
-if (argv.version) {
-	process.stdout.write(metadata.version(argv.version))
-	process.exit(0)
-}
-
 if (argv.verbose) {
 	switch (argv.verbose) {
 		case 1:
@@ -131,6 +108,15 @@ if (argv.verbose) {
 		default:
 			console.verbosity(3)
 	}
+}
+
+if (argv._.length === 0) {
+	argv.help = true
+}
+
+if (argv.version) {
+	process.stdout.write(metadata.version(argv.version))
+	process.exit(0)
 }
 
 /**
@@ -150,6 +136,19 @@ async function render(template) {
 	process.stdout.write(template(content).replace(/\\\n/g, '  \n'))
 }
 
-const source = resolve(argv._[0])
-console.debug('Source path:', source)
-render(_.template(readFileSync(source)))
+if (argv.help) {
+	(async () => {
+		const usageContent = await yargsInstance.wrap(renderer.getWidth()).getHelp()
+		renderer.write(title).break(2)
+		renderer.write(usage)
+		renderer.break(2)
+		renderer.write(usageContent)
+		renderer.break(2)
+		renderer.write(epilogue)
+		renderer.break(2)
+	})()
+} else {
+	const source = resolve(argv._[0])
+	console.debug('Source path:', source)
+	render(_.template(readFileSync(source)))
+}

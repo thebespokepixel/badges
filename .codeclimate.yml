@@ -23,8 +23,8 @@ ratings:
   paths:
   - "src/**.js"
 exclude_paths:
+- index.js
+- index.d.ts
 - docs/
 - test/
-- bin/
-- scripts/
-- lib/
+
